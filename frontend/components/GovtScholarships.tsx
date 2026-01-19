@@ -1,0 +1,97 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const govtScholarships = [
+    {
+        title: "GOVT. SCHOLARSHIP",
+        description: "Central Sector Scheme of Scholarship for College and University Students. Scholarship is ₹12,000 per annum for the first three years and ₹20,000 per annum for the fourth and fifth year.",
+        scholarship: "₹20,000*",
+        image: "https://images.unsplash.com/photo-1544652478-6653e09f18a2?q=80&w=800&auto=format&fit=crop",
+        badge: "APPLY NOW"
+    },
+    {
+        title: "J.N. TATA SCHOLARSHIP",
+        description: "The J.N. Tata Endowment Loan Scholarship is a merit-based scholarship that awards between ₹1 lakh and ₹10 lakh.",
+        scholarship: "₹10,00,000*",
+        image: "https://images.unsplash.com/photo-1523050335456-c38a89b7def2?q=80&w=800&auto=format&fit=crop",
+        badge: "APPLY NOW"
+    },
+    {
+        title: "TATA PANKH SCHOLARSHIP",
+        description: "Classes 11 and 12 students will get One-time merit-based scholarship of up to 80% of their course fees or an amount ranging from ₹10,000 to ₹12,000 (whichever is less) to fulfill their academic dreams.",
+        scholarship: "₹12,000*",
+        image: "https://images.unsplash.com/photo-1491845339675-234fb5052992?q=80&w=800&auto=format&fit=crop",
+        badge: "APPLY NOW"
+    }
+];
+
+export default function GovtScholarships() {
+    return (
+        <section className="py-24 bg-white overflow-hidden">
+            <div className="container mx-auto px-4">
+                <div className="text-center mb-16">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-rose-500 font-black text-2xl uppercase tracking-[0.2em] mb-4"
+                    >
+                        GOVERNMENT & OTHER SCHOLARSHIP
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="text-slate-500 font-bold text-sm uppercase tracking-widest"
+                    >
+                        Government Business And Technology Degrees
+                    </motion.p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                    {govtScholarships.map((scholarship, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                            className="bg-white rounded-[1.5rem] overflow-hidden shadow-2xl shadow-slate-200 border border-slate-100 group hover:-translate-y-2 transition-all duration-500"
+                        >
+                            <div className="relative h-64 overflow-hidden">
+                                <img
+                                    src={scholarship.image}
+                                    alt={scholarship.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute top-4 left-4 bg-slate-900 text-white text-[10px] font-black px-4 py-2 rounded-lg uppercase tracking-widest shadow-lg">
+                                    {scholarship.badge}
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </div>
+
+                            <div className="p-8">
+                                <h3 className="text-xl font-black text-slate-dark mb-4 tracking-tight uppercase">
+                                    {scholarship.title}
+                                </h3>
+                                <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium line-clamp-4">
+                                    {scholarship.description}
+                                </p>
+                                <div className="mb-6">
+                                    <span className="text-rose-600 font-black text-lg">
+                                        Scholarship Upto {scholarship.scholarship}
+                                    </span>
+                                </div>
+                                <button className="w-full bg-rose-600 hover:bg-rose-700 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-lg hover:shadow-rose-900/20 active:scale-95">
+                                    Explore Now
+                                </button>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
