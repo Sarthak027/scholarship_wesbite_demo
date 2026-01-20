@@ -5,7 +5,7 @@ export default function PrivacyPolicyPage() {
     return (
         <div className="min-h-screen bg-slate-50">
             {/* Hero Section */}
-            <section className="bg-slate-dark relative overflow-hidden text-white pt-32 pb-20">
+            <section className="bg-slate-dark relative overflow-hidden text-white pt-24 md:pt-32 pb-16 md:pb-20">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-600 via-cyan-500 to-sky-600" />
                 <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl opacity-50" />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl opacity-30" />
