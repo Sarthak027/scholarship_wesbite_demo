@@ -16,7 +16,8 @@ import {
     Plus,
     Trash2,
     Edit as EditIcon,
-    Check
+    Check,
+    Mail
 } from "lucide-react";
 import BlogEditor from "@/components/admin/BlogEditor";
 import "@/styles/editor.css";
@@ -99,9 +100,15 @@ export default function AdminDashboard() {
                     />
                     <SidebarItem
                         icon={<MessageSquare size={20} />}
-                        label="Inquiries"
+                        label="App Inquiries"
                         active={activeTab === "inquiries"}
                         onClick={() => setActiveTab("inquiries")}
+                    />
+                    <SidebarItem
+                        icon={<Mail size={20} />} // Use Mail icon for Contact Us
+                        label="Contact Us"
+                        active={activeTab === "contact_us"}
+                        onClick={() => setActiveTab("contact_us")}
                     />
                     <SidebarItem
                         icon={<FileText size={20} />}
@@ -174,7 +181,15 @@ export default function AdminDashboard() {
                             {activeTab === "scholarships" && <ScholarshipsTab scholarships={scholarships} />}
                             {activeTab === "inquiries" && (
                                 <InquiriesTab
-                                    inquiries={inquiries}
+                                    title="App Inquiries"
+                                    inquiries={inquiries.filter(i => i.source === 'enquiry_modal' || !i.source)} // Fallback for old data
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                            {activeTab === "contact_us" && (
+                                <InquiriesTab
+                                    title="Contact Us Messages"
+                                    inquiries={inquiries.filter(i => i.source === 'contact_page')}
                                     onRefresh={fetchDashboardData}
                                 />
                             )}
@@ -238,7 +253,6 @@ function OverviewTab({ stats, recentInquiries }: { stats: any, recentInquiries: 
                 <StatCard label="Total Blogs" value={stats.blogs?.toString() || "0"} change="Knowledge Hub" color="bg-purple-600" />
                 <StatCard label="Total Scholarship" value={stats.scholarships.toString()} change="Active now" color="bg-blue-500" />
                 <StatCard label="Total Inquiries" value={stats.inquiries.toString()} change="All time" color="bg-cyan-500" />
-                <StatCard label="New Inquiries" value={stats.newInquiries.toString()} change="Awaiting response" color="bg-rose-500" />
             </div>
 
             <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
@@ -352,31 +366,54 @@ function ScholarshipsTab({ scholarships }: { scholarships: any[] }) {
     );
 }
 
-function InquiriesTab({ inquiries, onRefresh }: { inquiries: any[], onRefresh: () => void }) {
-    const updateStatus = async (id: string, status: string) => {
-        const token = localStorage.getItem("adminToken");
-        if (!token) return;
-
-        try {
-            await api.inquiries.updateStatus(id, status, token);
+function InquiriesTab({ title, inquiries, onRefresh }: { title: string, inquiries: any[], onRefresh: () => void }) {
+    // Auto-refresh every 5 seconds to show new inquiries in real-time
+    useEffect(() => {
+        const interval = setInterval(() => {
             onRefresh();
-        } catch (error) {
-            console.error("Error updating status:", error);
-        }
-    };
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="space-y-6">
-            <h2 className="text-3xl font-bold mb-8">User Inquiries</h2>
+            <div className="flex items-center justify-between mb-8">
+                <h2 className="text-3xl font-bold">{title}</h2>
+                <button
+                    onClick={() => {
+                        const headers = ["Name", "Email", "Phone", "Message", "Date"];
+                        const csvContent = [
+                            headers.join(","),
+                            ...inquiries.map(i => [
+                                i.name,
+                                i.email,
+                                i.phone,
+                                `"${i.message.replace(/"/g, '""')}"`, // Escape quotes in message
+                                new Date(i.createdAt).toLocaleDateString()
+                            ].join(","))
+                        ].join("\n");
+
+                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                        const link = document.createElement("a");
+                        const url = URL.createObjectURL(blob);
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", `inquiries_export_${new Date().toISOString().split('T')[0]}.csv`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }}
+                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-emerald-200"
+                >
+                    <FileText size={18} /> Export to Excel
+                </button>
+            </div>
             <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                 <table className="w-full text-left">
                     <thead className="bg-slate-50 border-b border-slate-100">
                         <tr>
                             <th className="px-6 py-4 font-bold text-slate-600">Contact Info</th>
                             <th className="px-6 py-4 font-bold text-slate-600">Message</th>
-                            <th className="px-6 py-4 font-bold text-slate-600">Status</th>
                             <th className="px-6 py-4 font-bold text-slate-600">Date</th>
-                            <th className="px-6 py-4 font-bold text-slate-600">Action</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
@@ -389,35 +426,17 @@ function InquiriesTab({ inquiries, onRefresh }: { inquiries: any[], onRefresh: (
                                         <p className="text-xs text-slate-500 font-semibold">{inquiry.phone}</p>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <p className="text-slate-600 text-sm font-medium line-clamp-2 max-w-xs">{inquiry.message}</p>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-lg border uppercase tracking-wider ${inquiry.status === 'new' ? 'bg-rose-50 text-rose-500 border-rose-100' :
-                                            inquiry.status === 'contacted' ? 'bg-sky-50 text-sky-500 border-sky-100' :
-                                                'bg-slate-50 text-slate-500 border-slate-100'
-                                            }`}>
-                                            {inquiry.status}
-                                        </span>
+                                        <p className="text-slate-600 text-sm font-medium line-clamp-3 max-w-lg">{inquiry.message}</p>
+                                        <p className="text-xs text-slate-400 mt-1 font-semibold">{inquiry.subject}</p>
                                     </td>
                                     <td className="px-6 py-4 text-slate-400 text-sm font-medium">
-                                        {new Date(inquiry.createdAt).toLocaleDateString()}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <select
-                                            onChange={(e) => updateStatus(inquiry._id, e.target.value)}
-                                            value={inquiry.status}
-                                            className="bg-slate-50 border border-slate-100 rounded-lg text-xs font-bold p-2 text-slate-600 outline-none focus:ring-2 focus:ring-sky-500/20"
-                                        >
-                                            <option value="new">New</option>
-                                            <option value="contacted">Contacted</option>
-                                            <option value="resolved">Resolved</option>
-                                        </select>
+                                        {new Date(inquiry.createdAt).toLocaleString()}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={5} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
+                                <td colSpan={3} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
                             </tr>
                         )}
                     </tbody>

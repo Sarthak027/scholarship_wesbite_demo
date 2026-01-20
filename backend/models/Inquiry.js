@@ -28,10 +28,12 @@ const inquirySchema = new mongoose.Schema({
         type: String,
         enum: ['new', 'contacted', 'resolved'],
         default: 'new'
+    },
+    source: {
+        type: String,
+        enum: ['enquiry_modal', 'contact_page'],
+        default: 'enquiry_modal'
     }
 }, { timestamps: true });
-
-// Auto-delete after 7 days (604800 seconds)
-inquirySchema.index({ createdAt: 1 }, { expireAfterSeconds: 604800 });
 
 module.exports = mongoose.model('Inquiry', inquirySchema);

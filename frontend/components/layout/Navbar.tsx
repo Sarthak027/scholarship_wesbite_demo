@@ -15,7 +15,7 @@ const navLinks = [
     { name: "Online Course", href: "#online-courses" },
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
-    { name: "Contact us", href: "#contact" },
+    { name: "Contact us", href: "/contact" },
 ];
 
 export default function Navbar() {

@@ -21,12 +21,7 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
 
     useEffect(() => {
         if (isOpen) {
-            const hasSubmitted = localStorage.getItem("enquiry_submitted");
-            if (hasSubmitted) {
-                setStatus("already_submitted");
-            } else {
-                setStatus("idle");
-            }
+            setStatus("idle");
         }
     }, [isOpen]);
 
@@ -38,16 +33,16 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
             const response = await fetch("http://127.0.0.1:5005/api/inquiries", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ ...formData, source: 'enquiry_modal' }),
             });
 
             if (response.ok) {
                 setStatus("success");
-                localStorage.setItem("enquiry_submitted", "true");
                 // Reset form
                 setFormData({ name: "", email: "", phone: "", message: "", subject: "General Enquiry" });
                 // Auto close after 3 seconds on success
                 setTimeout(() => {
+                    setStatus("idle"); // allow submitting again
                     onClose();
                 }, 3000);
             } else {
@@ -97,20 +92,6 @@ export default function EnquiryModal({ isOpen, onClose }: EnquiryModalProps) {
                                 </div>
                                 <h2 className="text-3xl font-bold text-slate-900 mb-2">Request Received!</h2>
                                 <p className="text-slate-500">We will call you back shortly. Thank you for your interest.</p>
-                            </div>
-                        ) : status === "already_submitted" ? (
-                            <div className="p-12 text-center">
-                                <div className="w-20 h-20 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <AlertCircle size={40} />
-                                </div>
-                                <h2 className="text-3xl font-bold text-slate-900 mb-2">Already Submitted</h2>
-                                <p className="text-slate-500">You have already submitted your request. Our team is processing it and will contact you soon!</p>
-                                <button
-                                    onClick={onClose}
-                                    className="mt-8 bg-sky-primary text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-sky-100 hover:bg-sky-500 transition-all"
-                                >
-                                    GOT IT
-                                </button>
                             </div>
                         ) : (
                             <div className="p-8 md:p-10">
