@@ -1,16 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 
 const colleges = [
-    { name: "NSHM Knowledge Campus", logoUrl: "/logos/NSHM Knowledge Campus.jpg" },
-    { name: "Lexicon Management Institute", logoUrl: "/logos/Lexicon Management Institute.png" },
-    { name: "Alliance University", logoUrl: "/logos/Alliance University.jpg" },
-    { name: "GIBS Business School", logoUrl: "/logos/GIBS Business School.png" },
-    { name: "IILM University", logoUrl: "/logos/IILM University.png" },
-    { name: "KIIT", logoUrl: "/logos/KIIT.png" },
-    { name: "Amity University", logoUrl: "/logos/Amity University.png" },
-    { name: "Lovely Professional University", logoUrl: "/logos/Lovely Professional University.png" },
+    { name: "NSHM Knowledge Campus", logoUrl: ASSETS.logos.nshm },
+    { name: "Lexicon Management Institute", logoUrl: ASSETS.logos.lexicon },
+    { name: "Alliance University", logoUrl: ASSETS.logos.alliance },
+    { name: "GIBS Business School", logoUrl: ASSETS.logos.gibs },
+    { name: "IILM University", logoUrl: ASSETS.logos.iilm },
+    { name: "KIIT", logoUrl: ASSETS.logos.kiit },
+    { name: "Amity University", logoUrl: ASSETS.logos.amity },
+    { name: "Lovely Professional University", logoUrl: ASSETS.logos.lpu },
 ];
 
 export default function CollegeCarousel() {

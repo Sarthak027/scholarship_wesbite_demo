@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 
 export default function CTASection() {
     return (
@@ -10,7 +11,7 @@ export default function CTASection() {
                     {/* Background with Image and Premium Gradient Overlay */}
                     <div className="absolute inset-0 z-0">
                         <img
-                            src="/images/student_image.webp"
+                            src={ASSETS.images.student}
                             className="w-full h-full object-cover"
                             alt="Student Success"
                         />

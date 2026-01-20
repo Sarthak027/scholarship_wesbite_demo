@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter, GraduationCap } from "lucide-react";
+import { ASSETS } from "@/lib/assets";
 
 export default function Footer() {
     return (
@@ -14,7 +15,7 @@ export default function Footer() {
                     <div className="space-y-8">
                         <Link href="/" className="inline-block">
                             <img
-                                src="/logos/footer_logo.png"
+                                src={ASSETS.logos.footer}
                                 alt="Confirm Scholarship"
                                 className="h-16 w-auto object-contain brightness-0 invert"
                             />

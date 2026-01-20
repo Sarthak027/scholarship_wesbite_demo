@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 import { useState } from "react";
 import EnquiryModal from "@/components/shared/EnquiryModal";
 
@@ -19,7 +20,7 @@ export default function BTechBanner() {
                         className="relative w-full rounded-[2.5rem] overflow-hidden shadow-2xl shadow-sky-100/50 cursor-pointer group bg-slate-50"
                     >
                         <img
-                            src="/images/banner_homepage.png"
+                            src={ASSETS.images.bannerHome}
                             alt="Special B.Tech Scholarship"
                             className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.01]"
                         />

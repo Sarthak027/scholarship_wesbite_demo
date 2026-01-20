@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -18,7 +19,7 @@ export default function AboutSectionHome() {
                             className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-sky-100"
                         >
                             <img
-                                src="/images/about_home_page.webp"
+                                src={ASSETS.images.aboutHome}
                                 alt="About ConfirmScholarship"
                                 className="w-full h-auto"
                             />

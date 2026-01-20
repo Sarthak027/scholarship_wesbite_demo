@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { ASSETS } from "@/lib/assets";
 
 const newsOutlets = [
-    { name: "Forbes India", logoUrl: "/logos/Forbes India.png" },
-    { name: "Dailyhunt", logoUrl: "/logos/Dailyhunt.png" },
-    { name: "Republic NewsIndia", logoUrl: "/logos/Republic NewsIndia.png" },
-    { name: "Hindustan Times", logoUrl: "/logos/Hindustan Times.png" },
+    { name: "Forbes India", logoUrl: ASSETS.logos.forbes },
+    { name: "Dailyhunt", logoUrl: ASSETS.logos.dailyhunt },
+    { name: "Republic NewsIndia", logoUrl: ASSETS.logos.republic },
+    { name: "Hindustan Times", logoUrl: ASSETS.logos.hindustan },
 ];
 
 export default function NewsSection() {

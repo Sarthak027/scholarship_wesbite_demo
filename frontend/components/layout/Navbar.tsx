@@ -7,6 +7,8 @@ import { Menu, X, GraduationCap } from "lucide-react";
 import clsx from "clsx";
 import EnquiryModal from "@/components/shared/EnquiryModal";
 
+import { ASSETS } from "@/lib/assets";
+
 const navLinks = [
     { name: "Home", href: "/" },
     { name: "Scholarships", href: "/scholarships" },
@@ -58,7 +60,7 @@ export default function Navbar() {
                         {/* Logo (Image Only) */}
                         <Link href="/" className="flex items-center">
                             <img
-                                src="/logos/nav_logo1.png"
+                                src={ASSETS.logos.nav}
                                 alt="Confirm Scholarship Logo"
                                 className="h-14 w-auto object-contain"
                             />

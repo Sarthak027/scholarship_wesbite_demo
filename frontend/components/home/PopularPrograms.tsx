@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 import { useState } from "react";
 import EnquiryModal from "@/components/shared/EnquiryModal";
 
@@ -27,7 +28,7 @@ export default function PopularPrograms() {
                             className="relative rounded-[2rem] overflow-hidden group shadow-xl shadow-sky-100/50 cursor-pointer bg-slate-50"
                         >
                             <img
-                                src="/images/most_popular1.png"
+                                src={ASSETS.images.popular1}
                                 alt="BBA Scholarship"
                                 className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
                             />
@@ -45,7 +46,7 @@ export default function PopularPrograms() {
                             className="relative rounded-[2rem] overflow-hidden group shadow-xl shadow-sky-100/50 cursor-pointer bg-slate-50"
                         >
                             <img
-                                src="/images/most_popular2.png"
+                                src={ASSETS.images.popular2}
                                 alt="B.Tech Scholarship"
                                 className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
                             />
