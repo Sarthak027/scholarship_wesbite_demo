@@ -90,7 +90,7 @@ export default function AdminDashboard() {
 
             {/* Sidebar */}
             <aside
-                className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+                className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
                     }`}
             >
                 <div className="p-6 flex items-center justify-between">
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-grow flex flex-col h-screen overflow-hidden w-full">
+            <main className="flex-grow flex flex-col h-screen overflow-hidden w-full lg:ml-64 transition-all duration-300">
                 {/* Header */}
                 <header className="h-20 bg-white border-b border-slate-200 px-4 md:px-8 flex items-center justify-between flex-shrink-0 gap-4">
                     <button

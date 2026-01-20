@@ -31,10 +31,14 @@ export default function StatsSection() {
                     {steps.map((step, index) => (
                         <motion.div
                             key={step.id}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.2, duration: 0.6 }}
+                            initial={{ opacity: 0, y: 100, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{
+                                delay: index * 0.15,
+                                duration: 0.8,
+                                ease: [0.21, 1.11, 0.81, 0.99] // Bouncy ease
+                            }}
                             className={`${step.bgColor} text-white p-8 md:p-12 flex flex-col items-start min-h-[300px] md:min-h-[350px] relative group overflow-hidden`}
                         >
                             {/* Decorative Circle for Number */}
