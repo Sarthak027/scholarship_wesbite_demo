@@ -22,6 +22,7 @@ import BlogEditor from "@/components/admin/BlogEditor";
 import "@/styles/editor.css";
 import BlogsTab from "@/components/admin/BlogsTab";
 import CommentsTab from "@/components/admin/CommentsTab";
+import { api } from "@/lib/api";
 
 export default function AdminDashboard() {
     const [activeTab, setActiveTab] = useState("overview");
@@ -38,23 +39,12 @@ export default function AdminDashboard() {
         if (!token) return;
 
         try {
-            const [scholarshipRes, inquiryRes, blogRes, commentRes] = await Promise.all([
-                fetch("http://127.0.0.1:5005/api/scholarships"),
-                fetch("http://127.0.0.1:5005/api/inquiries", {
-                    headers: { "Authorization": `Bearer ${token}` }
-                }),
-                fetch("http://127.0.0.1:5005/api/blogs/admin/all", {
-                    headers: { "Authorization": `Bearer ${token}` }
-                }),
-                fetch("http://127.0.0.1:5005/api/comments", {
-                    headers: { "Authorization": `Bearer ${token}` }
-                })
+            const [scholarshipData, inquiryData, blogData, commentData] = await Promise.all([
+                api.scholarships.getAll(),
+                api.inquiries.getAll(token),
+                api.blogs.getAllAdmin(token),
+                api.comments.getAll(token)
             ]);
-
-            const scholarshipData = scholarshipRes.ok ? await scholarshipRes.json() : [];
-            const inquiryData = inquiryRes.ok ? await inquiryRes.json() : [];
-            const blogData = blogRes.ok ? await blogRes.json() : [];
-            const commentData = commentRes.ok ? await commentRes.json() : [];
 
             setScholarships(Array.isArray(scholarshipData) ? scholarshipData : []);
             setInquiries(Array.isArray(inquiryData) ? inquiryData : []);
@@ -365,15 +355,10 @@ function ScholarshipsTab({ scholarships }: { scholarships: any[] }) {
 function InquiriesTab({ inquiries, onRefresh }: { inquiries: any[], onRefresh: () => void }) {
     const updateStatus = async (id: string, status: string) => {
         const token = localStorage.getItem("adminToken");
+        if (!token) return;
+
         try {
-            await fetch(`http://127.0.0.1:5005/api/inquiries/${id}/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ status })
-            });
+            await api.inquiries.updateStatus(id, status, token);
             onRefresh();
         } catch (error) {
             console.error("Error updating status:", error);

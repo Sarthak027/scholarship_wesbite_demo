@@ -1,5 +1,18 @@
 // API Configuration
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5005';
+const getBaseUrl = () => {
+    const url = process.env.NEXT_PUBLIC_API_URL;
+    if (url) return url;
+
+    // Warn if we're falling back to localhost in what looks like a deployed environment
+    if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+        console.warn('⚠️ API_URL is not set! Falling back to localhost, but the application seems to be deployed. This will likely cause connection errors. Please set NEXT_PUBLIC_API_URL environment variable.');
+    }
+
+    return 'http://127.0.0.1:5005';
+};
+
+const API_URL = getBaseUrl();
+console.log('🔌 API Connected to:', API_URL);
 
 /**
  * Centralized API client for all backend requests

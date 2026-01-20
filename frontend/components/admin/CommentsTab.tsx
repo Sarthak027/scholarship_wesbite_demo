@@ -2,18 +2,15 @@
 
 import { MessageSquare, Trash2, CheckCircle, XCircle } from "lucide-react";
 
+import { api } from "@/lib/api";
+
 export default function CommentsTab({ comments, onRefresh }: { comments: any[], onRefresh: () => void }) {
     const updateStatus = async (id: string, status: string) => {
         const token = localStorage.getItem("adminToken");
+        if (!token) return;
+
         try {
-            await fetch(`http://127.0.0.1:5005/api/comments/${id}/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ status })
-            });
+            await api.comments.updateStatus(id, status, token);
             onRefresh();
         } catch (error) {
             console.error("Error updating comment status:", error);
@@ -23,11 +20,10 @@ export default function CommentsTab({ comments, onRefresh }: { comments: any[], 
     const handleDelete = async (id: string) => {
         if (!confirm("Delete this comment permanently?")) return;
         const token = localStorage.getItem("adminToken");
+        if (!token) return;
+
         try {
-            await fetch(`http://127.0.0.1:5005/api/comments/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            await api.comments.delete(id, token);
             onRefresh();
         } catch (error) {
             console.error("Error deleting comment:", error);

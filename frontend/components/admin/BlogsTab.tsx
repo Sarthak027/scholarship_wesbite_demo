@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Plus, Trash2, Edit as EditIcon, FileText, Check, X } from "lucide-react";
 import BlogEditor from "@/components/admin/BlogEditor";
+import { api } from "@/lib/api";
 
 export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh: () => void }) {
     const [editingBlog, setEditingBlog] = useState<any>(null);
@@ -26,44 +27,26 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
             return;
         }
 
-        const method = editingBlog ? 'PATCH' : 'POST';
-        const url = editingBlog
-            ? `http://127.0.0.1:5005/api/blogs/${editingBlog._id}`
-            : `http://127.0.0.1:5005/api/blogs`;
-
         setIsSaving(true);
         console.log("Saving blog with data:", formData);
 
         try {
-            const res = await fetch(url, {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                alert(editingBlog ? "Blog updated successfully!" : "Blog published successfully!");
-                setEditingBlog(null);
-                setIsCreating(false);
-                onRefresh();
+            if (editingBlog) {
+                // Update existing blog
+                await api.blogs.update(editingBlog._id, formData, token);
+                alert("Blog updated successfully!");
             } else {
-                const text = await res.text();
-                console.error("Save failed response:", text);
-                try {
-                    const data = JSON.parse(text);
-                    alert(`Error: ${data.message || "Failed to save blog"}`);
-                } catch (e) {
-                    alert(`Server Error (${res.status}): The server returned an unexpected package. Please check backend console.`);
-                }
+                // Create new blog
+                await api.blogs.create(formData, token);
+                alert("Blog published successfully!");
             }
+            
+            setEditingBlog(null);
+            setIsCreating(false);
+            onRefresh();
         } catch (error: any) {
             console.error("Error saving blog:", error);
-            alert(`Network Error: ${error.message}. Please check if the backend is running on port 5005.`);
+            alert(`Error: ${error.message || "Failed to save blog. Please try again."}`);
         } finally {
             setIsSaving(false);
         }
@@ -72,14 +55,18 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this blog?")) return;
         const token = localStorage.getItem("adminToken");
+        if (!token) {
+            alert("No admin token found. Please login again.");
+            return;
+        }
+        
         try {
-            await fetch(`http://127.0.0.1:5005/api/blogs/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            await api.blogs.delete(id, token);
+            alert("Blog deleted successfully!");
             onRefresh();
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error deleting blog:", error);
+            alert(`Error: ${error.message || "Failed to delete blog. Please try again."}`);
         }
     };
 
