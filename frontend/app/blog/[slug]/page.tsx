@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, use } from "react";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { motion } from "framer-motion";
 import { Calendar, User, Heart, MessageCircle, Share2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -21,13 +21,18 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:5005/api/blogs/${slug}`);
-                setBlog(res.data);
-                setLikeCount(res.data.likes);
+                const blogData = await api.blogs.getBySlug(slug);
+                setBlog(blogData);
+                setLikeCount(blogData.likes);
 
                 // Fetch comments
-                const commentRes = await axios.get(`http://127.0.0.1:5005/api/comments/post/${res.data._id}`);
-                setComments(commentRes.data);
+                try {
+                    const commentData = await api.comments.getByPostId(blogData._id);
+                    setComments(commentData);
+                } catch (commentError) {
+                    console.error("Error fetching comments:", commentError);
+                    // Don't fail the whole page if comments fail
+                }
 
                 setLoading(false);
             } catch (error) {
@@ -39,8 +44,9 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
     }, [slug]);
 
     const handleLike = async () => {
+        if (!blog) return;
         try {
-            await axios.post(`http://127.0.0.1:5005/api/blogs/${blog._id}/like`);
+            await api.blogs.like(blog._id);
             setLikeCount(prev => prev + 1);
         } catch (error) {
             console.error("Error liking blog:", error);
@@ -50,8 +56,10 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
     const handleCommentSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitting(true);
+        if (!blog) return;
+
         try {
-            await axios.post(`http://127.0.0.1:5005/api/comments/post/${blog._id}`, newComment);
+            await api.comments.create(blog._id, newComment);
             setSubmitMessage("Comment submitted and awaiting approval!");
             setNewComment({ name: "", email: "", website: "", content: "" });
             setTimeout(() => setSubmitMessage(""), 5000);
