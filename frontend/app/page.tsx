@@ -1,19 +1,19 @@
-import Hero from "@/components/Hero";
-import StatsSection from "@/components/StatsSection";
-import CollegeCarousel from "@/components/CollegeCarousel";
-import NewsSection from "@/components/NewsSection";
-import PopularPrograms from "@/components/PopularPrograms";
-import JourneySection from "@/components/JourneySection";
-import PromoBanner from "@/components/PromoBanner";
-import LocationsGrid from "@/components/LocationsGrid";
-import ScholarshipCards from "@/components/ScholarshipCards";
-import OnlineCourses from "@/components/OnlineCourses";
-import BTechBanner from "@/components/BTechBanner";
-import GovtScholarships from "@/components/GovtScholarships";
-import AboutSectionHome from "@/components/AboutSectionHome";
-import Testimonials from "@/components/Testimonials";
-import CTASection from "@/components/CTASection";
-import BlogSection from "@/components/BlogSection";
+import Hero from "@/components/home/Hero";
+import StatsSection from "@/components/home/StatsSection";
+import CollegeCarousel from "@/components/home/CollegeCarousel";
+import NewsSection from "@/components/home/NewsSection";
+import PopularPrograms from "@/components/home/PopularPrograms";
+import JourneySection from "@/components/home/JourneySection";
+import PromoBanner from "@/components/home/PromoBanner";
+import LocationsGrid from "@/components/home/LocationsGrid";
+import ScholarshipCards from "@/components/scholarships/ScholarshipCards";
+import OnlineCourses from "@/components/home/OnlineCourses";
+import BTechBanner from "@/components/home/BTechBanner";
+import GovtScholarships from "@/components/home/GovtScholarships";
+import AboutSectionHome from "@/components/home/AboutSectionHome";
+import Testimonials from "@/components/home/Testimonials";
+import CTASection from "@/components/shared/CTASection";
+import BlogSection from "@/components/home/BlogSection";
 
 export default function Home() {
   return (

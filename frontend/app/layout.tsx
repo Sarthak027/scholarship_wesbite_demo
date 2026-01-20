@@ -13,8 +13,7 @@ export const metadata: Metadata = {
   description: "Unlock a world of opportunities with scholarships tailored to your dream career.",
 };
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import AdminLayoutWrapper from "@/components/layout/AdminLayoutWrapper";
 
 export default function RootLayout({
   children,
@@ -27,11 +26,9 @@ export default function RootLayout({
         className={`${montserrat.variable} font-sans antialiased bg-gray-50`}
         suppressHydrationWarning={true}
       >
-        <Navbar />
-        <main className="min-h-screen">
+        <AdminLayoutWrapper>
           {children}
-        </main>
-        <Footer />
+        </AdminLayoutWrapper>
       </body>
     </html>
   );

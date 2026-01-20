@@ -1,0 +1,53 @@
+/* Blog Editor Specific Overrides */
+.blog-editor-canvas .tiptap {
+    min-height: 400px;
+    outline: none !important;
+}
+
+.blog-editor-canvas .tiptap table {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.blog-editor-canvas .tiptap td,
+.blog-editor-canvas .tiptap th {
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    min-width: 1em;
+    padding: 3px 5px;
+    position: relative;
+    vertical-align: top;
+}
+
+.blog-editor-canvas .tiptap th {
+    background-color: #f1f3f5;
+    font-weight: bold;
+    text-align: left;
+}
+
+.blog-editor-canvas .tiptap .selectedCell:after {
+    background: rgba(200, 200, 255, 0.4);
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.blog-editor-canvas .tiptap img {
+    display: block;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+.blog-editor-canvas .tiptap img.ProseMirror-selectednode {
+    outline: 3px solid #68cef8;
+}

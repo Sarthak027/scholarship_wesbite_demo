@@ -1,0 +1,443 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+    LayoutDashboard,
+    GraduationCap,
+    MessageSquare,
+    LogOut,
+    Users,
+    ChevronRight,
+    Search,
+    Bell,
+    FileText,
+    MessageSquare as MessageIcon,
+    Plus,
+    Trash2,
+    Edit as EditIcon,
+    Check
+} from "lucide-react";
+import BlogEditor from "@/components/admin/BlogEditor";
+import "@/styles/editor.css";
+import BlogsTab from "@/components/admin/BlogsTab";
+import CommentsTab from "@/components/admin/CommentsTab";
+
+export default function AdminDashboard() {
+    const [activeTab, setActiveTab] = useState("overview");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [scholarships, setScholarships] = useState<any[]>([]);
+    const [inquiries, setInquiries] = useState<any[]>([]);
+    const [blogs, setBlogs] = useState<any[]>([]);
+    const [comments, setComments] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const router = useRouter();
+
+    const fetchDashboardData = async () => {
+        const token = localStorage.getItem("adminToken");
+        if (!token) return;
+
+        try {
+            const [scholarshipRes, inquiryRes, blogRes, commentRes] = await Promise.all([
+                fetch("http://127.0.0.1:5005/api/scholarships"),
+                fetch("http://127.0.0.1:5005/api/inquiries", {
+                    headers: { "Authorization": `Bearer ${token}` }
+                }),
+                fetch("http://127.0.0.1:5005/api/blogs/admin/all", {
+                    headers: { "Authorization": `Bearer ${token}` }
+                }),
+                fetch("http://127.0.0.1:5005/api/comments", {
+                    headers: { "Authorization": `Bearer ${token}` }
+                })
+            ]);
+
+            const scholarshipData = scholarshipRes.ok ? await scholarshipRes.json() : [];
+            const inquiryData = inquiryRes.ok ? await inquiryRes.json() : [];
+            const blogData = blogRes.ok ? await blogRes.json() : [];
+            const commentData = commentRes.ok ? await commentRes.json() : [];
+
+            setScholarships(Array.isArray(scholarshipData) ? scholarshipData : []);
+            setInquiries(Array.isArray(inquiryData) ? inquiryData : []);
+            setBlogs(Array.isArray(blogData) ? blogData : []);
+            setComments(Array.isArray(commentData) ? commentData : []);
+            setLoading(false);
+        } catch (error) {
+            console.error("Dashboard fetch error:", error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            router.push("/admin/login");
+        } else {
+            setIsLoggedIn(true);
+            fetchDashboardData();
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("adminToken");
+        router.push("/admin/login");
+    };
+
+    if (!isLoggedIn) return null;
+
+    return (
+        <div className="min-h-screen bg-slate-50 flex">
+            {/* Sidebar */}
+            <aside className="w-64 bg-white border-r border-slate-200 flex flex-col">
+                <div className="p-6">
+                    <h2 className="text-xl font-bold bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">
+                        CONFIRM ADMIN
+                    </h2>
+                </div>
+
+                <nav className="flex-grow px-4 space-y-2">
+                    <SidebarItem
+                        icon={<LayoutDashboard size={20} />}
+                        label="Overview"
+                        active={activeTab === "overview"}
+                        onClick={() => setActiveTab("overview")}
+                    />
+                    <SidebarItem
+                        icon={<GraduationCap size={20} />}
+                        label="Scholarships"
+                        active={activeTab === "scholarships"}
+                        onClick={() => setActiveTab("scholarships")}
+                    />
+                    <SidebarItem
+                        icon={<MessageSquare size={20} />}
+                        label="Inquiries"
+                        active={activeTab === "inquiries"}
+                        onClick={() => setActiveTab("inquiries")}
+                    />
+                    <SidebarItem
+                        icon={<FileText size={20} />}
+                        label="Blogs"
+                        active={activeTab === "blogs"}
+                        onClick={() => setActiveTab("blogs")}
+                    />
+                    <SidebarItem
+                        icon={<MessageIcon size={20} />}
+                        label="Comments"
+                        active={activeTab === "comments"}
+                        onClick={() => setActiveTab("comments")}
+                    />
+                </nav>
+
+                <div className="p-4 border-t border-slate-100">
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 w-full px-4 py-3 text-slate-500 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-all"
+                    >
+                        <LogOut size={20} />
+                        <span className="font-semibold">Logout</span>
+                    </button>
+                </div>
+            </aside>
+
+            {/* Main Content */}
+            <main className="flex-grow flex flex-col h-screen overflow-hidden">
+                {/* Header */}
+                <header className="h-20 bg-white border-b border-slate-200 px-8 flex items-center justify-between flex-shrink-0">
+                    <div className="relative w-96">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                        <input
+                            type="text"
+                            placeholder="Search anything..."
+                            className="w-full bg-slate-50 border-none rounded-xl py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all text-sm"
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        <button className="p-2.5 bg-slate-50 text-slate-500 rounded-xl hover:bg-slate-100 transition-all relative">
+                            <Bell size={20} />
+                            <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>
+                        </button>
+                        <div className="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center text-sky-600 font-bold">
+                            A
+                        </div>
+                    </div>
+                </header>
+
+                {/* Content Area */}
+                <div className="p-8 overflow-y-auto flex-grow">
+                    {loading ? (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600"></div>
+                        </div>
+                    ) : (
+                        <>
+                            {activeTab === "overview" && (
+                                <OverviewTab
+                                    stats={{
+                                        scholarships: scholarships.length,
+                                        inquiries: inquiries.length,
+                                        newInquiries: inquiries.filter(i => i.status === 'new').length,
+                                        blogs: blogs.length
+                                    }}
+                                    recentInquiries={inquiries.slice(0, 5)}
+                                />
+                            )}
+                            {activeTab === "scholarships" && <ScholarshipsTab scholarships={scholarships} />}
+                            {activeTab === "inquiries" && (
+                                <InquiriesTab
+                                    inquiries={inquiries}
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                            {activeTab === "blogs" && (
+                                <BlogsTab
+                                    blogs={blogs}
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                            {activeTab === "comments" && (
+                                <CommentsTab
+                                    comments={comments}
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                        </>
+                    )}
+                </div>
+            </main>
+        </div>
+    );
+}
+
+function SidebarItem({ icon, label, active, onClick }: { icon: any, label: string, active: boolean, onClick: () => void }) {
+    return (
+        <button
+            onClick={onClick}
+            className={`flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all ${active
+                ? "bg-sky-primary text-white shadow-lg shadow-sky-100"
+                : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                }`}
+        >
+            <div className="flex items-center gap-3">
+                {icon}
+                <span className="font-semibold">{label}</span>
+            </div>
+            {active && <ChevronRight size={16} />}
+        </button>
+    );
+}
+
+function OverviewTab({ stats, recentInquiries }: { stats: any, recentInquiries: any[] }) {
+    return (
+        <div className="space-y-8">
+            <div className="flex items-end justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold text-slate-900 mb-1">Dashboard Overview</h1>
+                    <p className="text-slate-500 text-lg">Welcome back! Here's what's happening today.</p>
+                </div>
+                <div className="text-right">
+                    <p className="text-slate-400 text-sm font-medium">SYSTEM STATUS</p>
+                    <p className="text-emerald-500 font-bold flex items-center gap-2 justify-end">
+                        <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                        Healthy
+                    </p>
+                </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <StatCard label="Total Blogs" value={stats.blogs?.toString() || "0"} change="Knowledge Hub" color="bg-purple-600" />
+                <StatCard label="Total Scholarship" value={stats.scholarships.toString()} change="Active now" color="bg-blue-500" />
+                <StatCard label="Total Inquiries" value={stats.inquiries.toString()} change="All time" color="bg-cyan-500" />
+                <StatCard label="New Inquiries" value={stats.newInquiries.toString()} change="Awaiting response" color="bg-rose-500" />
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-xl font-bold">Recent Inquiries</h3>
+                    <button className="text-sky-600 font-semibold text-sm hover:underline">View All</button>
+                </div>
+                <div className="space-y-4">
+                    {recentInquiries.length > 0 ? (
+                        recentInquiries.map((inquiry) => (
+                            <ActivityItem
+                                key={inquiry._id}
+                                label={`New request from ${inquiry.name}`}
+                                time={new Date(inquiry.createdAt).toLocaleDateString()}
+                                type="inquiry"
+                            />
+                        ))
+                    ) : (
+                        <p className="text-slate-400 text-center py-4">No recent inquiries found.</p>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function StatCard({ label, value, change, color }: { label: string, value: string, change: string, color: string }) {
+    return (
+        <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+            <p className="text-slate-500 font-semibold mb-2">{label}</p>
+            <h4 className="text-4xl font-extrabold text-slate-900 mb-4">{value}</h4>
+            <div className="flex items-center gap-2">
+                <span className={`${color} text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase`}>Live</span>
+                <span className="text-slate-400 text-sm">{change}</span>
+            </div>
+        </div>
+    );
+}
+
+function ActivityItem({ label, time, type }: { label: string, time: string, type: string }) {
+    return (
+        <div className="flex items-center justify-between py-4 border-b border-slate-50 last:border-0 hover:px-2 transition-all rounded-lg hover:bg-slate-50">
+            <div className="flex items-center gap-4">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${type === 'inquiry' ? 'bg-sky-100 text-sky-600' :
+                    type === 'update' ? 'bg-amber-100 text-amber-600' : 'bg-purple-100 text-purple-600'
+                    }`}>
+                    {type === 'inquiry' ? <MessageSquare size={18} /> :
+                        type === 'update' ? <GraduationCap size={18} /> : <Users size={18} />}
+                </div>
+                <div>
+                    <p className="font-bold text-slate-800">{label}</p>
+                    <p className="text-sm text-slate-400 font-medium">{time}</p>
+                </div>
+            </div>
+            <button className="text-slate-400 hover:text-sky-500 transition-colors">
+                <ChevronRight size={20} />
+            </button>
+        </div>
+    );
+}
+
+function ScholarshipsTab({ scholarships }: { scholarships: any[] }) {
+    return (
+        <div className="space-y-6">
+            <div className="flex items-center justify-between mb-8">
+                <h2 className="text-3xl font-bold">Manage Scholarships</h2>
+                <button className="bg-sky-primary text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-sky-100 hover:bg-sky-500 transition-all flex items-center gap-2">
+                    + ADD NEW SCHOLARSHIP
+                </button>
+            </div>
+            <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+                <table className="w-full text-left">
+                    <thead className="bg-slate-50 border-b border-slate-100">
+                        <tr>
+                            <th className="px-6 py-4 font-bold text-slate-600">Scholarship Name</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Category</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Amount</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Status</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                        {scholarships.length > 0 ? (
+                            scholarships.map((scholarship) => (
+                                <tr key={scholarship._id} className="hover:bg-slate-50 transition-colors">
+                                    <td className="px-6 py-4 font-bold text-slate-800">{scholarship.title}</td>
+                                    <td className="px-6 py-4">
+                                        <span className="bg-sky-50 text-sky-600 text-[10px] font-bold px-3 py-1 rounded-full border border-sky-100 uppercase tracking-wider">{scholarship.category}</span>
+                                    </td>
+                                    <td className="px-6 py-4 font-semibold text-slate-600">{scholarship.amount}</td>
+                                    <td className="px-6 py-4">
+                                        <span className={`font-bold flex items-center gap-2 ${scholarship.isActive ? 'text-emerald-500' : 'text-slate-400'}`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${scholarship.isActive ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
+                                            {scholarship.isActive ? 'Active' : 'Inactive'}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <button className="text-slate-400 hover:text-sky-500 font-bold transition-colors">Edit</button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={5} className="px-6 py-12 text-center text-slate-400 font-medium">No scholarships found. Add your first one!</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function InquiriesTab({ inquiries, onRefresh }: { inquiries: any[], onRefresh: () => void }) {
+    const updateStatus = async (id: string, status: string) => {
+        const token = localStorage.getItem("adminToken");
+        try {
+            await fetch(`http://127.0.0.1:5005/api/inquiries/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ status })
+            });
+            onRefresh();
+        } catch (error) {
+            console.error("Error updating status:", error);
+        }
+    };
+
+    return (
+        <div className="space-y-6">
+            <h2 className="text-3xl font-bold mb-8">User Inquiries</h2>
+            <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+                <table className="w-full text-left">
+                    <thead className="bg-slate-50 border-b border-slate-100">
+                        <tr>
+                            <th className="px-6 py-4 font-bold text-slate-600">Contact Info</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Message</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Status</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Date</th>
+                            <th className="px-6 py-4 font-bold text-slate-600">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-50">
+                        {inquiries.length > 0 ? (
+                            inquiries.map((inquiry) => (
+                                <tr key={inquiry._id} className="hover:bg-slate-50 transition-colors">
+                                    <td className="px-6 py-4">
+                                        <p className="font-bold text-slate-800">{inquiry.name}</p>
+                                        <p className="text-xs text-slate-500">{inquiry.email}</p>
+                                        <p className="text-xs text-slate-500 font-semibold">{inquiry.phone}</p>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <p className="text-slate-600 text-sm font-medium line-clamp-2 max-w-xs">{inquiry.message}</p>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-lg border uppercase tracking-wider ${inquiry.status === 'new' ? 'bg-rose-50 text-rose-500 border-rose-100' :
+                                            inquiry.status === 'contacted' ? 'bg-sky-50 text-sky-500 border-sky-100' :
+                                                'bg-slate-50 text-slate-500 border-slate-100'
+                                            }`}>
+                                            {inquiry.status}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 text-slate-400 text-sm font-medium">
+                                        {new Date(inquiry.createdAt).toLocaleDateString()}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <select
+                                            onChange={(e) => updateStatus(inquiry._id, e.target.value)}
+                                            value={inquiry.status}
+                                            className="bg-slate-50 border border-slate-100 rounded-lg text-xs font-bold p-2 text-slate-600 outline-none focus:ring-2 focus:ring-sky-500/20"
+                                        >
+                                            <option value="new">New</option>
+                                            <option value="contacted">Contacted</option>
+                                            <option value="resolved">Resolved</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={5} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}

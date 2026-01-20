@@ -1,9 +1,10 @@
-import AboutHero from "@/components/AboutHero";
-import JourneySection from "@/components/JourneySection";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import AboutStats from "@/components/AboutStats";
-import Testimonials from "@/components/Testimonials";
-import CTASection from "@/components/CTASection";
+import AboutHero from "@/components/about/AboutHero";
+import JourneySection from "@/components/home/JourneySection";
+import WhyChooseUs from "@/components/about/WhyChooseUs";
+import AboutStats from "@/components/about/AboutStats";
+import Testimonials from "@/components/home/Testimonials";
+import CTASection from "@/components/shared/CTASection";
+
 export default function AboutPage() {
     return (
         <div className="flex flex-col gap-0">

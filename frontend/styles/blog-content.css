@@ -1,0 +1,86 @@
+/* Blog Content Styles */
+.blog-content-wrapper {
+    font-size: 1.125rem;
+    line-height: 1.8;
+}
+
+.blog-content-wrapper h2 {
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #0f172a;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+}
+
+.blog-content-wrapper h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+}
+
+.blog-content-wrapper p {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.blog-content-wrapper ul, 
+.blog-content-wrapper ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.blog-content-wrapper li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    font-weight: 500;
+}
+
+.blog-content-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2.5rem 0;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.blog-content-wrapper th {
+    background: #f8fafc;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: #475569;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.blog-content-wrapper td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.blog-content-wrapper img {
+    border-radius: 2rem;
+    margin: 2.5rem 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+}
+
+.blog-content-wrapper a {
+    color: #0284c7;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.blog-content-wrapper a:hover {
+    text-decoration: underline;
+}
