@@ -25,7 +25,7 @@ export const api = {
     blogs: {
         getAll: async () => {
             const res = await fetch(`${API_URL}/api/blogs`, {
-                next: { revalidate: 60 } // ISR: revalidate every 60 seconds
+                cache: 'no-store'
             });
             if (!res.ok) throw new Error('Failed to fetch blogs');
             return res.json();

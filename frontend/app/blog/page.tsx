@@ -1,8 +1,8 @@
-import BlogCard from "@/components/blog/BlogCard";
+import BlogList from "@/components/blog/BlogList";
 import { api } from "@/lib/api";
 
-// This is now a Server Component with ISR
-export const revalidate = 60; // Revalidate every 60 seconds
+// This is a Server Component that passes initial data to Client Component
+export const dynamic = 'force-dynamic';
 
 export default async function BlogListPage() {
     let blogs = [];
@@ -39,16 +39,8 @@ export default async function BlogListPage() {
                         <div className="text-center py-20">
                             <h3 className="text-2xl font-bold text-rose-400">{error}</h3>
                         </div>
-                    ) : blogs.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-                            {blogs.map((blog: any, index: number) => (
-                                <BlogCard key={blog._id} blog={blog} index={index} />
-                            ))}
-                        </div>
                     ) : (
-                        <div className="text-center py-20">
-                            <h3 className="text-2xl font-bold text-slate-400">No blogs found.</h3>
-                        </div>
+                        <BlogList initialBlogs={blogs} />
                     )}
                 </div>
             </section>
