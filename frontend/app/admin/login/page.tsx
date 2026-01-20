@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { api } from "@/lib/api";
 
 export default function AdminLogin() {
     const [username, setUsername] = useState("");
@@ -17,22 +18,11 @@ export default function AdminLogin() {
         setError("");
 
         try {
-            const response = await fetch("http://127.0.0.1:5005/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem("adminToken", data.token);
-                router.push("/admin/dashboard");
-            } else {
-                setError(data.message || "Login failed");
-            }
-        } catch (err) {
-            setError("Could not connect to the server");
+            const data = await api.auth.login(username, password);
+            localStorage.setItem("adminToken", data.token);
+            router.push("/admin/dashboard");
+        } catch (err: any) {
+            setError(err.message || "Could not connect to the server");
         } finally {
             setLoading(false);
         }
