@@ -6,10 +6,10 @@ exports.submitComment = async (req, res) => {
         const comment = new Comment({
             ...req.body,
             blogPost: req.params.blogId,
-            status: 'pending' // Default
+            status: 'approved' // Auto-approve all comments
         });
         await comment.save();
-        res.status(201).json({ message: 'Comment submitted and awaiting approval' });
+        res.status(201).json(comment); // Return the actual comment so frontend can display it
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

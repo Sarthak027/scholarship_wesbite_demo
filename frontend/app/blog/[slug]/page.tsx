@@ -59,10 +59,15 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
         if (!blog) return;
 
         try {
-            await api.comments.create(blog._id, newComment);
-            setSubmitMessage("Comment submitted and awaiting approval!");
+            const res = await api.comments.create(blog._id, newComment);
+            console.log("Comment Response:", res)
+
+            // Add new comment to state immediately (Real-time feel)
+            setComments(prev => [res, ...prev]);
+
+            setSubmitMessage("Comment posted successfully!");
             setNewComment({ name: "", email: "", website: "", content: "" });
-            setTimeout(() => setSubmitMessage(""), 5000);
+            setTimeout(() => setSubmitMessage(""), 3000);
         } catch (error) {
             console.error("Error submitting comment:", error);
             setSubmitMessage("Failed to submit comment. Please try again.");
@@ -70,6 +75,32 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
             setSubmitting(false);
         }
     };
+
+    // Real-time polling for comments and likes
+    useEffect(() => {
+        if (!blog?._id) return;
+
+        const interval = setInterval(async () => {
+            try {
+                // Fetch fresh comments
+                const freshComments = await api.comments.getByPostId(blog._id);
+                if (JSON.stringify(freshComments) !== JSON.stringify(comments)) {
+                    setComments(freshComments);
+                }
+
+                // Fetch fresh blog data (for likes)
+                const freshBlog = await api.blogs.getBySlug(slug);
+                if (freshBlog.likes !== blog.likes) {
+                    setLikeCount(freshBlog.likes); // Update visual like count
+                    // We can also update the whole blog object if needed, but likes is what changes most often
+                }
+            } catch (err) {
+                // Silent error for polling
+            }
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [blog?._id, comments, slug, blog?.likes]);
 
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-white">
