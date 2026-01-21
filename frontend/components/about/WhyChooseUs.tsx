@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
+import { ASSETS } from "@/lib/assets";
 
 const features = [
     {
@@ -95,7 +96,7 @@ export default function WhyChooseUs() {
                             className="rounded-[3rem] overflow-hidden shadow-2xl shadow-slate-900 border-8 border-slate-800"
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1523240715690-8d579cd8fdef?q=80&w=1000&auto=format&fit=crop"
+                                src={ASSETS.images.aboutSection2}
                                 alt="Graduating Student"
                                 className="w-full h-[600px] object-cover"
                             />

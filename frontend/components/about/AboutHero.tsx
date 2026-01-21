@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 
 export default function AboutHero() {
     return (
@@ -16,7 +17,7 @@ export default function AboutHero() {
                             className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-sky-100"
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1523240715690-8d579cd8fdef?q=80&w=1000&auto=format&fit=crop"
+                                src={ASSETS.images.aboutSection1}
                                 alt="Students Studying"
                                 className="w-full h-auto"
                             />

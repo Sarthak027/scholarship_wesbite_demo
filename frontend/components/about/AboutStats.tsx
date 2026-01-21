@@ -1,13 +1,39 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const stats = [
-    { label: "Students", value: "10,000+", suffix: "" },
-    { label: "Colleges", value: "100+", suffix: "" },
-    { label: "Great Years", value: "15+", suffix: "" },
-    { label: "Satisfaction", value: "100%", suffix: "" }
+    { label: "Students", value: 10000, suffix: "+" },
+    { label: "Colleges", value: 100, suffix: "+" },
+    { label: "Great Years", value: 15, suffix: "+" },
+    { label: "Satisfaction", value: 100, suffix: "%" }
 ];
+
+function Counter({ value, suffix }: { value: number; suffix: string }) {
+    const ref = useRef<HTMLDivElement>(null);
+    const isInView = useInView(ref, { once: false, margin: "-100px" });
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, (latest) => {
+        return Math.round(latest).toLocaleString();
+    });
+
+    useEffect(() => {
+        if (isInView) {
+            const controls = animate(count, value, {
+                duration: 2,
+                ease: "easeOut"
+            });
+            return controls.stop;
+        }
+    }, [isInView, count, value]);
+
+    return (
+        <div ref={ref} className="text-4xl md:text-5xl font-black text-slate-dark mb-3 tracking-tighter group-hover:scale-110 transition-transform duration-500">
+            <motion.span>{rounded}</motion.span>{suffix}
+        </div>
+    );
+}
 
 export default function AboutStats() {
     return (
@@ -23,9 +49,7 @@ export default function AboutStats() {
                             transition={{ delay: index * 0.1 }}
                             className="text-center group"
                         >
-                            <div className="text-4xl md:text-5xl font-black text-slate-dark mb-3 tracking-tighter group-hover:scale-110 transition-transform duration-500">
-                                {stat.value}
-                            </div>
+                            <Counter value={stat.value} suffix={stat.suffix} />
                             <div className="text-xs md:text-sm font-black text-slate-400 uppercase tracking-[0.3em] group-hover:text-sky-600 transition-colors">
                                 {stat.label}
                             </div>

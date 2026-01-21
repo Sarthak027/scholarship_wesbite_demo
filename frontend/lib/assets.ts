@@ -38,6 +38,8 @@ export const ASSETS = {
     },
     images: {
         aboutHome: getAssetUrl('/uploads/images/about_home_page.webp'),
+        aboutSection1: getAssetUrl('/uploads/images/about_section_image1.webp'),
+        aboutSection2: getAssetUrl('/uploads/images/about_section_image2.webp'),
         bannerHome: getAssetUrl('/uploads/images/banner_homepage.png'),
         popular1: getAssetUrl('/uploads/images/most_popular1.png'),
         popular2: getAssetUrl('/uploads/images/most_popular2.png'),
