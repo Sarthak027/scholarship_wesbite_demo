@@ -103,40 +103,41 @@ export default function ScholarshipCards() {
                         </motion.p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         {categories.map((cat, index) => (
                             <motion.div
                                 key={cat.title}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 group hover:shadow-2xl transition-all duration-300 flex flex-col"
+                                transition={{ delay: index * 0.05, duration: 0.5 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                             >
-                                <div className="h-48 overflow-hidden relative">
+                                <div className="h-40 overflow-hidden relative">
                                     <img
                                         src={cat.image}
                                         alt={cat.title}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                     />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </div>
-                                <div className="p-8 flex flex-col flex-grow bg-white/50 backdrop-blur-sm">
-                                    <h3 className="text-2xl font-bold text-slate-dark mb-3 group-hover:text-sky-600 transition-colors">{cat.title}</h3>
-                                    <p className="text-slate-500 text-sm mb-6 line-clamp-3 flex-grow leading-relaxed">
+                                <div className="p-6 flex flex-col flex-grow">
+                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-sky-600 transition-colors line-clamp-1">{cat.title}</h3>
+                                    <p className="text-slate-500 text-xs leading-relaxed mb-4 line-clamp-3">
                                         {cat.desc}
                                     </p>
-                                    <div className="mt-auto space-y-4">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Scholarship Upto</span>
-                                            <p className="font-extrabold text-2xl text-sky-600">
+                                    <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+                                        <div>
+                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Upto</p>
+                                            <p className="font-bold text-lg text-sky-600">
                                                 {cat.amount}
                                             </p>
                                         </div>
                                         <button
                                             onClick={() => handleExplore(cat.title)}
-                                            className="block w-full text-center premium-gradient text-white text-xs font-extrabold py-4 px-6 rounded-xl uppercase tracking-[0.1em] shadow-lg shadow-sky-200 hover:shadow-sky-300 hover:-translate-y-1 transition-all duration-300"
+                                            className="text-white bg-sky-500 hover:bg-sky-600 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-colors shadow-md shadow-sky-100"
                                         >
-                                            Explore Now
+                                            Explore
                                         </button>
                                     </div>
                                 </div>

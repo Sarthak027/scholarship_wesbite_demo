@@ -42,6 +42,7 @@ export default function Footer() {
                         <ul className="space-y-4 text-slate-400 text-sm font-bold">
                             <li><Link href="/" className="hover:text-sky-500 transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-sky-500 group-hover:w-3 transition-all"></span> Home</Link></li>
                             <li><Link href="/scholarships" className="hover:text-sky-500 transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-sky-500 group-hover:w-3 transition-all"></span> Scholarships</Link></li>
+                            <li><Link href="/online-courses" className="hover:text-sky-500 transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-sky-500 group-hover:w-3 transition-all"></span> Online Courses</Link></li>
                             <li><Link href="/about" className="hover:text-sky-500 transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-sky-500 group-hover:w-3 transition-all"></span> About Us</Link></li>
                             <li><Link href="/blog" className="hover:text-sky-500 transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-sky-500 group-hover:w-3 transition-all"></span> Blog</Link></li>
                             <li><Link href="/contact" className="hover:text-sky-500 transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-sky-500 group-hover:w-3 transition-all"></span> Contact Us</Link></li>
