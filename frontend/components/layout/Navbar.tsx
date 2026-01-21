@@ -143,7 +143,7 @@ export default function Navbar() {
                 </AnimatePresence>
             </motion.header>
 
-            <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <EnquiryModal mode="callback" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     );
 }

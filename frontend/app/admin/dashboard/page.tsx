@@ -18,6 +18,7 @@ import {
     Edit as EditIcon,
     Check,
     Mail,
+    Phone as PhoneIcon,
     Menu,
     X
 } from "lucide-react";
@@ -117,9 +118,15 @@ export default function AdminDashboard() {
                     />
                     <SidebarItem
                         icon={<MessageSquare size={20} />}
-                        label="App Inquiries"
-                        active={activeTab === "inquiries"}
-                        onClick={() => { setActiveTab("inquiries"); setSidebarOpen(false); }}
+                        label="Scholarship Inquiries"
+                        active={activeTab === "scholarship_inquiries"}
+                        onClick={() => { setActiveTab("scholarship_inquiries"); setSidebarOpen(false); }}
+                    />
+                    <SidebarItem
+                        icon={<PhoneIcon size={20} />}
+                        label="Callback Requests"
+                        active={activeTab === "callback_requests"}
+                        onClick={() => { setActiveTab("callback_requests"); setSidebarOpen(false); }}
                     />
                     <SidebarItem
                         icon={<Mail size={20} />}
@@ -203,10 +210,19 @@ export default function AdminDashboard() {
                                 />
                             )}
                             {activeTab === "scholarships" && <ScholarshipsTab scholarships={scholarships} />}
-                            {activeTab === "inquiries" && (
+                            {activeTab === "scholarship_inquiries" && (
                                 <InquiriesTab
-                                    title="App Inquiries"
-                                    inquiries={inquiries.filter(i => i.source === 'enquiry_modal' || !i.source)}
+                                    title="Scholarship Inquiries"
+                                    type="scholarship"
+                                    inquiries={inquiries.filter(i => i.type === 'scholarship' || (!i.type && (i.source === 'enquiry_modal' || !i.source)))}
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                            {activeTab === "callback_requests" && (
+                                <InquiriesTab
+                                    title="Callback Requests"
+                                    type="callback"
+                                    inquiries={inquiries.filter(i => i.type === 'callback')}
                                     onRefresh={fetchDashboardData}
                                 />
                             )}
@@ -392,7 +408,7 @@ function ScholarshipsTab({ scholarships }: { scholarships: any[] }) {
     );
 }
 
-function InquiriesTab({ title, inquiries, onRefresh }: { title: string, inquiries: any[], onRefresh: () => void }) {
+function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, inquiries: any[], onRefresh: () => void, type?: 'scholarship' | 'callback' | 'contact' }) {
     // Auto-refresh every 5 seconds
     useEffect(() => {
         const interval = setInterval(() => {
@@ -401,45 +417,55 @@ function InquiriesTab({ title, inquiries, onRefresh }: { title: string, inquirie
         return () => clearInterval(interval);
     }, []);
 
+    const handleExport = async () => {
+        const token = localStorage.getItem("adminToken");
+        if (!token) return;
+
+        try {
+            const response = await fetch("http://127.0.0.1:5005/api/inquiries/export", {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Inquiries_Export_${new Date().toISOString().split('T')[0]}.xlsx`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } else {
+                alert("Failed to export. Please check admin permissions.");
+            }
+        } catch (error) {
+            console.error("Export error:", error);
+            alert("An error occurred during export.");
+        }
+    };
+
     return (
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold">{title}</h2>
                 <button
-                    onClick={() => {
-                        const headers = ["Name", "Email", "Phone", "Message", "Date"];
-                        const csvContent = [
-                            headers.join(","),
-                            ...inquiries.map(i => [
-                                i.name,
-                                i.email,
-                                i.phone,
-                                `"${i.message.replace(/"/g, '""')}"`,
-                                new Date(i.createdAt).toLocaleDateString()
-                            ].join(","))
-                        ].join("\n");
-
-                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                        const link = document.createElement("a");
-                        const url = URL.createObjectURL(blob);
-                        link.setAttribute("href", url);
-                        link.setAttribute("download", `inquiries_export_${new Date().toISOString().split('T')[0]}.csv`);
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                    }}
-                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 w-full md:w-auto"
+                    onClick={handleExport}
+                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 w-full md:w-auto"
                 >
-                    <FileText size={18} /> Export to Excel
+                    <FileText size={18} /> Export to Excel (.xlsx)
                 </button>
             </div>
             <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-[800px]">
+                    <table className="w-full text-left min-w-[1000px]">
                         <thead className="bg-slate-50 border-b border-slate-100">
                             <tr>
                                 <th className="px-6 py-4 font-bold text-slate-600">Contact Info</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Message</th>
+                                {type !== 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Location</th>}
+                                {type !== 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Applied Course</th>}
+                                {type === 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Message</th>}
+                                {type !== 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Consent</th>}
                                 <th className="px-6 py-4 font-bold text-slate-600">Date</th>
                             </tr>
                         </thead>
@@ -450,20 +476,45 @@ function InquiriesTab({ title, inquiries, onRefresh }: { title: string, inquirie
                                         <td className="px-6 py-4">
                                             <p className="font-bold text-slate-800">{inquiry.name}</p>
                                             <p className="text-xs text-slate-500">{inquiry.email}</p>
-                                            <p className="text-xs text-slate-500 font-semibold">{inquiry.phone}</p>
+                                            <p className="text-xs text-sky-600 font-bold">{inquiry.phone}</p>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <p className="text-slate-600 text-sm font-medium line-clamp-3 max-w-lg">{inquiry.message}</p>
-                                            <p className="text-xs text-slate-400 mt-1 font-semibold">{inquiry.subject}</p>
-                                        </td>
-                                        <td className="px-6 py-4 text-slate-400 text-sm font-medium">
+                                        {type !== 'callback' && (
+                                            <td className="px-6 py-4">
+                                                <p className="text-slate-700 text-sm font-bold">{inquiry.city || 'N/A'}</p>
+                                                <p className="text-xs text-slate-400 font-medium">{inquiry.state || 'N/A'}</p>
+                                            </td>
+                                        )}
+                                        {type !== 'callback' && (
+                                            <td className="px-6 py-4">
+                                                <span className="bg-sky-50 text-sky-700 text-[10px] font-black px-3 py-1.5 rounded-lg border border-sky-100 uppercase tracking-tight">
+                                                    {inquiry.course || 'General Enquiry'}
+                                                </span>
+                                            </td>
+                                        )}
+                                        {type === 'callback' && (
+                                            <td className="px-6 py-4">
+                                                <p className="text-slate-600 text-sm line-clamp-2 italic">{inquiry.message || 'No message provided'}</p>
+                                            </td>
+                                        )}
+                                        {type !== 'callback' && (
+                                            <td className="px-6 py-4">
+                                                {inquiry.consent ? (
+                                                    <span className="text-emerald-500 flex items-center gap-1 text-xs font-bold bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 w-fit">
+                                                        <Check size={12} /> Authorized
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-slate-400 text-xs font-bold">N/A</span>
+                                                )}
+                                            </td>
+                                        )}
+                                        <td className="px-6 py-4 text-slate-400 text-xs font-medium">
                                             {new Date(inquiry.createdAt).toLocaleString()}
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={3} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
+                                    <td colSpan={type === 'callback' ? 3 : 5} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
                                 </tr>
                             )}
                         </tbody>

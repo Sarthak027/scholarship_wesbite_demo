@@ -8,6 +8,7 @@ router.post('/', inquiryController.submitInquiry);
 
 // Admin routes
 router.get('/', authMiddleware, inquiryController.getAllInquiries);
+router.get('/export', authMiddleware, inquiryController.exportInquiries);
 router.patch('/:id/status', authMiddleware, inquiryController.updateInquiryStatus);
 
 module.exports = router;

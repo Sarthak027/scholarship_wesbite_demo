@@ -131,7 +131,7 @@ export default function UniversityDetailPage({ params }: { params: Promise<{ slu
                 </div>
             </section>
 
-            <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <EnquiryModal mode="scholarship" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </main>
     );
 }

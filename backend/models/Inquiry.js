@@ -16,13 +16,34 @@ const inquirySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    state: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String,
+        trim: true
+    },
+    course: {
+        type: String,
+        trim: true
+    },
+    consent: {
+        type: Boolean,
+        default: false
+    },
+    type: {
+        type: String,
+        enum: ['callback', 'scholarship'],
+        default: 'scholarship'
+    },
     subject: {
         type: String,
-        required: true
+        default: "Scholarship/Course Application"
     },
     message: {
         type: String,
-        required: true
+        default: "New application submitted through unified form."
     },
     status: {
         type: String,
@@ -31,7 +52,7 @@ const inquirySchema = new mongoose.Schema({
     },
     source: {
         type: String,
-        enum: ['enquiry_modal', 'contact_page'],
+        enum: ['enquiry_modal', 'contact_page', 'scholarship_page', 'online_course_page'],
         default: 'enquiry_modal'
     }
 }, { timestamps: true });

@@ -149,7 +149,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                 ))
             )}
 
-            <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <EnquiryModal mode="scholarship" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </main>
     );
 }

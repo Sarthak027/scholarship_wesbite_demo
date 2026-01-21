@@ -115,7 +115,7 @@ export default function Hero() {
                 </div>
             </section>
 
-            <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <EnquiryModal mode="callback" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     );
 }
