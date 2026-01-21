@@ -420,9 +420,10 @@ function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, in
     const handleExport = async () => {
         const token = localStorage.getItem("adminToken");
         if (!token) return;
+        const API_URL = api.baseURL;
 
         try {
-            const response = await fetch("http://127.0.0.1:5005/api/inquiries/export", {
+            const response = await fetch(`${API_URL}/api/inquiries/export`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
 

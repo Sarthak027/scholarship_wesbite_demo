@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, CheckCircle, AlertCircle, Phone as PhoneIcon, Mail, User, MessageSquare, MapPin, BookOpen, ShieldCheck } from "lucide-react";
 
+import { api } from "@/lib/api";
+
 const COURSES = [
     "B. Pharm",
     "B.A. LLB",
@@ -85,13 +87,9 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
         setStatus("submitting");
 
         try {
-            const response = await fetch("http://127.0.0.1:5005/api/inquiries", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            const data = await api.inquiries.create(formData);
 
-            if (response.ok) {
+            if (data) {
                 setStatus("success");
                 setFormData({
                     name: "",
