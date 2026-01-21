@@ -2,81 +2,81 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import EnquiryModal from "@/components/shared/EnquiryModal";
 
 const categories = [
     {
         title: "Management",
+        slug: "management",
         desc: "Management involves planning, organizing, and overseeing the operations of a business to ensure efficiency, productivity, and achievement of organizational goals.",
         amount: "₹1,00,000*",
         image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Engineering",
+        slug: "engineering",
         desc: "Engineering involves applying scientific principles and mathematical techniques to design, develop, and innovate structures, machines, and processes that solve practical problems and improve quality of life.",
         amount: "₹1,00,000*",
         image: "https://images.unsplash.com/photo-1581094794329-cd109c096349?q=80&w=1932&auto=format&fit=crop",
-        url: "https://engineering.confirmscholarship.com"
     },
     {
         title: "Computer Application",
+        slug: "computer-application",
         desc: "Computer Application involves utilizing software and programming skills to develop, maintain, and troubleshoot computer systems and applications that support business functions and user needs.",
         amount: "₹20,000*",
         image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Designing",
+        slug: "designing",
         desc: "Designing involves creating visual and functional concepts for products, environments, and communication materials, combining aesthetics and practicality to meet user needs and enhance experiences.",
         amount: "₹50,000*",
         image: "https://images.unsplash.com/photo-1626785774573-4b79931434c3?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Commerce",
+        slug: "commerce",
         desc: "Commerce involves the study of trade, finance, and business activities, focusing on the exchange of goods and services, market analysis, and financial management to drive economic growth and business success.",
         amount: "₹10,000*",
         image: "https://images.unsplash.com/photo-1554224155-9844c69be667?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Health Science",
+        slug: "health-science",
         desc: "Health Science involves studying the various aspects of health and healthcare, including medicine, nutrition, and public health, to improve patient care, promote wellness, and advance medical knowledge and practices.",
         amount: "₹10,000*",
         image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Law",
+        slug: "law",
         desc: "Law program offers an in-depth understanding of legal principles, practices, and systems, preparing students for careers as legal professionals with a strong foundation in various branches of law including corporate, criminal, and civil law.",
         amount: "₹20,000*",
         image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Pharmacy",
+        slug: "pharmacy",
         desc: "Pharmacy program focuses on the science of medication, covering drug development, pharmacology, and clinical practices, equipping students with the expertise needed for careers in pharmaceutical industries, healthcare settings, and research.",
         amount: "₹20,000*",
         image: "https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
     {
         title: "Hotel Management",
+        slug: "hotel-management",
         desc: "Hotel Management program provides comprehensive training in hospitality operations, customer service, and management skills, preparing students to excel in the global hospitality and tourism industry with roles in hotel administration, event planning, and food and beverage management.",
         amount: "₹50,000*",
         image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop",
-        url: "https://confirmscholarship.com"
     },
 ];
 
 export default function ScholarshipCards() {
+    const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState("");
 
-    const handleExplore = (title: string) => {
-        setSelectedCategory(title);
-        setIsModalOpen(true);
+    const handleExplore = (slug: string) => {
+        router.push(`/scholarships/${slug}`);
     };
 
     return (
@@ -134,7 +134,7 @@ export default function ScholarshipCards() {
                                             </p>
                                         </div>
                                         <button
-                                            onClick={() => handleExplore(cat.title)}
+                                            onClick={() => handleExplore(cat.slug)}
                                             className="text-white bg-sky-500 hover:bg-sky-600 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-colors shadow-md shadow-sky-100"
                                         >
                                             Explore
