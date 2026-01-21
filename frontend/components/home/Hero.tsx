@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import EnquiryModal from "@/components/shared/EnquiryModal";
+import { ASSETS } from "@/lib/assets";
 
 const backgroundImages = [
     "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop", // Graduation/Students
@@ -105,7 +106,7 @@ export default function Hero() {
                                 animate={{ opacity: 1, y: 0 }}
                                 whileHover={{ scale: 1.05, y: -5 }}
                                 whileTap={{ scale: 0.95 }}
-                                transition={{ delay: 0.6, duration: 0.4 }}
+                                transition={{ delay: 0.8, duration: 0.4 }}
                                 className="bg-sky-primary hover:bg-sky-500 text-white px-12 py-5 rounded-2xl font-black text-xs md:text-sm shadow-2xl shadow-sky-200 tracking-[0.2em] transition-all uppercase w-full sm:w-auto"
                             >
                                 APPLY FOR SCHOLARSHIP

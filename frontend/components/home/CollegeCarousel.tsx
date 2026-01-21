@@ -4,14 +4,20 @@ import { motion } from "framer-motion";
 import { ASSETS } from "@/lib/assets";
 
 const colleges = [
-    { name: "NSHM Knowledge Campus", logoUrl: ASSETS.logos.nshm },
-    { name: "Lexicon Management Institute", logoUrl: ASSETS.logos.lexicon },
-    { name: "Alliance University", logoUrl: ASSETS.logos.alliance },
-    { name: "GIBS Business School", logoUrl: ASSETS.logos.gibs },
-    { name: "IILM University", logoUrl: ASSETS.logos.iilm },
-    { name: "KIIT", logoUrl: ASSETS.logos.kiit },
-    { name: "Amity University", logoUrl: ASSETS.logos.amity },
-    { name: "Lovely Professional University", logoUrl: ASSETS.logos.lpu },
+    { name: "College 1", logoUrl: ASSETS.collegeCarousel.college1 },
+    { name: "College 2", logoUrl: ASSETS.collegeCarousel.college2 },
+    { name: "College 3", logoUrl: ASSETS.collegeCarousel.college3 },
+    { name: "College 4", logoUrl: ASSETS.collegeCarousel.college4 },
+    { name: "College 5", logoUrl: ASSETS.collegeCarousel.college5 },
+    { name: "College 6", logoUrl: ASSETS.collegeCarousel.college6 },
+    { name: "Jagi Jain", logoUrl: ASSETS.collegeCarousel.jagiJain },
+    { name: "Partner College", logoUrl: ASSETS.collegeCarousel.logo },
+    { name: "Partner College 1", logoUrl: ASSETS.collegeCarousel.logo1 },
+    { name: "Partner College 2", logoUrl: ASSETS.collegeCarousel.logo2 },
+    { name: "Partner College 3", logoUrl: ASSETS.collegeCarousel.logo3 },
+    { name: "Partner College 4", logoUrl: ASSETS.collegeCarousel.logo4 },
+    { name: "Sharda University", logoUrl: ASSETS.collegeCarousel.sharda },
+    { name: "Vignan University", logoUrl: ASSETS.collegeCarousel.vigna },
 ];
 
 export default function CollegeCarousel() {
@@ -37,12 +43,12 @@ export default function CollegeCarousel() {
                                 className="flex flex-col items-center justify-center group"
                             >
                                 {/* Logo Image */}
-                                <div className="h-24 w-48 flex items-center justify-center p-4 bg-white rounded-lg shadow-sm border border-gray-50">
+                                <div className="h-32 w-64 flex items-center justify-center p-2 bg-white rounded-lg shadow-sm border border-gray-50">
                                     {college.logoUrl ? (
                                         <img
                                             src={college.logoUrl}
                                             alt={college.name}
-                                            className="max-h-full max-w-full object-contain"
+                                            className="max-h-full max-w-full object-contain scale-110"
                                             onError={(e) => {
                                                 const target = e.target as HTMLImageElement;
                                                 target.style.display = 'none';

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ASSETS } from "@/lib/assets";
+import Link from "next/link";
 
 export default function CTASection() {
     return (
@@ -43,9 +44,9 @@ export default function CTASection() {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
                         >
-                            <button className="bg-rose-500 hover:bg-rose-600 text-white px-12 py-5 rounded-2xl font-black text-xs md:text-sm tracking-[0.3em] transition-all shadow-2xl shadow-rose-900/40 hover:-translate-y-1 uppercase">
+                            <Link href="/scholarships" className="inline-block bg-rose-500 hover:bg-rose-600 text-white px-12 py-5 rounded-2xl font-black text-xs md:text-sm tracking-[0.3em] transition-all shadow-2xl shadow-rose-900/40 hover:-translate-y-1 uppercase">
                                 View Scholarships
-                            </button>
+                            </Link>
                         </motion.div>
                     </div>
 

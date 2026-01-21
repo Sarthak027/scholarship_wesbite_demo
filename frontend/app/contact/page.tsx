@@ -56,7 +56,7 @@ export default function ContactUsPage() {
                     <ContactCard
                         icon={<MapPin size={32} />}
                         title="Location"
-                        details="#302, 5th Cross, 6th main Road, Old New Town, Akshay Nagar, Bangalore-560076"
+                        details="#305, 5th Cross, 6th Main Road, DLF New Town, Akshay Nagar, Bangalore-560076. Landmark: DLF"
                     />
                     <ContactCard
                         icon={<Mail size={32} />}
@@ -66,7 +66,7 @@ export default function ContactUsPage() {
                     <ContactCard
                         icon={<Phone size={32} />}
                         title="Phone"
-                        details="+91 999 555 1111"
+                        details="+91 99570 85559"
                     />
                 </div>
             </section>

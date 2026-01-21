@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ASSETS } from "@/lib/assets";
 import { useState } from "react";
 import EnquiryModal from "@/components/shared/EnquiryModal";
+import Image from "next/image";
 
 export default function PopularPrograms() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,11 +28,15 @@ export default function PopularPrograms() {
                             onClick={() => setIsModalOpen(true)}
                             className="relative rounded-[2rem] overflow-hidden group shadow-xl shadow-sky-100/50 cursor-pointer bg-slate-50"
                         >
-                            <img
-                                src={ASSETS.images.popular1}
-                                alt="BBA Scholarship"
-                                className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
-                            />
+                            <div className="relative w-full aspect-[16/10]">
+                                <Image
+                                    src={ASSETS.images.popular1}
+                                    alt="BBA Scholarship"
+                                    fill
+                                    unoptimized
+                                    className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                                />
+                            </div>
                             {/* Interactive Overlay Shadow */}
                             <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-500" />
                         </motion.div>
@@ -45,11 +50,15 @@ export default function PopularPrograms() {
                             onClick={() => setIsModalOpen(true)}
                             className="relative rounded-[2rem] overflow-hidden group shadow-xl shadow-sky-100/50 cursor-pointer bg-slate-50"
                         >
-                            <img
-                                src={ASSETS.images.popular2}
-                                alt="B.Tech Scholarship"
-                                className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
-                            />
+                            <div className="relative w-full aspect-[16/10]">
+                                <Image
+                                    src={ASSETS.images.popular2}
+                                    alt="B.Tech Scholarship"
+                                    fill
+                                    unoptimized
+                                    className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                                />
+                            </div>
                             {/* Interactive Overlay Shadow */}
                             <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors duration-500" />
                         </motion.div>
@@ -57,7 +66,7 @@ export default function PopularPrograms() {
                 </div>
             </section>
 
-            <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <EnquiryModal mode="callback" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     );
 }

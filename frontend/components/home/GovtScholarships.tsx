@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 
 const govtScholarships = [
     {
         title: "GOVT. SCHOLARSHIP",
         description: "Central Sector Scheme of Scholarship for College and University Students. Scholarship is ₹12,000 per annum for the first three years and ₹20,000 per annum for the fourth and fifth year.",
         scholarship: "₹20,000*",
-        image: "https://images.unsplash.com/photo-1544652478-6653e09f18a2?q=80&w=800&auto=format&fit=crop",
+        image: ASSETS.govtScholarships.govt,
         badge: "APPLY NOW",
         url: "https://www.education.gov.in/scholarships-education-loan-0-hi"
     },
@@ -15,7 +16,7 @@ const govtScholarships = [
         title: "J.N. TATA SCHOLARSHIP",
         description: "The J.N. Tata Endowment Loan Scholarship is a merit-based scholarship that awards between ₹1 lakh and ₹10 lakh.",
         scholarship: "₹10,00,000*",
-        image: "https://images.unsplash.com/photo-1523050335456-c38a89b7def2?q=80&w=800&auto=format&fit=crop",
+        image: ASSETS.govtScholarships.jnTata,
         badge: "APPLY NOW",
         url: "https://jntataendowment.org/"
     },
@@ -23,7 +24,7 @@ const govtScholarships = [
         title: "TATA PANKH SCHOLARSHIP",
         description: "Classes 11 and 12 students will get One-time merit-based scholarship of up to 80% of their course fees or an amount ranging from ₹10,000 to ₹12,000 (whichever is less) to fulfill their academic dreams.",
         scholarship: "₹12,000*",
-        image: "https://images.unsplash.com/photo-1491845339675-234fb5052992?q=80&w=800&auto=format&fit=crop",
+        image: ASSETS.govtScholarships.tataPankh,
         badge: "APPLY NOW",
         url: "https://www.buddy4study.com/page/the-tata-capital-pankh-scholarship-programme"
     }

@@ -24,7 +24,15 @@ export default function Footer() {
                             Empowering students across India with verified scholarships and genuine career guidance. Giving wings to your professional dreams.
                         </p>
                         <div className="flex gap-4">
-                            {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
+                            <a
+                                href="https://www.facebook.com/confirmscholarship"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-sky-600 hover:scale-110 transition-all duration-300 group"
+                            >
+                                <Facebook size={18} className="text-slate-300 group-hover:text-white transition-colors" />
+                            </a>
+                            {[Instagram, Linkedin, Twitter].map((Icon, i) => (
                                 <a
                                     key={i}
                                     href="#"

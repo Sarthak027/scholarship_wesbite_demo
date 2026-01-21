@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import { ASSETS } from "@/lib/assets";
 
 const newsOutlets = [
-    { name: "Forbes India", logoUrl: ASSETS.logos.forbes },
     { name: "Dailyhunt", logoUrl: ASSETS.logos.dailyhunt },
-    { name: "Republic NewsIndia", logoUrl: ASSETS.logos.republic },
+    { name: "Economic Times", logoUrl: ASSETS.logos.economicTimes },
     { name: "Hindustan Times", logoUrl: ASSETS.logos.hindustan },
+    { name: "Republic News", logoUrl: ASSETS.logos.republic },
 ];
 
 export default function NewsSection() {
@@ -38,13 +38,13 @@ export default function NewsSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className="bg-white/80 backdrop-blur-sm px-8 py-8 rounded-2xl soft-shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full flex items-center justify-center h-32 border border-slate-100 group"
+                            className="bg-white/80 backdrop-blur-sm px-4 py-4 rounded-2xl soft-shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full flex items-center justify-center h-40 border border-slate-100 group"
                         >
                             {/* Logo fallback */}
                             <img
                                 src={outlet.logoUrl}
                                 alt={outlet.name}
-                                className="max-h-16 max-w-[90%] object-contain"
+                                className="max-h-24 max-w-[90%] object-contain scale-110"
                                 onError={(e) => {
                                     const target = e.target as HTMLImageElement;
                                     target.style.display = 'none';
