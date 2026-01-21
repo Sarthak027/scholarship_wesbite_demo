@@ -3,34 +3,35 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
-
-const testimonials = [
-    {
-        id: 1,
-        name: "KISHAN D",
-        location: "Tripura",
-        text: "I received a Scholarship of ₹10,000 for BBA just because I applied on their portal.",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&auto=format&fit=crop"
-    },
-    {
-        id: 2,
-        name: "NITOKA",
-        location: "Nagaland",
-        text: "Confirm Scholarship help me secure ₹50,000 Scholarship for my Bachelor in Culinary Arts and it was wonderful experience!",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=256&auto=format&fit=crop"
-    },
-    {
-        id: 3,
-        name: "PRIYA S",
-        location: "Maharashtra",
-        text: "The guidance provided by the team was exceptional. I secured a full scholarship for my MBA program.",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=256&auto=format&fit=crop"
-    }
-];
+import { api } from "@/lib/api";
 
 export default function Testimonials() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0);
+
+    const testimonials = [
+        {
+            id: 1,
+            name: "KISHAN D",
+            location: "Tripura",
+            text: "I received a Scholarship of ₹10,000 for BBA just because I applied on their portal.",
+            avatar: `${api.baseURL}/uploads/images/testimonial/KISHAN D.jpeg`
+        },
+        {
+            id: 2,
+            name: "NITOKA",
+            location: "Nagaland",
+            text: "Confirm Scholarship help me secure ₹50,000 Scholarship for my Bachelor in Culinary Arts and it was wonderful experience!",
+            avatar: `${api.baseURL}/uploads/images/testimonial/NITOKA.jpeg`
+        },
+        {
+            id: 3,
+            name: "HOUDUMEI  PHAOMEI",
+            location: "Manipur",
+            text: "Thanks to Confirm Scholarship as I got ₹50,000 Scholarship for my Bachelor in Culinary Arts.",
+            avatar: `${api.baseURL}/uploads/images/testimonial/HOUDUMEI  PHAOMEI.jpeg`
+        }
+    ];
 
     const slideVariants = {
         enter: (direction: number) => ({
