@@ -34,7 +34,7 @@ const inquirySchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['callback', 'scholarship'],
+        enum: ['callback', 'scholarship', 'contact'],
         default: 'scholarship'
     },
     subject: {

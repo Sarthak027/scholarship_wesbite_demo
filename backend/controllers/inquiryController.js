@@ -32,7 +32,7 @@ exports.exportInquiries = async (req, res) => {
 
         const data = inquiries.map(inquiry => ({
             'Date': new Date(inquiry.createdAt).toLocaleString(),
-            'Type': inquiry.type === 'callback' ? 'Callback Request' : 'Scholarship Inquiry',
+            'Type': inquiry.type === 'callback' ? 'Callback Request' : (inquiry.type === 'contact' ? 'Contact Message' : 'Scholarship Inquiry'),
             'Name': inquiry.name,
             'Email': inquiry.email,
             'Phone': inquiry.phone,
@@ -40,7 +40,8 @@ exports.exportInquiries = async (req, res) => {
             'City': inquiry.city || '-',
             'Course': inquiry.course || '-',
             'Consent': inquiry.consent ? 'Yes' : 'No',
-            'Message/Subject': inquiry.type === 'callback' ? inquiry.message : inquiry.subject,
+            'Subject': inquiry.subject || '-',
+            'Message': inquiry.message || '-',
             'Source': inquiry.source,
             'Status': inquiry.status
         }));

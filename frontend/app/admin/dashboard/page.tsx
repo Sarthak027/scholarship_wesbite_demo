@@ -214,7 +214,7 @@ export default function AdminDashboard() {
                                 <InquiriesTab
                                     title="Scholarship Inquiries"
                                     type="scholarship"
-                                    inquiries={inquiries.filter(i => i.type === 'scholarship' || (!i.type && (i.source === 'enquiry_modal' || !i.source)))}
+                                    inquiries={inquiries.filter(i => (i.type === 'scholarship' || !i.type) && i.source !== 'contact_page')}
                                     onRefresh={fetchDashboardData}
                                 />
                             )}
@@ -229,7 +229,8 @@ export default function AdminDashboard() {
                             {activeTab === "contact_us" && (
                                 <InquiriesTab
                                     title="Contact Us Messages"
-                                    inquiries={inquiries.filter(i => i.source === 'contact_page')}
+                                    type="contact"
+                                    inquiries={inquiries.filter(i => i.source === 'contact_page' || i.type === 'contact')}
                                     onRefresh={fetchDashboardData}
                                 />
                             )}
@@ -408,7 +409,7 @@ function ScholarshipsTab({ scholarships }: { scholarships: any[] }) {
     );
 }
 
-function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, inquiries: any[], onRefresh: () => void, type?: 'scholarship' | 'callback' | 'contact' }) {
+function InquiriesTab({ title, inquiries, onRefresh, type = 'scholarship' }: { title: string, inquiries: any[], onRefresh: () => void, type?: 'scholarship' | 'callback' | 'contact' }) {
     // Auto-refresh every 5 seconds
     useEffect(() => {
         const interval = setInterval(() => {
@@ -463,11 +464,14 @@ function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, in
                         <thead className="bg-slate-50 border-b border-slate-100">
                             <tr>
                                 <th className="px-6 py-4 font-bold text-slate-600">Contact Info</th>
-                                {type !== 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Location</th>}
-                                {type !== 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Applied Course</th>}
+                                {type !== 'callback' && type !== 'contact' && <th className="px-6 py-4 font-bold text-slate-600">Location</th>}
+                                {type !== 'callback' && type !== 'contact' && <th className="px-6 py-4 font-bold text-slate-600">Applied Course</th>}
                                 {type === 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Message</th>}
-                                {type !== 'callback' && <th className="px-6 py-4 font-bold text-slate-600">Consent</th>}
+                                {type === 'contact' && <th className="px-6 py-4 font-bold text-slate-600">Subject</th>}
+                                {type === 'contact' && <th className="px-6 py-4 font-bold text-slate-600">Message</th>}
+                                {type !== 'callback' && type !== 'contact' && <th className="px-6 py-4 font-bold text-slate-600">Consent</th>}
                                 <th className="px-6 py-4 font-bold text-slate-600">Date</th>
+                                <th className="px-6 py-4 font-bold text-slate-600 text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50">
@@ -479,13 +483,13 @@ function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, in
                                             <p className="text-xs text-slate-500">{inquiry.email}</p>
                                             <p className="text-xs text-sky-600 font-bold">{inquiry.phone}</p>
                                         </td>
-                                        {type !== 'callback' && (
+                                        {type !== 'callback' && type !== 'contact' && (
                                             <td className="px-6 py-4">
                                                 <p className="text-slate-700 text-sm font-bold">{inquiry.city || 'N/A'}</p>
                                                 <p className="text-xs text-slate-400 font-medium">{inquiry.state || 'N/A'}</p>
                                             </td>
                                         )}
-                                        {type !== 'callback' && (
+                                        {type !== 'callback' && type !== 'contact' && (
                                             <td className="px-6 py-4">
                                                 <span className="bg-sky-50 text-sky-700 text-[10px] font-black px-3 py-1.5 rounded-lg border border-sky-100 uppercase tracking-tight">
                                                     {inquiry.course || 'General Enquiry'}
@@ -497,7 +501,17 @@ function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, in
                                                 <p className="text-slate-600 text-sm line-clamp-2 italic">{inquiry.message || 'No message provided'}</p>
                                             </td>
                                         )}
-                                        {type !== 'callback' && (
+                                        {type === 'contact' && (
+                                            <td className="px-6 py-4">
+                                                <p className="text-slate-700 text-sm font-bold">{inquiry.subject || 'N/A'}</p>
+                                            </td>
+                                        )}
+                                        {type === 'contact' && (
+                                            <td className="px-6 py-4">
+                                                <p className="text-slate-600 text-sm line-clamp-2 italic">{inquiry.message || 'No message provided'}</p>
+                                            </td>
+                                        )}
+                                        {type !== 'callback' && type !== 'contact' && (
                                             <td className="px-6 py-4">
                                                 {inquiry.consent ? (
                                                     <span className="text-emerald-500 flex items-center gap-1 text-xs font-bold bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100 w-fit">
@@ -511,11 +525,19 @@ function InquiriesTab({ title, inquiries, onRefresh, type }: { title: string, in
                                         <td className="px-6 py-4 text-slate-400 text-xs font-medium">
                                             {new Date(inquiry.createdAt).toLocaleString()}
                                         </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <button
+                                                onClick={() => alert(`Full Inquiry Details:\n\nName: ${inquiry.name}\nEmail: ${inquiry.email}\nPhone: ${inquiry.phone}\n\nSubject: ${inquiry.subject || 'N/A'}\nMessage: ${inquiry.message || 'N/A'}`)}
+                                                className="text-sky-600 hover:text-sky-800 font-bold text-xs"
+                                            >
+                                                VIEW
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={type === 'callback' ? 3 : 5} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
+                                    <td colSpan={type === 'callback' ? 4 : (type === 'contact' ? 5 : 7)} className="px-6 py-12 text-center text-slate-400 font-medium">No inquiries found yet.</td>
                                 </tr>
                             )}
                         </tbody>

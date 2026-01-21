@@ -24,7 +24,7 @@ export default function ContactUsPage() {
         setStatus("submitting");
 
         try {
-            await api.inquiries.create({ ...formData, source: 'contact_page' });
+            await api.inquiries.create({ ...formData, source: 'contact_page', type: 'contact' });
             setStatus("success");
             setFormData({ name: "", email: "", subject: "", phone: "", message: "" });
             setTimeout(() => setStatus("idle"), 5000);
