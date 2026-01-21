@@ -2,74 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { GraduationCap } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { scholarshipCategories } from "@/lib/scholarship-data";
 import EnquiryModal from "@/components/shared/EnquiryModal";
-
-const categories = [
-    {
-        title: "Management",
-        slug: "management",
-        desc: "Management involves planning, organizing, and overseeing the operations of a business to ensure efficiency, productivity, and achievement of organizational goals.",
-        amount: "₹1,00,000*",
-        image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop",
-    },
-    {
-        title: "Engineering",
-        slug: "engineering",
-        desc: "Engineering involves applying scientific principles and mathematical techniques to design, develop, and innovate structures, machines, and processes that solve practical problems and improve quality of life.",
-        amount: "₹1,00,000*",
-        image: "https://images.unsplash.com/photo-1581094794329-cd109c096349?q=80&w=1932&auto=format&fit=crop",
-    },
-    {
-        title: "Computer Application",
-        slug: "computer-application",
-        desc: "Computer Application involves utilizing software and programming skills to develop, maintain, and troubleshoot computer systems and applications that support business functions and user needs.",
-        amount: "₹20,000*",
-        image: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-        title: "Designing",
-        slug: "designing",
-        desc: "Designing involves creating visual and functional concepts for products, environments, and communication materials, combining aesthetics and practicality to meet user needs and enhance experiences.",
-        amount: "₹50,000*",
-        image: "https://images.unsplash.com/photo-1626785774573-4b79931434c3?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-        title: "Commerce",
-        slug: "commerce",
-        desc: "Commerce involves the study of trade, finance, and business activities, focusing on the exchange of goods and services, market analysis, and financial management to drive economic growth and business success.",
-        amount: "₹10,000*",
-        image: "https://images.unsplash.com/photo-1554224155-9844c69be667?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-        title: "Health Science",
-        slug: "health-science",
-        desc: "Health Science involves studying the various aspects of health and healthcare, including medicine, nutrition, and public health, to improve patient care, promote wellness, and advance medical knowledge and practices.",
-        amount: "₹10,000*",
-        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-        title: "Law",
-        slug: "law",
-        desc: "Law program offers an in-depth understanding of legal principles, practices, and systems, preparing students for careers as legal professionals with a strong foundation in various branches of law including corporate, criminal, and civil law.",
-        amount: "₹20,000*",
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-        title: "Pharmacy",
-        slug: "pharmacy",
-        desc: "Pharmacy program focuses on the science of medication, covering drug development, pharmacology, and clinical practices, equipping students with the expertise needed for careers in pharmaceutical industries, healthcare settings, and research.",
-        amount: "₹20,000*",
-        image: "https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?q=80&w=2070&auto=format&fit=crop",
-    },
-    {
-        title: "Hotel Management",
-        slug: "hotel-management",
-        desc: "Hotel Management program provides comprehensive training in hospitality operations, customer service, and management skills, preparing students to excel in the global hospitality and tourism industry with roles in hotel administration, event planning, and food and beverage management.",
-        amount: "₹50,000*",
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop",
-    },
-];
 
 export default function ScholarshipCards() {
     const router = useRouter();
@@ -104,7 +40,7 @@ export default function ScholarshipCards() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                        {categories.map((cat, index) => (
+                        {scholarshipCategories.map((cat, index) => (
                             <motion.div
                                 key={cat.title}
                                 initial={{ opacity: 0, y: 20 }}
@@ -113,24 +49,30 @@ export default function ScholarshipCards() {
                                 viewport={{ once: true, margin: "-50px" }}
                                 className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                             >
-                                <div className="h-40 overflow-hidden relative">
-                                    <img
-                                        src={cat.image}
-                                        alt={cat.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    />
+                                <div className="h-40 overflow-hidden relative bg-slate-100">
+                                    {cat.banner ? (
+                                        <img
+                                            src={cat.banner}
+                                            alt={cat.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                            <GraduationCap size={40} />
+                                        </div>
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </div>
                                 <div className="p-6 flex flex-col flex-grow">
                                     <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-sky-600 transition-colors line-clamp-1">{cat.title}</h3>
                                     <p className="text-slate-500 text-xs leading-relaxed mb-4 line-clamp-3">
-                                        {cat.desc}
+                                        {cat.description}
                                     </p>
                                     <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                                         <div>
                                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Upto</p>
                                             <p className="font-bold text-lg text-sky-600">
-                                                {cat.amount}
+                                                {cat.sections[0]?.items[0]?.scholarship.split("-")[1]?.trim() || "₹1,00,000*"}
                                             </p>
                                         </div>
                                         <button

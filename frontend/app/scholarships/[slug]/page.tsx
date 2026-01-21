@@ -30,10 +30,19 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
     return (
         <main className="min-h-screen bg-gray-50 pb-20">
             {/* Hero Section */}
-            <section className="relative py-24 bg-slate-900 overflow-hidden">
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-transparent" />
-                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:20px_20px]" />
+            <section className="relative py-24 bg-slate-900 overflow-hidden min-h-[400px] flex items-center">
+                <div className="absolute inset-0">
+                    {category.banner ? (
+                        <img
+                            src={category.banner}
+                            alt={category.title}
+                            className="w-full h-full object-cover opacity-40"
+                        />
+                    ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-transparent" />
+                    )}
+                    <div className="absolute inset-0 bg-slate-900/60" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:20px_20px] opacity-20" />
                 </div>
 
                 <div className="relative container mx-auto px-4">
