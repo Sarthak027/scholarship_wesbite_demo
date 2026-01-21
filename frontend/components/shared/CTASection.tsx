@@ -16,7 +16,7 @@ export default function CTASection() {
                             className="w-full h-full object-cover"
                             alt="Student Success"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-sky-900/90 via-sky-600/80 to-cyan-600/90" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/95 via-brand-navy/80 to-brand-magenta/90" />
                     </div>
 
                     <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -24,7 +24,7 @@ export default function CTASection() {
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="text-sky-300 font-black tracking-[0.5em] text-xs md:text-sm uppercase mb-6 block"
+                            className="text-white/80 font-black tracking-[0.5em] text-xs md:text-sm uppercase mb-6 block"
                         >
                             Ready to take off?
                         </motion.span>
@@ -44,7 +44,7 @@ export default function CTASection() {
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
                         >
-                            <Link href="/scholarships" className="inline-block bg-rose-500 hover:bg-rose-600 text-white px-12 py-5 rounded-2xl font-black text-xs md:text-sm tracking-[0.3em] transition-all shadow-2xl shadow-rose-900/40 hover:-translate-y-1 uppercase">
+                            <Link href="/scholarships" className="inline-block bg-brand-magenta hover:bg-brand-magenta/90 text-white px-8 py-4 rounded-md font-black text-xs md:text-sm tracking-[0.3em] transition-all shadow-2xl shadow-brand-magenta/40 hover:-translate-y-1 uppercase text-center">
                                 View Scholarships
                             </Link>
                         </motion.div>

@@ -1,5 +1,5 @@
 import Hero from "@/components/home/Hero";
-import StatsSection from "@/components/home/StatsSection";
+
 import CollegeCarousel from "@/components/home/CollegeCarousel";
 import NewsSection from "@/components/home/NewsSection";
 import PopularPrograms from "@/components/home/PopularPrograms";
@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-0">
       <Hero />
-      <StatsSection />
+
       <CollegeCarousel />
       <NewsSection />
       <PopularPrograms />

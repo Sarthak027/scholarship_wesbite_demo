@@ -24,7 +24,7 @@ export default function UniversityDetailPage({ params }: { params: Promise<{ slu
     if (!university) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-magenta"></div>
             </div>
         );
     }
@@ -74,7 +74,7 @@ export default function UniversityDetailPage({ params }: { params: Promise<{ slu
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="bg-white rounded-xl overflow-hidden shadow-2xl shadow-slate-200 border border-slate-100 flex flex-col md:flex-row gap-0 group hover:border-sky-200 transition-all duration-300"
+                            className="bg-white rounded-xl overflow-hidden shadow-2xl shadow-slate-200 border border-slate-100 flex flex-col md:flex-row gap-0 group hover:border-brand-magenta/30 transition-all duration-300"
                         >
                             {/* Left: Course Graphic Image */}
                             <div className="w-full md:w-[45%] shrink-0 relative overflow-hidden">
@@ -120,7 +120,7 @@ export default function UniversityDetailPage({ params }: { params: Promise<{ slu
                                 <div className="flex flex-wrap gap-4 items-center mt-2">
                                     <button
                                         onClick={() => setIsModalOpen(true)}
-                                        className="bg-[#9e0059] hover:bg-[#800048] text-white px-8 py-2.5 rounded-full font-bold text-xs transition-all shadow-lg hover:shadow-[#9e0059]/30 active:scale-95 uppercase tracking-widest whitespace-nowrap"
+                                        className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-8 py-2.5 rounded-full font-bold text-xs transition-all shadow-lg hover:shadow-brand-magenta/30 active:scale-95 uppercase tracking-widest whitespace-nowrap"
                                     >
                                         Apply Now
                                     </button>

@@ -24,10 +24,10 @@ export default function CollegeCarousel() {
     return (
         <section className="py-16 bg-white overflow-hidden">
             <div className="container mx-auto px-4 mb-10 text-center">
-                <h2 className="text-pink-primary font-bold text-lg tracking-widest uppercase mb-2">
+                <h2 className="text-brand-magenta font-bold text-lg tracking-widest uppercase mb-2">
                     Top Colleges
                 </h2>
-                <div className="w-16 h-1 bg-blue-primary mx-auto opacity-20" />
+                <div className="w-16 h-1 bg-brand-navy mx-auto opacity-20" />
             </div>
 
             <div className="relative w-full max-w-7xl mx-auto overflow-hidden mask-gradient-x">

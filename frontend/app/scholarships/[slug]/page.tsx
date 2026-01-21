@@ -22,7 +22,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
     if (!category) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-magenta"></div>
             </div>
         );
     }
@@ -57,11 +57,11 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                             <ChevronRight size={14} />
                             <Link href="/scholarships" className="hover:text-white transition-colors">Scholarships</Link>
                             <ChevronRight size={14} />
-                            <span className="text-sky-400">{category.title}</span>
+                            <span className="text-brand-magenta">{category.title}</span>
                         </div>
 
                         <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                            {category.title} <span className="text-sky-500">Scholarships</span>
+                            {category.title} <span className="text-brand-magenta">Scholarships</span>
                         </h1>
                         <p className="text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
                             {category.description}
@@ -73,14 +73,14 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
             {/* Practical Placeholder for categories without sections yet */}
             {category.sections.length === 0 ? (
                 <section className="container mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
-                    <div className="w-20 h-20 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-600 mb-6 font-black text-3xl">
+                    <div className="w-20 h-20 bg-brand-magenta/5 rounded-2xl flex items-center justify-center text-brand-magenta mb-6 font-black text-3xl">
                         {category.title[0]}
                     </div>
                     <h2 className="text-2xl font-bold text-slate-800 mb-4">Coming Soon</h2>
                     <p className="text-slate-500 max-w-md mb-8">
                         We are currently updating our database with the latest {category.title} scholarships. Check back soon for guaranteed financial support.
                     </p>
-                    <Link href="/scholarships" className="bg-sky-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-sky-700 transition-colors uppercase tracking-widest text-xs">
+                    <Link href="/scholarships" className="bg-brand-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-brand-deep-navy transition-colors uppercase tracking-widest text-xs">
                         View Other Categories
                     </Link>
                 </section>
@@ -90,7 +90,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                         <div className="mb-12">
                             <h2 className="text-3xl font-black text-slate-900 relative inline-block">
                                 {section.title}
-                                <div className="absolute -bottom-2 left-0 w-1/2 h-1 bg-sky-500 rounded-full" />
+                                <div className="absolute -bottom-2 left-0 w-1/2 h-1 bg-brand-magenta rounded-full" />
                             </h2>
                         </div>
 
@@ -112,7 +112,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                         <div className="absolute top-4 left-4">
-                                            <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-sky-600 shadow-sm">
+                                            <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-brand-magenta shadow-sm">
                                                 {item.course}
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
 
                                         <button
                                             onClick={() => setIsModalOpen(true)}
-                                            className="w-full bg-slate-900 hover:bg-sky-600 text-white py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all shadow-lg hover:shadow-sky-200 active:scale-95 mt-auto"
+                                            className="w-full bg-brand-navy hover:bg-brand-deep-navy text-white py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all shadow-lg hover:shadow-brand-navy/20 active:scale-95 mt-auto"
                                         >
                                             Apply Now
                                         </button>

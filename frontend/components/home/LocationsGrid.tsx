@@ -20,11 +20,11 @@ export default function LocationsGrid() {
         <section className="py-20 bg-white">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h2 className="text-sky-600 font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-sky-50 inline-block px-6 py-2 rounded-full">
+                    <h2 className="text-brand-magenta font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-brand-magenta/5 inline-block px-6 py-2 rounded-full">
                         Best Locations
                     </h2>
-                    <h3 className="text-4xl md:text-5xl font-extrabold text-slate-dark">
-                        Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">Perfect Hub</span>
+                    <h3 className="text-4xl md:text-5xl font-extrabold text-brand-navy">
+                        Find Your <span className="text-brand-magenta">Perfect Hub</span>
                     </h3>
                 </div>
 
@@ -32,9 +32,9 @@ export default function LocationsGrid() {
                     {locations.map((loc) => (
                         <div
                             key={loc.name}
-                            className="bg-white px-4 py-8 rounded-2xl soft-shadow hover:shadow-2xl hover:border-sky-100 transition-all duration-300 flex flex-col items-center justify-center gap-4 group cursor-pointer border border-slate-50 relative overflow-hidden text-center"
+                            className="bg-white px-4 py-8 rounded-2xl soft-shadow hover:shadow-2xl hover:border-brand-magenta/10 transition-all duration-300 flex flex-col items-center justify-center gap-4 group cursor-pointer border border-slate-50 relative overflow-hidden text-center"
                         >
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-sky-50/50 rounded-full blur-2xl -mr-8 -mt-8 group-hover:bg-sky-200/50 transition-colors duration-500" />
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-brand-magenta/5 rounded-full blur-2xl -mr-8 -mt-8 group-hover:bg-brand-magenta/10 transition-colors duration-500" />
                             <div className="relative w-16 h-16 group-hover:scale-110 transition-all duration-500 flex items-center justify-center">
                                 <Image
                                     src={loc.icon}
@@ -44,7 +44,7 @@ export default function LocationsGrid() {
                                     className="object-contain"
                                 />
                             </div>
-                            <span className="font-extrabold text-slate-700 text-base group-hover:text-sky-600 transition-colors">
+                            <span className="font-extrabold text-slate-700 text-base group-hover:text-brand-magenta transition-colors">
                                 {loc.name}
                             </span>
                         </div>

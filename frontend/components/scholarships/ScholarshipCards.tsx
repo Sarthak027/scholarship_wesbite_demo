@@ -24,7 +24,7 @@ export default function ScholarshipCards() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="text-sky-600 font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-sky-50 inline-block px-6 py-2 rounded-full"
+                            className="text-brand-magenta font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-brand-magenta/5 inline-block px-6 py-2 rounded-full"
                         >
                             Our Scholarships
                         </motion.h2>
@@ -33,9 +33,9 @@ export default function ScholarshipCards() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="text-slate-600 text-3xl md:text-4xl font-bold max-w-2xl mx-auto"
+                            className="text-brand-navy text-3xl md:text-4xl font-bold max-w-2xl mx-auto"
                         >
-                            Scholarships Tailored For <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">Your Ambition</span>
+                            Scholarships Tailored For <span className="text-brand-magenta">Your Ambition</span>
                         </motion.p>
                     </div>
 
@@ -64,20 +64,20 @@ export default function ScholarshipCards() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </div>
                                 <div className="p-6 flex flex-col flex-grow">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-sky-600 transition-colors line-clamp-1">{cat.title}</h3>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-magenta transition-colors line-clamp-1">{cat.title}</h3>
                                     <p className="text-slate-500 text-xs leading-relaxed mb-4 line-clamp-3">
                                         {cat.description}
                                     </p>
                                     <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                                         <div>
                                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Upto</p>
-                                            <p className="font-bold text-lg text-sky-600">
+                                            <p className="font-bold text-lg text-brand-magenta">
                                                 {cat.sections[0]?.items[0]?.scholarship.split("-")[1]?.trim() || "₹1,00,000*"}
                                             </p>
                                         </div>
                                         <button
                                             onClick={() => handleExplore(cat.slug)}
-                                            className="text-white bg-sky-500 hover:bg-sky-600 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-colors shadow-md shadow-sky-100"
+                                            className="text-white bg-brand-navy hover:bg-brand-deep-navy px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-colors shadow-md shadow-brand-navy/10"
                                         >
                                             Explore
                                         </button>

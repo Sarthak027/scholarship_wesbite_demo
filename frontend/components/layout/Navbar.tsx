@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
 import EnquiryModal from "@/components/shared/EnquiryModal";
 import { ASSETS } from "@/lib/assets";
 
@@ -19,34 +20,22 @@ const navLinks = [
 
 export default function Navbar() {
     const { scrollY } = useScroll();
-    const [hidden, setHidden] = useState(false);
+    const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Smart Scroll: Hide on scroll down, show on scroll up
     useMotionValueEvent(scrollY, "change", (latest) => {
-        const previous = scrollY.getPrevious() || 0;
-        if (latest > previous && latest > 150) {
-            setHidden(true);
-        } else {
-            setHidden(false);
-        }
         setScrolled(latest > 20);
     });
 
     return (
         <>
             <motion.header
-                variants={{
-                    visible: { y: 0 },
-                    hidden: { y: "-100%" },
-                }}
-                animate={hidden ? "hidden" : "visible"}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
+                initial={{ y: 0 }}
                 className={clsx(
-                    "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300",
-                    scrolled ? "bg-white/80 backdrop-blur-md shadow-sm py-2" : "bg-white/0 py-4"
+                    "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300",
+                    scrolled ? "bg-white/90 backdrop-blur-md shadow-md py-2" : "bg-white/40 backdrop-blur-sm py-4"
                 )}
             >
                 <div className="container mx-auto px-4 md:px-6">
@@ -61,18 +50,26 @@ export default function Navbar() {
                             />
                         </Link>
 
-                        {/* Desktop Nav */}
                         <nav className="hidden lg:flex items-center gap-8">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className="relative group text-slate-600 hover:text-sky-600 font-semibold text-sm transition-colors duration-200 py-2 uppercase tracking-wide"
-                                >
-                                    {link.name}
-                                    <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-sky-600 transition-all duration-300 group-hover:w-full" />
-                                </Link>
-                            ))}
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        href={link.href}
+                                        className={clsx(
+                                            "relative group font-bold text-sm transition-all duration-200 py-2 uppercase tracking-widest",
+                                            isActive ? "text-brand-magenta" : "text-slate-800 hover:text-brand-magenta"
+                                        )}
+                                    >
+                                        {link.name}
+                                        <span className={clsx(
+                                            "absolute left-0 bottom-0 h-0.5 bg-brand-magenta transition-all duration-300",
+                                            isActive ? "w-full" : "w-0 group-hover:w-full"
+                                        )} />
+                                    </Link>
+                                );
+                            })}
                         </nav>
 
                         <div className="flex items-center gap-4">
@@ -82,7 +79,7 @@ export default function Navbar() {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setIsModalOpen(true)}
-                                    className="premium-gradient text-white px-6 py-2.5 rounded-full font-bold text-xs tracking-widest shadow-lg shadow-sky-100 hover:shadow-sky-200 uppercase transition-all"
+                                    className="bg-brand-magenta text-white px-6 py-2.5 rounded-full font-bold text-xs tracking-widest shadow-lg shadow-brand-magenta/20 hover:shadow-brand-magenta/40 uppercase transition-all"
                                 >
                                     Enquire Now
                                 </motion.button>
@@ -109,22 +106,28 @@ export default function Navbar() {
                             className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 absolute w-full top-full left-0 shadow-xl"
                         >
                             <div className="flex flex-col p-6 gap-2">
-                                {navLinks.map((link, i) => (
-                                    <motion.div
-                                        key={link.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.05 }}
-                                    >
-                                        <Link
-                                            href={link.href}
-                                            className="block text-slate-700 font-bold py-3 border-b border-slate-50 uppercase tracking-wide hover:text-sky-600 hover:pl-2 transition-all"
-                                            onClick={() => setMobileMenuOpen(false)}
+                                {navLinks.map((link, i) => {
+                                    const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+                                    return (
+                                        <motion.div
+                                            key={link.name}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: i * 0.05 }}
                                         >
-                                            {link.name}
-                                        </Link>
-                                    </motion.div>
-                                ))}
+                                            <Link
+                                                href={link.href}
+                                                className={clsx(
+                                                    "block font-black py-4 border-b border-slate-50 uppercase tracking-widest transition-all",
+                                                    isActive ? "text-brand-magenta pl-4 border-l-4 border-l-brand-magenta" : "text-slate-700 hover:text-brand-magenta hover:pl-2"
+                                                )}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                })}
                                 <motion.button
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -133,7 +136,7 @@ export default function Navbar() {
                                         setMobileMenuOpen(false);
                                         setIsModalOpen(true);
                                     }}
-                                    className="premium-gradient text-white w-full py-4 rounded-xl font-bold text-sm tracking-widest mt-4 uppercase shadow-lg shadow-sky-100"
+                                    className="bg-brand-magenta text-white w-full py-4 rounded-xl font-bold text-sm tracking-widest mt-4 uppercase shadow-lg shadow-brand-magenta/20"
                                 >
                                     Enquire Now
                                 </motion.button>

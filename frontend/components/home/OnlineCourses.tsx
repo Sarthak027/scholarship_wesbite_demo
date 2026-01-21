@@ -13,7 +13,7 @@ export default function OnlineCourses() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-rose-500 font-black text-2xl uppercase tracking-[0.2em] mb-4"
+                        className="text-brand-magenta font-black text-2xl uppercase tracking-[0.2em] mb-4"
                     >
                         Online Courses
                     </motion.h2>
@@ -63,14 +63,14 @@ export default function OnlineCourses() {
                                 </div>
 
                                 <div className="px-8 pt-6 border-t border-slate-50 mb-8">
-                                    <p className="text-rose-600 font-bold text-sm">
+                                    <p className="text-brand-magenta font-bold text-sm">
                                         Courses Ranging From {uni.priceRange}
                                     </p>
                                 </div>
                             </div>
 
                             <Link href={`/online-courses/${uni.slug}`} className="w-full">
-                                <button className="w-full top-[50%] premium-gradient text-white font-bold py-3 rounded-xl uppercase tracking-widest text-[10px] shadow-lg shadow-sky-200 hover:shadow-sky-300 transition-all hover:-translate-y-1">
+                                <button className="w-full bg-brand-navy hover:bg-brand-deep-navy text-white font-bold py-3 rounded-b-xl uppercase tracking-widest text-[10px] shadow-lg shadow-brand-navy/10 transition-all">
                                     Explore Now
                                 </button>
                             </Link>

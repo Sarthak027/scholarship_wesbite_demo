@@ -39,7 +39,7 @@ export default function GovtScholarships() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-rose-500 font-black text-2xl uppercase tracking-[0.2em] mb-4"
+                        className="text-brand-magenta font-black text-2xl uppercase tracking-[0.2em] mb-4"
                     >
                         GOVERNMENT & OTHER SCHOLARSHIP
                     </motion.h2>
@@ -70,7 +70,7 @@ export default function GovtScholarships() {
                                     alt={scholarship.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute top-4 left-4 bg-slate-900 text-white text-[10px] font-black px-4 py-2 rounded-lg uppercase tracking-widest shadow-lg">
+                                <div className="absolute top-4 left-4 bg-brand-navy text-white text-[10px] font-black px-4 py-2 rounded-lg uppercase tracking-widest shadow-lg">
                                     {scholarship.badge}
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -84,7 +84,7 @@ export default function GovtScholarships() {
                                     {scholarship.description}
                                 </p>
                                 <div className="mb-6">
-                                    <span className="text-rose-600 font-black text-lg">
+                                    <span className="text-brand-magenta font-black text-lg">
                                         Scholarship Upto {scholarship.scholarship}
                                     </span>
                                 </div>
@@ -92,7 +92,7 @@ export default function GovtScholarships() {
                                     href={scholarship.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block w-full text-center bg-rose-600 hover:bg-rose-700 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-lg hover:shadow-rose-900/20 active:scale-95"
+                                    className="block w-full text-center bg-brand-navy hover:bg-brand-deep-navy text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-lg hover:shadow-brand-navy/20 active:scale-95"
                                 >
                                     Explore Now
                                 </a>

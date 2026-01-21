@@ -16,7 +16,7 @@ export default function AboutSectionHome() {
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-sky-100"
+                            className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-brand-navy/10"
                         >
                             <img
                                 src={ASSETS.images.aboutHome}
@@ -31,7 +31,7 @@ export default function AboutSectionHome() {
                             whileInView={{ opacity: 1, scale: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.3 }}
-                            className="absolute -bottom-10 -right-6 z-20 bg-sky-600 text-white p-8 rounded-[2rem] shadow-2xl shadow-sky-900/20 max-w-[200px]"
+                            className="absolute -bottom-10 -right-6 z-20 bg-brand-navy text-white p-8 rounded-[2rem] shadow-2xl shadow-brand-navy/20 max-w-[200px]"
                         >
                             <div className="font-black text-4xl mb-1">20+</div>
                             <div className="text-xs font-bold uppercase tracking-widest opacity-80 leading-tight">
@@ -39,7 +39,7 @@ export default function AboutSectionHome() {
                             </div>
                         </motion.div>
 
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-sky-100 rounded-full blur-3xl -z-10" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-navy/5 rounded-full blur-3xl -z-10" />
                     </div>
 
                     {/* Content Side */}
@@ -49,7 +49,7 @@ export default function AboutSectionHome() {
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-rose-500 font-black tracking-[0.3em] text-xs uppercase mb-4 block"
+                                className="text-brand-magenta font-black tracking-[0.3em] text-xs uppercase mb-4 block"
                             >
                                 About Us
                             </motion.span>
@@ -61,7 +61,7 @@ export default function AboutSectionHome() {
                                 className="text-4xl md:text-5xl font-black text-slate-dark leading-[1.2] mb-6 uppercase tracking-tight"
                             >
                                 Empowering Dreams: The <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">ConfirmScholarship</span> Mission
+                                <span className="text-brand-navy">ConfirmScholarship</span> Mission
                             </motion.h2>
                         </div>
 
@@ -83,7 +83,7 @@ export default function AboutSectionHome() {
                                 transition={{ delay: 0.3 }}
                                 className="flex items-start gap-4"
                             >
-                                <div className="w-10 h-10 rounded-full bg-rose-600/10 flex items-center justify-center text-rose-600 flex-shrink-0">
+                                <div className="w-10 h-10 rounded-full bg-brand-magenta/10 flex items-center justify-center text-brand-magenta flex-shrink-0">
                                     <ArrowRight size={18} />
                                 </div>
                                 <div>
@@ -98,7 +98,7 @@ export default function AboutSectionHome() {
                                 transition={{ delay: 0.4 }}
                                 className="flex items-start gap-4"
                             >
-                                <div className="w-10 h-10 rounded-full bg-rose-600/10 flex items-center justify-center text-rose-600 flex-shrink-0">
+                                <div className="w-10 h-10 rounded-full bg-brand-magenta/10 flex items-center justify-center text-brand-magenta flex-shrink-0">
                                     <ArrowRight size={18} />
                                 </div>
                                 <div>
@@ -116,7 +116,7 @@ export default function AboutSectionHome() {
                         >
                             <Link
                                 href="/about"
-                                className="inline-block bg-rose-600 hover:bg-rose-700 text-white px-10 py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-lg hover:shadow-rose-900/20 active:scale-95"
+                                className="inline-block bg-brand-magenta hover:bg-brand-magenta/90 text-white px-10 py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-lg hover:shadow-brand-magenta/20 active:scale-95"
                             >
                                 Read More
                             </Link>

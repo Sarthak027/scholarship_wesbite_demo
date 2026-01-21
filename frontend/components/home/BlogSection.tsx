@@ -30,14 +30,14 @@ export default function BlogSection() {
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
                     <div>
-                        <h2 className="text-sky-600 font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-sky-50 inline-block px-6 py-2 rounded-full">
+                        <h2 className="text-brand-magenta font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-brand-magenta/5 inline-block px-6 py-2 rounded-full">
                             Latest Updates
                         </h2>
-                        <h3 className="text-4xl md:text-5xl font-extrabold text-slate-dark leading-tight">
-                            Recent News & <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">Blogs</span>
+                        <h3 className="text-4xl md:text-5xl font-extrabold text-brand-navy leading-tight">
+                            Recent News & <span className="text-brand-magenta">Blogs</span>
                         </h3>
                     </div>
-                    <Link href="#" className="flex items-center gap-3 text-sky-600 font-bold hover:text-sky-700 hover:gap-4 transition-all duration-300 group">
+                    <Link href="#" className="flex items-center gap-3 text-brand-magenta font-bold hover:text-brand-magenta/80 hover:gap-4 transition-all duration-300 group">
                         View All Posts <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
@@ -58,14 +58,14 @@ export default function BlogSection() {
                                     <span className="w-8 h-[1px] bg-slate-200"></span>
                                     {post.date}
                                 </div>
-                                <h3 className="text-2xl font-bold text-slate-dark mb-4 group-hover:text-sky-600 transition-colors leading-snug">
+                                <h3 className="text-2xl font-bold text-slate-dark mb-4 group-hover:text-brand-magenta transition-colors leading-snug">
                                     {post.title}
                                 </h3>
                                 <p className="text-slate-500 text-sm line-clamp-2 mb-6 leading-relaxed">
                                     {post.excerpt}
                                 </p>
-                                <div className="flex items-center gap-2 text-sky-600 font-extrabold text-sm group/btn cursor-pointer">
-                                    <span className="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-sky-600 after:transform after:scale-x-0 group-hover/btn:after:scale-x-100 after:transition-transform after:origin-right group-hover/btn:after:origin-left">
+                                <div className="flex items-center gap-2 text-brand-navy font-extrabold text-sm group/btn cursor-pointer">
+                                    <span className="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-brand-magenta after:transform after:scale-x-0 group-hover/btn:after:scale-x-100 after:transition-transform after:origin-right group-hover/btn:after:origin-left">
                                         Read Full Article
                                     </span>
                                     <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />

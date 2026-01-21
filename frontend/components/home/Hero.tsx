@@ -7,9 +7,12 @@ import EnquiryModal from "@/components/shared/EnquiryModal";
 import { ASSETS } from "@/lib/assets";
 
 const backgroundImages = [
-    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop", // Graduation/Students
-    "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop", // Campus Group
-    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop", // Students talking
+    "/images/homepage_images/image1.webp",
+    "/images/homepage_images/image2.webp",
+    "/images/homepage_images/image3.webp",
+    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
 ];
 
 export default function Hero() {
@@ -17,61 +20,64 @@ export default function Hero() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        // Preload images to eliminate delay
+        // Preload all images immediately
         backgroundImages.forEach((src) => {
-            const img = new window.Image();
-            img.src = src;
+            if (typeof window !== 'undefined') {
+                const img = new window.Image();
+                img.src = src;
+            }
         });
 
         const interval = setInterval(() => {
             setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-        }, 6000); // 6 seconds per slide
+        }, 6000);
         return () => clearInterval(interval);
     }, []);
 
     return (
         <>
-            <section className="relative w-full min-h-[700px] lg:min-h-screen overflow-hidden flex items-center bg-slate-900">
-                {/* Background Slideshow */}
-                <div className="absolute inset-0 w-full h-full z-0">
-                    <AnimatePresence mode="popLayout">
+            <section className="relative w-full min-h-[700px] lg:min-h-screen overflow-hidden flex items-center bg-white">
+                {/* Background Slideshow - Pre-rendered for zero flash transitions */}
+                <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                    {backgroundImages.map((src, index) => (
                         <motion.div
-                            key={currentImageIndex}
-                            initial={{ opacity: 0, scale: 1.1 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 1.05 }}
-                            transition={{ duration: 2, ease: "easeOut" }}
+                            key={src}
+                            initial={{ opacity: 0 }}
+                            animate={{
+                                opacity: index === currentImageIndex ? 1 : 0,
+                                scale: index === currentImageIndex ? 1 : 1.05
+                            }}
+                            transition={{
+                                duration: 2,
+                                ease: "easeInOut"
+                            }}
                             className="absolute inset-0 w-full h-full"
                         >
                             <Image
-                                src={backgroundImages[currentImageIndex]}
-                                alt="Hero Background"
+                                src={src}
+                                alt={`Hero Background ${index + 1}`}
                                 fill
-                                priority
+                                priority={index === 0}
                                 className="object-cover"
                                 sizes="100vw"
                             />
                         </motion.div>
-                    </AnimatePresence>
-
-                    {/* Gradient Overlay for better readability */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent z-10" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent z-10" />
+                    ))}
                 </div>
 
                 {/* Content */}
-                <div className="container mx-auto px-4 md:px-6 relative z-20 text-slate-dark pt-32 pb-40">
+                <div className="container mx-auto px-4 md:px-6 relative z-20 text-slate-900 pt-32 pb-40">
                     <div className="max-w-4xl">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="inline-flex items-center gap-3 mb-8"
+                            className="inline-flex items-center gap-0 mb-8 overflow-hidden rounded-md"
                         >
-                            <span className="bg-sky-primary text-white font-black py-2 px-6 rounded-full shadow-lg shadow-sky-100 text-xs md:text-sm uppercase tracking-[0.2em]">
+                            <span className="bg-brand-magenta text-white font-bold py-1.5 px-4 text-xs md:text-sm">
                                 Welcome
                             </span>
-                            <span className="text-sm md:text-lg font-bold text-sky-700 tracking-wider uppercase">
+                            <span className="bg-black/5 backdrop-blur-sm text-black font-bold py-1.5 px-4 text-xs md:text-sm border border-black/10 border-l-0">
                                 To Confirm Scholarship
                             </span>
                         </motion.div>
@@ -80,23 +86,19 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-8 text-slate-dark uppercase tracking-tight"
+                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 text-black tracking-tight"
                         >
-                            Your Gateway <br className="hidden md:block" />
-                            To <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">
-                                A Brighter
-                            </span> <br className="hidden md:block" />
-                            FUTURE
+                            Your Gateway To <br />
+                            A Brighter Future
                         </motion.h1>
 
                         <motion.p
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-                            className="text-lg md:text-xl text-slate-600 mb-12 max-w-2xl leading-relaxed font-medium"
+                            className="text-base md:text-lg text-black mb-10 max-w-2xl leading-relaxed font-bold"
                         >
                             Unlock a world of opportunities with scholarships tailored to your dream career.
-                            We verify every single detail so you can focus on your success.
                         </motion.p>
 
                         <div className="flex flex-col sm:flex-row gap-5 items-start w-full">
@@ -104,15 +106,48 @@ export default function Hero() {
                                 onClick={() => setIsModalOpen(true)}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                whileHover={{ scale: 1.05, y: -5 }}
+                                whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                transition={{ delay: 0.8, duration: 0.4 }}
-                                className="bg-sky-primary hover:bg-sky-500 text-white px-12 py-5 rounded-2xl font-black text-xs md:text-sm shadow-2xl shadow-sky-200 tracking-[0.2em] transition-all uppercase w-full sm:w-auto"
+                                transition={{ delay: 0.6, duration: 0.4 }}
+                                className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-8 py-3.5 rounded-md font-bold text-xs md:text-sm tracking-wider transition-all uppercase w-full sm:w-auto shadow-xl"
                             >
-                                APPLY FOR SCHOLARSHIP
+                                APPLY NOW
                             </motion.button>
                         </div>
                     </div>
+                </div>
+
+                {/* Feature Boxes */}
+                <div className="absolute bottom-0 right-0 z-30 hidden lg:flex items-stretch pr-0">
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.8, duration: 0.8 }}
+                        className="bg-brand-magenta text-white p-8 w-72 flex flex-col gap-4 border-t-4 border-brand-magenta"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold text-lg">01</div>
+                        <p className="font-bold text-lg leading-snug">Scholarships For All From 10% To 100%</p>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 1.0, duration: 0.8 }}
+                        className="bg-brand-navy text-white p-8 w-72 flex flex-col gap-4"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold text-lg">02</div>
+                        <p className="font-bold text-lg leading-snug">Partnered With Best Universities & Colleges Of India</p>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 1.2, duration: 0.8 }}
+                        className="bg-brand-deep-navy text-white p-8 w-72 flex flex-col gap-4"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold text-lg">03</div>
+                        <p className="font-bold text-lg leading-snug">Personalized Mentoring & Guidance</p>
+                    </motion.div>
                 </div>
             </section>
 

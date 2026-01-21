@@ -14,7 +14,7 @@ export default function PopularPrograms() {
             <section className="py-24 bg-white overflow-hidden">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500 font-black text-2xl uppercase tracking-[0.2em]">
+                        <h2 className="text-brand-magenta font-black text-2xl uppercase tracking-[0.2em]">
                             Most Popular
                         </h2>
                     </div>

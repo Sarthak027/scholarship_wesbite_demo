@@ -21,9 +21,9 @@ export default function NewsSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-slate-dark mb-6 leading-tight">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-brand-navy mb-6 leading-tight">
                         We Are Featured In <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">The News!</span>
+                        <span className="text-brand-magenta">The News!</span>
                     </h2>
                     <p className="text-gray-600 font-medium max-w-2xl mx-auto mb-12">
                         Empowering students across India with verified scholarships and genuine career guidance.

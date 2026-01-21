@@ -78,7 +78,7 @@ export default function Testimonials() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500 font-black text-2xl uppercase tracking-[0.2em] mb-4"
+                        className="text-brand-magenta font-black text-2xl uppercase tracking-[0.2em] mb-4"
                     >
                         Testimonial
                     </motion.h2>
@@ -120,8 +120,8 @@ export default function Testimonials() {
                             }}
                             className="absolute inset-0 flex items-center justify-center pointer-events-none"
                         >
-                            <div className="glass-light p-10 md:p-16 rounded-[3rem] relative group hover:shadow-2xl hover:shadow-sky-100/50 transition-all duration-500 border border-slate-100/50 text-center pointer-events-auto cursor-grab active:cursor-grabbing w-full">
-                                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-sky-600/30 group-hover:-translate-y-1 transition-transform">
+                            <div className="glass-light p-10 md:p-16 rounded-[3rem] relative group hover:shadow-2xl hover:shadow-brand-navy/10 transition-all duration-500 border border-slate-100/50 text-center pointer-events-auto cursor-grab active:cursor-grabbing w-full">
+                                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center text-white shadow-xl shadow-brand-navy/30 group-hover:-translate-y-1 transition-transform">
                                     <Quote size={28} />
                                 </div>
                                 <p className="text-slate-600 font-medium italic leading-relaxed mb-12 text-xl md:text-2xl">
@@ -134,7 +134,7 @@ export default function Testimonials() {
                                     <h4 className="font-black text-slate-dark tracking-widest uppercase text-base mb-1">
                                         {testimonials[currentIndex].name}
                                     </h4>
-                                    <span className="text-sky-600 text-xs font-black uppercase tracking-[0.4em]">
+                                    <span className="text-brand-magenta text-xs font-black uppercase tracking-[0.4em]">
                                         {testimonials[currentIndex].location}
                                     </span>
                                 </div>
@@ -146,7 +146,7 @@ export default function Testimonials() {
                     <div className="absolute -left-4 md:-left-20 top-1/2 -translate-y-1/2 z-20">
                         <button
                             onClick={() => paginate(-1)}
-                            className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-sky-600 hover:text-white hover:border-sky-600 transition-all shadow-xl shadow-slate-200/50 active:scale-95"
+                            className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-brand-navy hover:text-white hover:border-brand-navy transition-all shadow-xl shadow-slate-200/50 active:scale-95"
                         >
                             <ChevronLeft size={24} />
                         </button>
@@ -154,7 +154,7 @@ export default function Testimonials() {
                     <div className="absolute -right-4 md:-right-20 top-1/2 -translate-y-1/2 z-20">
                         <button
                             onClick={() => paginate(1)}
-                            className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-sky-600 hover:text-white hover:border-sky-600 transition-all shadow-xl shadow-slate-200/50 active:scale-95"
+                            className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-brand-navy hover:text-white hover:border-brand-navy transition-all shadow-xl shadow-slate-200/50 active:scale-95"
                         >
                             <ChevronRight size={24} />
                         </button>
@@ -169,7 +169,7 @@ export default function Testimonials() {
                                     setDirection(index > currentIndex ? 1 : -1);
                                     setCurrentIndex(index);
                                 }}
-                                className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-8 bg-sky-600" : "w-2 bg-slate-200"}`}
+                                className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-8 bg-brand-magenta" : "w-2 bg-slate-200"}`}
                             />
                         ))}
                     </div>

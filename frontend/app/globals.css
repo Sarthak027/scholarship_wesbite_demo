@@ -3,9 +3,13 @@
 @theme {
   --font-sans: var(--font-montserrat);
 
-  --color-sky-primary: #0EA5E9;
-  --color-cyan-secondary: #06B6D4;
-  --color-rose-accent: #F43F5E;
+  --color-brand-magenta: #B00058;
+  --color-brand-navy: #2a408e;
+  --color-brand-deep-navy: #1B2B5A;
+
+  --color-sky-primary: var(--color-brand-magenta);
+  --color-cyan-secondary: var(--color-brand-navy);
+  --color-rose-accent: var(--color-brand-magenta);
   --color-slate-dark: #0F172A;
   --color-slate-light: #F8FAFC;
 
@@ -15,8 +19,13 @@
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
@@ -24,6 +33,7 @@
     transform: translateY(24px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -31,8 +41,15 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 :root {
@@ -55,7 +72,7 @@
 }
 
 .premium-gradient {
-  background: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 100%);
+  background: linear-gradient(135deg, var(--color-brand-magenta) 0%, var(--color-brand-navy) 100%);
 }
 
 html {
