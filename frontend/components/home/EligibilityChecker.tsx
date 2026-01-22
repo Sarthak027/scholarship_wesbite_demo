@@ -203,7 +203,7 @@ export default function EligibilityChecker() {
     };
 
     return (
-        <div className="w-full max-w-2xl mx-auto">
+        <div className="w-full max-w-xl mx-auto">
             <AnimatePresence mode="wait">
                 {/* Step 1: Course Selection */}
                 {currentStep === 1 && (

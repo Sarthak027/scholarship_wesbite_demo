@@ -143,7 +143,7 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-[95vw] md:max-w-xl bg-white rounded-xl md:rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col mx-2"
+                        className="relative w-full max-w-[95vw] md:max-w-lg bg-white rounded-xl md:rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col mx-2"
                     >
                         {/* Close Button */}
                         <button

@@ -173,6 +173,287 @@ export const api = {
             });
             if (!res.ok) throw new Error('Failed to fetch scholarships');
             return res.json();
+        },
+
+        getAllAdmin: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/admin/all`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch scholarships');
+            return res.json();
+        },
+
+        getByCategory: async (slug: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/by-category/${slug}`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch scholarships');
+            return res.json();
+        },
+
+        getById: async (id: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/${id}`, {
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch scholarship');
+            return res.json();
+        },
+
+        create: async (data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to create scholarship');
+            return res.json();
+        },
+
+        update: async (id: string, data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to update scholarship');
+            return res.json();
+        },
+
+        delete: async (id: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete scholarship');
+            return res.json();
+        }
+    },
+
+    // Scholarship Categories
+    categories: {
+        getAll: async () => {
+            const res = await fetch(`${API_URL}/api/scholarships/categories`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch categories');
+            return res.json();
+        },
+
+        getAllWithCount: async () => {
+            const res = await fetch(`${API_URL}/api/scholarships/categories/with-count`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch categories');
+            return res.json();
+        },
+
+        getAllAdmin: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/admin/categories`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch categories');
+            return res.json();
+        },
+
+        getBySlug: async (slug: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/categories/${slug}`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch category');
+            return res.json();
+        },
+
+        create: async (data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/categories`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to create category');
+            return res.json();
+        },
+
+        update: async (id: string, data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/categories/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to update category');
+            return res.json();
+        },
+
+        delete: async (id: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/scholarships/categories/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete category');
+            return res.json();
+        }
+    },
+
+    // Online Courses
+    onlineCourses: {
+        getAll: async () => {
+            const res = await fetch(`${API_URL}/api/online-courses`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch courses');
+            return res.json();
+        },
+
+        getAllAdmin: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/admin/all`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch courses');
+            return res.json();
+        },
+
+        getByUniversity: async (slug: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/by-university/${slug}`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch courses');
+            return res.json();
+        },
+
+        getById: async (id: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/${id}`, {
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch course');
+            return res.json();
+        },
+
+        create: async (data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to create course');
+            return res.json();
+        },
+
+        update: async (id: string, data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to update course');
+            return res.json();
+        },
+
+        delete: async (id: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete course');
+            return res.json();
+        }
+    },
+
+    // Online Universities
+    onlineUniversities: {
+        getAll: async () => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch universities');
+            return res.json();
+        },
+
+        getAllWithCount: async () => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities/with-count`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch universities');
+            return res.json();
+        },
+
+        getAllAdmin: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/admin/universities`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch universities');
+            return res.json();
+        },
+
+        getBySlug: async (slug: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities/${slug}`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch university');
+            return res.json();
+        },
+
+        getWithCourses: async (slug: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities/${slug}/courses`, {
+                next: { revalidate: 300 }
+            });
+            if (!res.ok) throw new Error('Failed to fetch university');
+            return res.json();
+        },
+
+        create: async (data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to create university');
+            return res.json();
+        },
+
+        update: async (id: string, data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to update university');
+            return res.json();
+        },
+
+        delete: async (id: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/online-courses/universities/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete university');
+            return res.json();
         }
     },
 

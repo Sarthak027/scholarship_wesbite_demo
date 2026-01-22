@@ -14,23 +14,46 @@ router.post('/image', authMiddleware, upload.single('image'), async (req, res) =
         }
 
         const filePath = req.file.path;
-        const optimizedPath = filePath.replace(/\.\w+$/, '-optimized.webp');
+        let finalPath = filePath;
+        let finalUrl = '';
+        const filename = req.file.filename;
 
-        // Optimize image with Sharp
-        await sharp(filePath)
-            .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
-            .webp({ quality: 85 })
-            .toFile(optimizedPath);
+        // Try to optimize with Sharp if installed/working
+        try {
+            // Disable sharp cache to prevent file locking on Windows
+            sharp.cache(false);
 
-        // Delete original file
-        fs.unlinkSync(filePath);
+            const optimizedPath = filePath.replace(/\.\w+$/, '-optimized.webp');
+            await sharp(filePath)
+                .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
+                .webp({ quality: 85 })
+                .toFile(optimizedPath);
 
-        // Return the URL
-        const imageUrl = `/uploads/images/${path.basename(optimizedPath)}`;
+            // If successful, delete original and use optimized
+            try {
+                // Small delay to ensure handle is released on Windows
+                await new Promise(resolve => setTimeout(resolve, 100));
+
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
+            } catch (unlinkErr) {
+                console.warn('Warning: Could not delete original file after optimization:', unlinkErr.message);
+                // Don't fail the request, just keep the duplicate
+            }
+
+            finalPath = optimizedPath;
+            finalUrl = `/uploads/images/${path.basename(optimizedPath)}`;
+        } catch (optimizeError) {
+            console.warn('Image optimization failed, using original file:', optimizeError.message);
+            // Fallback to original file
+            finalUrl = `/uploads/images/${filename}`;
+        }
+
         res.json({
             success: true,
-            url: imageUrl,
-            filename: path.basename(optimizedPath)
+            url: finalUrl,
+            filename: path.basename(finalPath)
         });
     } catch (error) {
         console.error('Upload error:', error);

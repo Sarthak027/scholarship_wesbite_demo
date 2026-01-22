@@ -118,36 +118,36 @@ export default function Hero() {
                 </div>
 
                 {/* Feature Boxes - Mobile: Stacked, Desktop: Horizontal */}
-                <div className="container mx-auto px-4 md:px-6 relative z-20 lg:px-0 mt-8 lg:mt-0 w-full">
-                    <div className="flex flex-col lg:flex-row items-stretch justify-end gap-4 lg:gap-0 lg:pr-0">
+                <div className="w-full relative z-20 mt-8 lg:mt-0">
+                    <div className="flex flex-col lg:flex-row items-stretch justify-end">
                         <motion.div
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.8, duration: 0.8 }}
-                            className="bg-brand-magenta text-white p-6 md:p-8 w-full lg:w-72 flex flex-col gap-3 md:gap-4 border-t-4 border-brand-magenta"
+                            className="bg-brand-magenta text-white p-5 md:p-6 lg:p-8 w-full lg:w-64 xl:w-72 flex flex-col gap-3 rounded-tl-[40px] lg:rounded-tl-[50px]"
                         >
-                            <div className="w-10 h-10 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold text-base md:text-lg">01</div>
-                            <p className="font-bold text-base md:text-lg leading-snug">Scholarships For All From 10% To 100%</p>
+                            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold text-sm md:text-base">01</div>
+                            <p className="font-bold text-sm md:text-base lg:text-lg leading-snug">Scholarships For All From 10% To 100%</p>
                         </motion.div>
 
                         <motion.div
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 1.0, duration: 0.8 }}
-                            className="bg-brand-navy text-white p-6 md:p-8 w-full lg:w-72 flex flex-col gap-3 md:gap-4"
+                            className="bg-brand-navy text-white p-5 md:p-6 lg:p-8 w-full lg:w-64 xl:w-72 flex flex-col gap-3"
                         >
-                            <div className="w-10 h-10 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold text-base md:text-lg">02</div>
-                            <p className="font-bold text-base md:text-lg leading-snug">Partnered With Best Universities & Colleges Of India</p>
+                            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold text-sm md:text-base">02</div>
+                            <p className="font-bold text-sm md:text-base lg:text-lg leading-snug">Partnered With Best Universities & Colleges Of India</p>
                         </motion.div>
 
                         <motion.div
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 1.2, duration: 0.8 }}
-                            className="bg-brand-deep-navy text-white p-6 md:p-8 w-full lg:w-72 flex flex-col gap-3 md:gap-4"
+                            className="bg-brand-deep-navy text-white p-5 md:p-6 lg:p-8 w-full lg:w-64 xl:w-72 flex flex-col gap-3"
                         >
-                            <div className="w-10 h-10 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold text-base md:text-lg">03</div>
-                            <p className="font-bold text-base md:text-lg leading-snug">Personalized Mentoring & Guidance</p>
+                            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold text-sm md:text-base">03</div>
+                            <p className="font-bold text-sm md:text-base lg:text-lg leading-snug">Personalized Mentoring & Guidance</p>
                         </motion.div>
                     </div>
                 </div>

@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
-const scholarshipSchema = new mongoose.Schema({
-    college: {
+const onlineCourseSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true,
         trim: true
     },
-    location: {
+    degree: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    specializations: {
         type: String,
         required: true,
         trim: true
@@ -15,7 +20,7 @@ const scholarshipSchema = new mongoose.Schema({
         type: String, // e.g., "Scholarship- Guaranteed ₹50,000*"
         required: true
     },
-    course: {
+    duration: {
         type: String,
         required: true,
         trim: true
@@ -24,15 +29,10 @@ const scholarshipSchema = new mongoose.Schema({
         type: String, // URL or Path
         required: true
     },
-    categorySlug: {
+    universitySlug: {
         type: String,
         required: true,
         lowercase: true
-    },
-    sectionTitle: {
-        type: String,
-        required: true,
-        trim: true
     },
     order: {
         type: Number,
@@ -44,7 +44,7 @@ const scholarshipSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Index for faster category lookups
-scholarshipSchema.index({ categorySlug: 1, sectionTitle: 1 });
+// Index for faster university lookups
+onlineCourseSchema.index({ universitySlug: 1 });
 
-module.exports = mongoose.model('Scholarship', scholarshipSchema);
+module.exports = mongoose.model('OnlineCourse', onlineCourseSchema);

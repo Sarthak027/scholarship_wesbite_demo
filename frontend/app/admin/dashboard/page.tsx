@@ -33,6 +33,8 @@ import BlogsTab from "@/components/admin/BlogsTab";
 import CommentsTab from "@/components/admin/CommentsTab";
 import EligibilitySubmissionsTab from "@/components/admin/EligibilitySubmissionsTab";
 import ScholarshipBracketsTab from "@/components/admin/ScholarshipBracketsTab";
+import ScholarshipsManagementTab from "@/components/admin/ScholarshipsManagementTab";
+import OnlineCoursesManagementTab from "@/components/admin/OnlineCoursesManagementTab";
 import { api } from "@/lib/api";
 
 export default function AdminDashboard() {
@@ -105,7 +107,7 @@ export default function AdminDashboard() {
             )}
 
             {/* Sidebar */}
-            <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="p-6 flex items-center justify-between">
                     <h2 className="text-2xl font-black bg-gradient-to-r from-brand-magenta to-brand-navy bg-clip-text text-transparent">
                         Admin<span className="text-slate-700">Panel</span>
@@ -127,6 +129,12 @@ export default function AdminDashboard() {
                         label="Scholarships"
                         active={activeTab === "scholarships"}
                         onClick={() => { setActiveTab("scholarships"); setSidebarOpen(false); }}
+                    />
+                    <SidebarItem
+                        icon={<GraduationCap size={20} />}
+                        label="Online Courses"
+                        active={activeTab === "online_courses"}
+                        onClick={() => { setActiveTab("online_courses"); setSidebarOpen(false); }}
                     />
                     <SidebarItem
                         icon={<MessageSquare size={20} />}
@@ -190,9 +198,9 @@ export default function AdminDashboard() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-grow flex flex-col h-screen overflow-hidden w-full lg:ml-64 transition-all duration-300">
+            <main className="flex-grow flex flex-col h-screen overflow-hidden w-full lg:ml-72 transition-all duration-300">
                 {/* Header */}
-                <header className="h-20 bg-white border-b border-slate-200 px-4 md:px-8 flex items-center justify-between flex-shrink-0 gap-4">
+                <header className="h-16 bg-white border-b border-slate-200 px-4 md:px-8 flex items-center justify-between flex-shrink-0 gap-4">
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="lg:hidden p-2 text-slate-500 hover:bg-slate-50 rounded-lg"
@@ -200,13 +208,11 @@ export default function AdminDashboard() {
                         <Menu size={24} />
                     </button>
 
-                    <div className="relative flex-1 max-w-md hidden md:block">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                        <input
-                            type="text"
-                            placeholder="Search anything..."
-                            className="w-full bg-slate-50 border-none rounded-xl py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all text-sm"
-                        />
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-lg md:text-xl font-bold text-slate-800 hidden sm:block">
+                            <span className="text-brand-magenta">Confirm</span>Scholarship
+                            <span className="text-slate-400 font-medium text-sm ml-2">Admin</span>
+                        </h1>
                     </div>
 
                     <div className="flex items-center gap-3 md:gap-4 ml-auto">
@@ -239,7 +245,9 @@ export default function AdminDashboard() {
                                     recentInquiries={inquiries.slice(0, 5)}
                                 />
                             )}
-                            {activeTab === "scholarships" && <ScholarshipsTab scholarships={scholarships} />}
+                            {activeTab === "scholarships" && (
+                                <ScholarshipsManagementTab onRefresh={fetchDashboardData} />
+                            )}
                             {activeTab === "scholarship_inquiries" && (
                                 <InquiriesTab
                                     title="Scholarship Inquiries"
@@ -287,6 +295,9 @@ export default function AdminDashboard() {
                                     onRefresh={fetchDashboardData}
                                 />
                             )}
+                            {activeTab === "online_courses" && (
+                                <OnlineCoursesManagementTab onRefresh={fetchDashboardData} />
+                            )}
                             {activeTab === "settings" && (
                                 <SettingsTab />
                             )}
@@ -302,16 +313,16 @@ function SidebarItem({ icon, label, active, onClick }: { icon: any, label: strin
     return (
         <button
             onClick={onClick}
-            className={`flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all ${active
-                ? "bg-sky-primary text-white shadow-lg shadow-sky-100"
+            className={`flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all text-left ${active
+                ? "bg-brand-navy text-white shadow-lg shadow-brand-navy/20"
                 : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                 }`}
         >
-            <div className="flex items-center gap-3">
-                {icon}
-                <span className="font-semibold">{label}</span>
+            <div className="flex items-center gap-3 min-w-0">
+                <span className="shrink-0">{icon}</span>
+                <span className="font-semibold text-sm truncate">{label}</span>
             </div>
-            {active && <ChevronRight size={16} />}
+            {active && <ChevronRight size={16} className="shrink-0 ml-2" />}
         </button>
     );
 }
@@ -494,7 +505,7 @@ function InquiriesTab({ title, inquiries, onRefresh, type = 'scholarship' }: { t
     const handleDeleteAll = async () => {
         const confirmMessage = `Are you sure you want to delete ALL ${title.toLowerCase()}? This action cannot be undone!`;
         if (!confirm(confirmMessage)) return;
-        
+
         const token = localStorage.getItem("adminToken");
         if (!token) {
             alert("No admin token found. Please login again.");
