@@ -79,8 +79,8 @@ export default function BlogList({ initialData }: { initialData: { blogs: any[],
                                 key={i + 1}
                                 onClick={() => fetchPage(i + 1)}
                                 className={`w-10 h-10 rounded-lg font-bold text-sm transition-all ${currentPage === i + 1
-                                        ? 'bg-sky-600 text-white shadow-lg shadow-sky-100'
-                                        : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                                    ? 'bg-brand-magenta text-white shadow-lg shadow-brand-magenta/20'
+                                    : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
                                     }`}
                             >
                                 {i + 1}

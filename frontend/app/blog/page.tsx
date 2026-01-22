@@ -20,11 +20,11 @@ export default async function BlogListPage() {
             {/* Header */}
             <section className="py-24 bg-white border-b border-slate-100">
                 <div className="container mx-auto px-4 text-center">
-                    <span className="text-sky-600 font-black tracking-[0.3em] text-xs uppercase mb-4 block">
+                    <span className="text-brand-magenta font-black tracking-[0.3em] text-xs uppercase mb-4 block">
                         Our Knowledge Hub
                     </span>
-                    <h1 className="text-5xl md:text-7xl font-black text-slate-dark leading-tight mb-6 uppercase tracking-tight">
-                        THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-cyan-500">SCHOLARSHIP</span> BLOG
+                    <h1 className="text-5xl md:text-7xl font-black text-brand-navy leading-tight mb-6 uppercase tracking-tight">
+                        THE <span className="text-brand-magenta">SCHOLARSHIP</span> BLOG
                     </h1>
                     <p className="text-slate-500 font-medium max-w-2xl mx-auto text-lg">
                         Expert advice, success stories, and latest updates on scholarships from across the globe.

@@ -167,15 +167,15 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                                             alt={item.college}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
-                                        <div className="absolute top-4 left-4">
-                                            <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-brand-magenta shadow-sm">
-                                                {item.course}
-                                            </div>
-                                        </div>
                                     </div>
 
                                     {/* Content */}
                                     <div className="p-6 flex flex-col flex-grow">
+                                        <div className="mb-2">
+                                            <span className="bg-brand-magenta/10 text-brand-magenta px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest">
+                                                {item.course}
+                                            </span>
+                                        </div>
                                         <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight min-h-[3rem]">
                                             {item.college}
                                         </h3>

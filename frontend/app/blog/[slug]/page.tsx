@@ -104,7 +104,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
 
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-sky-600"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand-magenta"></div>
         </div>
     );
 
@@ -112,7 +112,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
         <div className="min-h-screen flex items-center justify-center bg-white">
             <div className="text-center">
                 <h1 className="text-4xl font-bold text-slate-800 mb-4">Blog Not Found</h1>
-                <Link href="/blog" className="text-sky-600 font-bold hover:underline">Back to Blogs</Link>
+                <Link href="/blog" className="text-brand-magenta font-bold hover:underline">Back to Blogs</Link>
             </div>
         </div>
     );
@@ -122,12 +122,12 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
             {/* Post Header */}
             <header className="py-20 bg-slate-50 border-b border-slate-100">
                 <div className="container mx-auto px-4 max-w-4xl">
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-sky-600 font-bold text-xs uppercase tracking-widest mb-10 transition-colors">
+                    <Link href="/blog" className="inline-flex items-center gap-2 text-slate-400 hover:text-brand-magenta font-bold text-xs uppercase tracking-widest mb-10 transition-colors">
                         <ArrowLeft size={16} /> Back to Hub
                     </Link>
 
                     <div className="space-y-6">
-                        <span className="inline-block bg-sky-100 text-sky-600 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest">
+                        <span className="inline-block bg-brand-magenta/10 text-brand-magenta text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest">
                             {blog.category}
                         </span>
                         <h1 className="text-4xl md:text-6xl font-black text-slate-dark leading-[1.1] uppercase tracking-tight">
@@ -136,7 +136,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
 
                         <div className="flex flex-wrap items-center gap-8 py-6 border-y border-slate-200/60">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-sky-600 rounded-full flex items-center justify-center text-white font-bold">
+                                <div className="w-10 h-10 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold">
                                     C
                                 </div>
                                 <div>
@@ -197,7 +197,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <button className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-sky-50 hover:text-sky-600 transition-colors">
+                        <button className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-brand-magenta/10 hover:text-brand-magenta transition-colors">
                             <Share2 size={20} />
                         </button>
                     </div>
@@ -260,7 +260,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
                     <div className="space-y-8 mt-16">
                         {comments.map((comment) => (
                             <div key={comment._id} className="flex gap-6">
-                                <div className="w-14 h-14 rounded-2xl bg-sky-600 flex items-center justify-center text-white font-black text-xl flex-shrink-0">
+                                <div className="w-14 h-14 rounded-2xl bg-brand-navy flex items-center justify-center text-white font-black text-xl flex-shrink-0">
                                     {comment.name[0]}
                                 </div>
                                 <div className="flex-grow">

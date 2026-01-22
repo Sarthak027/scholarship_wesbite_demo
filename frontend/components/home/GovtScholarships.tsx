@@ -41,7 +41,7 @@ export default function GovtScholarships() {
                         viewport={{ once: true }}
                         className="text-brand-magenta font-black text-lg md:text-xl lg:text-2xl uppercase tracking-[0.2em] mb-3 md:mb-4"
                     >
-                        GOVERNMENT & OTHER SCHOLARSHIP
+                        GOVERNMENT & OTHER SCHOLARSHIPS
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}

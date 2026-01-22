@@ -384,7 +384,7 @@ export const scholarshipCategories: ScholarshipCategory[] = [
                         location: "Lucknow, India",
                         scholarship: "Scholarship- Guaranteed ₹75,000*",
                         course: "B.Tech",
-                        image: getAssetUrl("/uploads/images/Engineering/Shri Ramswaroop Memorail University_btech.png")
+                        image: getAssetUrl("/uploads/images/Engineering/Shri Ramswaroop Memorial University_btech.png")
                     },
                     {
                         college: "Rayat Bahra University",

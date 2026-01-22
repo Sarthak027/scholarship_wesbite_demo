@@ -40,7 +40,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute top-4 left-4">
-                    <span className="bg-sky-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
+                    <span className="bg-brand-magenta text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
                         {blog.category}
                     </span>
                 </div>
@@ -51,12 +51,12 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
             <div className="p-8 flex flex-col flex-grow">
                 <div className="flex items-center gap-4 mb-4 text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                     <div className="flex items-center gap-1.5">
-                        <Calendar size={14} className="text-sky-500" />
+                        <Calendar size={14} className="text-brand-magenta" />
                         {new Date(blog.createdAt).toLocaleDateString()}
                     </div>
                 </div>
 
-                <h3 className="text-xl font-black text-slate-dark mb-4 group-hover:text-sky-600 transition-colors line-clamp-2 leading-tight">
+                <h3 className="text-xl font-black text-slate-dark mb-4 group-hover:text-brand-magenta transition-colors line-clamp-2 leading-tight">
                     {blog.title}
                 </h3>
 
@@ -67,7 +67,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
                 <div className="mt-auto flex items-center justify-between">
                     <Link
                         href={`/blog/${blog.slug}`}
-                        className="flex items-center gap-2 text-sky-600 font-black text-xs uppercase tracking-widest group/link"
+                        className="flex items-center gap-2 text-brand-navy font-black text-xs uppercase tracking-widest group/link hover:text-brand-magenta transition-colors"
                     >
                         Read More
                         <ArrowRight size={14} className="transition-transform group-hover/link:translate-x-1" />
