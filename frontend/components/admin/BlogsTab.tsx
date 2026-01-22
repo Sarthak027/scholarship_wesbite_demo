@@ -1,11 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, Edit as EditIcon, FileText, Check, X } from "lucide-react";
+import { Plus, Trash2, Edit as EditIcon, FileText, Check, X, Image as ImageIcon } from "lucide-react";
 import BlogEditor from "@/components/admin/BlogEditor";
 import { api } from "@/lib/api";
 
-export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh: () => void }) {
+export default function BlogsTab({
+    blogs,
+    onRefresh,
+    pagination
+}: {
+    blogs: any[],
+    onRefresh: (page?: number) => void,
+    pagination?: { currentPage: number, totalPages: number, totalBlogs: number }
+}) {
     const [editingBlog, setEditingBlog] = useState<any>(null);
     const [isCreating, setIsCreating] = useState(false);
     const [formData, setFormData] = useState({
@@ -18,6 +26,21 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
         featuredImage: ""
     });
     const [isSaving, setIsSaving] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
+    const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+    const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+
+    const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setThumbnailFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setThumbnailPreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,21 +51,44 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
         }
 
         setIsSaving(true);
-        console.log("Saving blog with data:", formData);
 
         try {
+            let finalFeaturedImage = formData.featuredImage;
+
+            // Handle image upload if a new file is selected
+            if (thumbnailFile) {
+                setIsUploading(true);
+                try {
+                    const uploadRes = await api.blogs.uploadThumbnail(thumbnailFile, token);
+                    if (uploadRes.success) {
+                        finalFeaturedImage = uploadRes.url;
+                        console.log("Thumbnail uploaded successfully:", finalFeaturedImage);
+                    }
+                } catch (err: any) {
+                    console.error("Upload failed:", err);
+                    alert("Image upload failed, but attempting to save blog anyway.");
+                } finally {
+                    setIsUploading(false);
+                }
+            }
+
+            const blogToSave = { ...formData, featuredImage: finalFeaturedImage };
+            console.log("Saving blog with data:", blogToSave);
+
             if (editingBlog) {
                 // Update existing blog
-                await api.blogs.update(editingBlog._id, formData, token);
+                await api.blogs.update(editingBlog._id, blogToSave, token);
                 alert("Blog updated successfully!");
             } else {
                 // Create new blog
-                await api.blogs.create(formData, token);
+                await api.blogs.create(blogToSave, token);
                 alert("Blog published successfully!");
             }
-            
+
             setEditingBlog(null);
             setIsCreating(false);
+            setThumbnailFile(null);
+            setThumbnailPreview(null);
             onRefresh();
         } catch (error: any) {
             console.error("Error saving blog:", error);
@@ -59,7 +105,7 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
             alert("No admin token found. Please login again.");
             return;
         }
-        
+
         try {
             await api.blogs.delete(id, token);
             alert("Blog deleted successfully!");
@@ -161,15 +207,48 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
                         </div>
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-slate-500 uppercase tracking-wider">Featured Image URL</label>
-                        <input
-                            type="text"
-                            value={formData.featuredImage}
-                            onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
-                            className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-sky-500/20"
-                            placeholder="https://images.unsplash.com/..."
-                        />
+                    <div className="space-y-4">
+                        <label className="text-sm font-bold text-slate-500 uppercase tracking-wider block">Featured Image (Thumbnail)</label>
+
+                        <div className="flex flex-col md:flex-row gap-6 items-start">
+                            {/* Preview */}
+                            <div className="w-full md:w-64 aspect-video bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden flex items-center justify-center group relative">
+                                {thumbnailPreview || formData.featuredImage ? (
+                                    <img
+                                        src={thumbnailPreview || (formData.featuredImage.startsWith('http') ? formData.featuredImage : `${api.baseURL}${formData.featuredImage}`)}
+                                        alt="Thumbnail Preview"
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <ImageIcon size={32} className="text-slate-300" />
+                                )}
+                            </div>
+
+                            <div className="flex-1 space-y-4 w-full">
+                                <div className="space-y-2">
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Upload New Image</p>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleThumbnailChange}
+                                        className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-sky-50 file:text-sky-600 hover:file:bg-sky-100 transition-all cursor-pointer"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Or Use Image URL</p>
+                                    <input
+                                        type="text"
+                                        value={formData.featuredImage}
+                                        onChange={(e) => {
+                                            setFormData({ ...formData, featuredImage: e.target.value });
+                                            setThumbnailPreview(null); // Clear preview when URL is manually entered? Or keep it if it's a valid image...
+                                        }}
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-sky-500/20 text-sm"
+                                        placeholder="https://images.unsplash.com/..."
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="space-y-2">
@@ -210,7 +289,7 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
             alert("No admin token found. Please login again.");
             return;
         }
-        
+
         try {
             await api.blogs.deleteAll(token);
             alert("Successfully deleted all blogs!");
@@ -303,6 +382,48 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
                     </tbody>
                 </table>
             </div>
+
+            {/* Admin Pagination Controls */}
+            {pagination && pagination.totalPages > 1 && (
+                <div className="flex items-center justify-between bg-white p-6 rounded-3xl border border-slate-100 shadow-sm mt-6">
+                    <p className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+                        Showing Page {pagination.currentPage} of {pagination.totalPages} ({pagination.totalBlogs} Total Blogs)
+                    </p>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => onRefresh(pagination.currentPage - 1)}
+                            disabled={pagination.currentPage === 1}
+                            className="px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-slate-100"
+                        >
+                            Previous
+                        </button>
+
+                        {/* Page Numbers */}
+                        <div className="flex gap-1">
+                            {[...Array(pagination.totalPages)].map((_, i) => (
+                                <button
+                                    key={i + 1}
+                                    onClick={() => onRefresh(i + 1)}
+                                    className={`w-10 h-10 flex items-center justify-center rounded-xl font-bold transition-all ${pagination.currentPage === i + 1
+                                        ? 'bg-sky-primary text-white shadow-lg shadow-sky-100'
+                                        : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+                                        }`}
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
+                        </div>
+
+                        <button
+                            onClick={() => onRefresh(pagination.currentPage + 1)}
+                            disabled={pagination.currentPage === pagination.totalPages}
+                            className="px-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-slate-100"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

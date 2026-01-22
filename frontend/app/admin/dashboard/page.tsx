@@ -43,6 +43,7 @@ export default function AdminDashboard() {
     const [scholarships, setScholarships] = useState<any[]>([]);
     const [inquiries, setInquiries] = useState<any[]>([]);
     const [blogs, setBlogs] = useState<any[]>([]);
+    const [blogPagination, setBlogPagination] = useState({ currentPage: 1, totalPages: 1, totalBlogs: 0, totalPublished: 0 });
     const [comments, setComments] = useState<any[]>([]);
     const [eligibilitySubmissions, setEligibilitySubmissions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -54,7 +55,7 @@ export default function AdminDashboard() {
         setSidebarOpen(false);
     }, [activeTab]);
 
-    const fetchDashboardData = async () => {
+    const fetchDashboardData = async (blogPage = 1) => {
         const token = localStorage.getItem("adminToken");
         if (!token) return;
 
@@ -62,14 +63,27 @@ export default function AdminDashboard() {
             const [scholarshipData, inquiryData, blogData, commentData, eligibilityData] = await Promise.all([
                 api.scholarships.getAll(),
                 api.inquiries.getAll(token),
-                api.blogs.getAllAdmin(token),
+                api.blogs.getAllAdmin(token, blogPage, 10),
                 api.comments.getAll(token),
                 api.eligibility.getAll(token)
             ]);
 
             setScholarships(Array.isArray(scholarshipData) ? scholarshipData : []);
             setInquiries(Array.isArray(inquiryData) ? inquiryData : []);
-            setBlogs(Array.isArray(blogData) ? blogData : []);
+
+            // Handle paginated blog response
+            if (blogData && blogData.blogs) {
+                setBlogs(blogData.blogs);
+                setBlogPagination({
+                    currentPage: blogData.currentPage || 1,
+                    totalPages: blogData.totalPages || 1,
+                    totalBlogs: blogData.totalBlogs || 0,
+                    totalPublished: blogData.publishedCount || 0
+                });
+            } else {
+                setBlogs(Array.isArray(blogData) ? blogData : []);
+            }
+
             setComments(Array.isArray(commentData) ? commentData : []);
             setEligibilitySubmissions(Array.isArray(eligibilityData) ? eligibilityData : []);
             setLoading(false);
@@ -240,7 +254,7 @@ export default function AdminDashboard() {
                                         scholarships: scholarships.length,
                                         inquiries: inquiries.length,
                                         newInquiries: inquiries.filter(i => i.status === 'new').length,
-                                        blogs: blogs.length
+                                        blogs: blogPagination.totalPublished
                                     }}
                                     recentInquiries={inquiries.slice(0, 5)}
                                 />
@@ -275,6 +289,7 @@ export default function AdminDashboard() {
                             {activeTab === "blogs" && (
                                 <BlogsTab
                                     blogs={blogs}
+                                    pagination={blogPagination}
                                     onRefresh={fetchDashboardData}
                                 />
                             )}

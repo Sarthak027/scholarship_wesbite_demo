@@ -8,6 +8,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 // Upload single image (Admin only)
 router.post('/image', authMiddleware, upload.single('image'), async (req, res) => {
+    // ... (existing code for generic image upload)
     try {
         if (!req.file) {
             return res.status(400).json({ message: 'No file uploaded' });
@@ -20,44 +21,71 @@ router.post('/image', authMiddleware, upload.single('image'), async (req, res) =
 
         // Try to optimize with Sharp if installed/working
         try {
-            // Disable sharp cache to prevent file locking on Windows
             sharp.cache(false);
-
             const optimizedPath = filePath.replace(/\.\w+$/, '-optimized.webp');
             await sharp(filePath)
                 .resize(1920, 1080, { fit: 'inside', withoutEnlargement: true })
                 .webp({ quality: 85 })
                 .toFile(optimizedPath);
 
-            // If successful, delete original and use optimized
             try {
-                // Small delay to ensure handle is released on Windows
                 await new Promise(resolve => setTimeout(resolve, 100));
-
-                if (fs.existsSync(filePath)) {
-                    fs.unlinkSync(filePath);
-                }
+                if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
             } catch (unlinkErr) {
                 console.warn('Warning: Could not delete original file after optimization:', unlinkErr.message);
-                // Don't fail the request, just keep the duplicate
             }
 
             finalPath = optimizedPath;
             finalUrl = `/uploads/images/${path.basename(optimizedPath)}`;
         } catch (optimizeError) {
             console.warn('Image optimization failed, using original file:', optimizeError.message);
-            // Fallback to original file
             finalUrl = `/uploads/images/${filename}`;
+        }
+
+        res.json({ success: true, url: finalUrl, filename: path.basename(finalPath) });
+    } catch (error) {
+        console.error('Upload error:', error);
+        res.status(500).json({ message: 'Error uploading image', error: error.message });
+    }
+});
+
+// Upload Blog Thumbnail (Admin only) - Stores in backend\uploads\documents\blog_images
+router.post('/blog-thumbnail', authMiddleware, upload.single('image'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        const blogImagesDir = path.join(__dirname, '..', 'uploads', 'documents', 'blog_images');
+        if (!fs.existsSync(blogImagesDir)) {
+            fs.mkdirSync(blogImagesDir, { recursive: true });
+        }
+
+        const originalPath = req.file.path;
+        const filename = `thumb-${Date.now()}.webp`;
+        const finalPath = path.join(blogImagesDir, filename);
+
+        // Optimize and save as permanent thumbnail
+        await sharp(originalPath)
+            .resize(800, 450, { fit: 'cover' }) // Consistent 16:9 ratio for thumbnails
+            .webp({ quality: 80 })
+            .toFile(finalPath);
+
+        // Clean up original upload
+        try {
+            if (fs.existsSync(originalPath)) fs.unlinkSync(originalPath);
+        } catch (e) {
+            console.warn('Cleanup failed:', e.message);
         }
 
         res.json({
             success: true,
-            url: finalUrl,
-            filename: path.basename(finalPath)
+            url: `/uploads/documents/blog_images/${filename}`,
+            filename
         });
     } catch (error) {
-        console.error('Upload error:', error);
-        res.status(500).json({ message: 'Error uploading image', error: error.message });
+        console.error('Thumbnail upload error:', error);
+        res.status(500).json({ message: 'Error uploading thumbnail', error: error.message });
     }
 });
 

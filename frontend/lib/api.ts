@@ -23,8 +23,8 @@ export const api = {
 
     // Blogs
     blogs: {
-        getAll: async () => {
-            const res = await fetch(`${API_URL}/api/blogs`, {
+        getAll: async (page = 1, limit = 10) => {
+            const res = await fetch(`${API_URL}/api/blogs?page=${page}&limit=${limit}`, {
                 cache: 'no-store'
             });
             if (!res.ok) throw new Error('Failed to fetch blogs');
@@ -39,8 +39,8 @@ export const api = {
             return res.json();
         },
 
-        getAllAdmin: async (token: string) => {
-            const res = await fetch(`${API_URL}/api/blogs/admin/all`, {
+        getAllAdmin: async (token: string, page = 1, limit = 10) => {
+            const res = await fetch(`${API_URL}/api/blogs/admin/all?page=${page}&limit=${limit}`, {
                 headers: { 'Authorization': `Bearer ${token}` },
                 cache: 'no-store'
             });
@@ -100,6 +100,22 @@ export const api = {
                 method: 'POST'
             });
             if (!res.ok) throw new Error('Failed to like blog');
+            return res.json();
+        },
+
+        uploadThumbnail: async (file: File, token: string) => {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const res = await fetch(`${API_URL}/api/upload/blog-thumbnail`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.message || 'Failed to upload thumbnail');
+            }
             return res.json();
         }
     },

@@ -162,7 +162,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
             <div className="container mx-auto px-4 max-w-6xl -mt-16">
                 <div className="rounded-[3rem] overflow-hidden shadow-2xl shadow-sky-900/10">
                     <img
-                        src={blog.featuredImage || "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2000&auto=format&fit=crop"}
+                        src={blog.featuredImage ? (blog.featuredImage.startsWith('http') ? blog.featuredImage : `${api.baseURL}${blog.featuredImage}`) : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2000&auto=format&fit=crop"}
                         alt={blog.title}
                         className="w-full h-auto aspect-video object-cover"
                     />

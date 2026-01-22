@@ -18,10 +18,25 @@ exports.createBlog = async (req, res) => {
 // Get all blogs (Public - only published)
 exports.getBlogs = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const totalBlogs = await Blog.countDocuments({ status: 'published' });
+        const totalPages = Math.ceil(totalBlogs / limit);
+
         const blogs = await Blog.find({ status: 'published' })
             .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
             .select('-content'); // Don't send full content in list
-        res.json(blogs);
+
+        res.json({
+            blogs,
+            totalBlogs,
+            totalPages,
+            currentPage: page
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -30,8 +45,26 @@ exports.getBlogs = async (req, res) => {
 // Get all blogs (Admin - including drafts)
 exports.getAdminBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find().sort({ createdAt: -1 });
-        res.json(blogs);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const totalBlogs = await Blog.countDocuments();
+        const publishedCount = await Blog.countDocuments({ status: 'published' });
+        const totalPages = Math.ceil(totalBlogs / limit);
+
+        const blogs = await Blog.find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+
+        res.json({
+            blogs,
+            totalBlogs,
+            publishedCount,
+            totalPages,
+            currentPage: page
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -77,7 +110,7 @@ exports.deleteBlog = async (req, res) => {
 exports.deleteAllBlogs = async (req, res) => {
     try {
         const result = await Blog.deleteMany({});
-        res.json({ 
+        res.json({
             message: `Successfully deleted ${result.deletedCount} blog(s)`,
             deletedCount: result.deletedCount
         });

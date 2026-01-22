@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Calendar, User, ArrowRight, MessageCircle } from "lucide-react";
+import { api } from "@/lib/api";
 
 interface BlogCardProps {
     blog: {
@@ -19,6 +20,10 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ blog, index }: BlogCardProps) {
+    const imageUrl = blog.featuredImage
+        ? (blog.featuredImage.startsWith('http') ? blog.featuredImage : `${api.baseURL}${blog.featuredImage}`)
+        : "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop";
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -30,7 +35,7 @@ export default function BlogCard({ blog, index }: BlogCardProps) {
             {/* Image section */}
             <div className="relative h-64 overflow-hidden">
                 <img
-                    src={blog.featuredImage || "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop"}
+                    src={imageUrl}
                     alt={blog.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />

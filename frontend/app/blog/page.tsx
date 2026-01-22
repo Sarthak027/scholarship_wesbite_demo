@@ -5,11 +5,11 @@ import { api } from "@/lib/api";
 export const dynamic = 'force-dynamic';
 
 export default async function BlogListPage() {
-    let blogs = [];
+    let blogData = { blogs: [], totalPages: 1, currentPage: 1, totalBlogs: 0 };
     let error = null;
 
     try {
-        blogs = await api.blogs.getAll();
+        blogData = await api.blogs.getAll(1, 10);
     } catch (err) {
         console.error("Error fetching blogs:", err);
         error = "Failed to load blogs";
@@ -40,7 +40,7 @@ export default async function BlogListPage() {
                             <h3 className="text-2xl font-bold text-rose-400">{error}</h3>
                         </div>
                     ) : (
-                        <BlogList initialBlogs={blogs} />
+                        <BlogList initialData={blogData} />
                     )}
                 </div>
             </section>
