@@ -123,12 +123,12 @@ export default function EligibilitySubmissionsTab({ submissions, onRefresh }: El
 
             {/* Filters */}
             <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center gap-2">
-                    <label className="text-sm font-semibold text-slate-600">Course:</label>
+                <div className="flex items-center gap-2 w-full md:w-auto">
+                    <label className="text-sm font-semibold text-slate-600 whitespace-nowrap">Course:</label>
                     <select
                         value={filterCourse}
                         onChange={(e) => setFilterCourse(e.target.value)}
-                        className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
+                        className="flex-1 md:flex-none px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
                     >
                         {courses.map(c => (
                             <option key={c} value={c}>
@@ -137,12 +137,12 @@ export default function EligibilitySubmissionsTab({ submissions, onRefresh }: El
                         ))}
                     </select>
                 </div>
-                <div className="flex items-center gap-2">
-                    <label className="text-sm font-semibold text-slate-600">Status:</label>
+                <div className="flex items-center gap-2 w-full md:w-auto">
+                    <label className="text-sm font-semibold text-slate-600 whitespace-nowrap">Status:</label>
                     <select
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value)}
-                        className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
+                        className="flex-1 md:flex-none px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
                     >
                         {statuses.map(s => (
                             <option key={s} value={s}>
@@ -156,96 +156,98 @@ export default function EligibilitySubmissionsTab({ submissions, onRefresh }: El
             {/* Table */}
             <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-[1200px]">
-                        <thead className="bg-slate-50 border-b border-slate-100">
-                            <tr>
-                                <th className="px-6 py-4 font-bold text-slate-600">Contact Info</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Course</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Academic Marks</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Entrance Exam</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Reward</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Status</th>
-                                <th className="px-6 py-4 font-bold text-slate-600">Date</th>
-                                <th className="px-6 py-4 font-bold text-slate-600 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-50">
-                            {filteredSubmissions.length > 0 ? (
-                                filteredSubmissions.map((submission) => {
-                                    const StatusIcon = statusIcons[submission.status];
-                                    return (
-                                        <tr key={submission._id} className="hover:bg-slate-50 transition-colors">
-                                            <td className="px-6 py-4">
-                                                <p className="font-bold text-slate-800">{submission.fullName}</p>
-                                                <p className="text-xs text-slate-500">{submission.email}</p>
-                                                <p className="text-xs text-sky-600 font-bold">{submission.mobileNumber}</p>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span className="bg-sky-50 text-sky-700 text-[10px] font-black px-3 py-1.5 rounded-lg border border-sky-100 uppercase tracking-tight">
-                                                    {submission.course.toUpperCase()}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="text-sm">
-                                                    <p className="text-slate-600"><span className="font-semibold">10th:</span> {submission.tenthMarks}%</p>
-                                                    <p className="text-slate-600"><span className="font-semibold">12th:</span> {submission.twelfthMarks}%</p>
-                                                    {submission.graduationMarks && (
-                                                        <p className="text-slate-600"><span className="font-semibold">Grad:</span> {submission.graduationMarks}%</p>
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <p className="font-semibold text-slate-700">{submission.entranceExam}</p>
-                                                <p className="text-sm text-slate-500">Score: {submission.examScore}</p>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <span className="text-lg font-black text-brand-magenta">
-                                                    ₹{submission.calculatedReward.toLocaleString('en-IN')}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <div className="relative group">
-                                                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg border ${statusColors[submission.status]} cursor-pointer`}>
-                                                        <StatusIcon size={12} />
-                                                        {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
-                                                        <ChevronDown size={12} />
-                                                    </span>
-                                                    <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 min-w-[120px]">
-                                                        {statuses.filter(s => s !== 'all').map(status => (
-                                                            <button
-                                                                key={status}
-                                                                onClick={() => handleStatusUpdate(submission._id, status)}
-                                                                className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-50 first:rounded-t-lg last:rounded-b-lg"
-                                                            >
-                                                                {status.charAt(0).toUpperCase() + status.slice(1)}
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 text-slate-400 text-xs font-medium">
-                                                {new Date(submission.createdAt).toLocaleString()}
-                                            </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <button
-                                                    onClick={() => setSelectedSubmission(submission)}
-                                                    className="text-sky-600 hover:text-sky-800 font-bold text-xs"
-                                                >
-                                                    VIEW
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    );
-                                })
-                            ) : (
+                    <div className="inline-block min-w-full align-middle">
+                        <table className="w-full text-left min-w-[1200px]">
+                            <thead className="bg-slate-50 border-b border-slate-100">
                                 <tr>
-                                    <td colSpan={8} className="px-6 py-12 text-center text-slate-400 font-medium">
-                                        No eligibility submissions found.
-                                    </td>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Contact Info</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Course</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Academic Marks</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Entrance Exam</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Reward</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Status</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600">Date</th>
+                                    <th className="px-6 py-4 font-bold text-slate-600 text-right">Actions</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-slate-50">
+                                {filteredSubmissions.length > 0 ? (
+                                    filteredSubmissions.map((submission) => {
+                                        const StatusIcon = statusIcons[submission.status];
+                                        return (
+                                            <tr key={submission._id} className="hover:bg-slate-50 transition-colors">
+                                                <td className="px-6 py-4">
+                                                    <p className="font-bold text-slate-800">{submission.fullName}</p>
+                                                    <p className="text-xs text-slate-500">{submission.email}</p>
+                                                    <p className="text-xs text-sky-600 font-bold">{submission.mobileNumber}</p>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className="bg-sky-50 text-sky-700 text-[10px] font-black px-3 py-1.5 rounded-lg border border-sky-100 uppercase tracking-tight">
+                                                        {submission.course.toUpperCase()}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="text-sm">
+                                                        <p className="text-slate-600"><span className="font-semibold">10th:</span> {submission.tenthMarks}%</p>
+                                                        <p className="text-slate-600"><span className="font-semibold">12th:</span> {submission.twelfthMarks}%</p>
+                                                        {submission.graduationMarks && (
+                                                            <p className="text-slate-600"><span className="font-semibold">Grad:</span> {submission.graduationMarks}%</p>
+                                                        )}
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <p className="font-semibold text-slate-700">{submission.entranceExam}</p>
+                                                    <p className="text-sm text-slate-500">Score: {submission.examScore}</p>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className="text-lg font-black text-brand-magenta">
+                                                        ₹{submission.calculatedReward.toLocaleString('en-IN')}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="relative group">
+                                                        <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg border ${statusColors[submission.status]} cursor-pointer`}>
+                                                            <StatusIcon size={12} />
+                                                            {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                                                            <ChevronDown size={12} />
+                                                        </span>
+                                                        <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 min-w-[120px]">
+                                                            {statuses.filter(s => s !== 'all').map(status => (
+                                                                <button
+                                                                    key={status}
+                                                                    onClick={() => handleStatusUpdate(submission._id, status)}
+                                                                    className="block w-full text-left px-4 py-2 text-sm hover:bg-slate-50 first:rounded-t-lg last:rounded-b-lg"
+                                                                >
+                                                                    {status.charAt(0).toUpperCase() + status.slice(1)}
+                                                                </button>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 text-slate-400 text-xs font-medium">
+                                                    {new Date(submission.createdAt).toLocaleString()}
+                                                </td>
+                                                <td className="px-6 py-4 text-right">
+                                                    <button
+                                                        onClick={() => setSelectedSubmission(submission)}
+                                                        className="text-sky-600 hover:text-sky-800 font-bold text-xs"
+                                                    >
+                                                        VIEW
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
+                                ) : (
+                                    <tr>
+                                        <td colSpan={8} className="px-6 py-12 text-center text-slate-400 font-medium">
+                                            No eligibility submissions found.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

@@ -42,6 +42,11 @@ export default function AdminDashboard() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
 
+    // Close sidebar on route change
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [activeTab]);
+
     const fetchDashboardData = async () => {
         const token = localStorage.getItem("adminToken");
         if (!token) return;
@@ -89,22 +94,19 @@ export default function AdminDashboard() {
             {/* Mobile Sidebar Overlay */}
             {sidebarOpen && (
                 <div
-                    className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+                    className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity"
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
-            <aside
-                className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-                    }`}
-            >
+            <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="p-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold bg-gradient-to-r from-sky-600 to-cyan-500 bg-clip-text text-transparent">
-                        CONFIRM ADMIN
+                    <h2 className="text-2xl font-black bg-gradient-to-r from-brand-magenta to-brand-navy bg-clip-text text-transparent">
+                        Admin<span className="text-slate-700">Panel</span>
                     </h2>
-                    <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-slate-400 hover:text-rose-500">
-                        <X size={20} />
+                    <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-slate-400 hover:text-rose-500 transition-colors">
+                        <X size={24} />
                     </button>
                 </div>
 

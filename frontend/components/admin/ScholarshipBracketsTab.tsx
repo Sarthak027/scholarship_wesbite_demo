@@ -188,8 +188,8 @@ export default function ScholarshipBracketsTab({ onRefresh }: ScholarshipBracket
                         key={key}
                         onClick={() => setSelectedCourse(key)}
                         className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${selectedCourse === key
-                                ? "bg-sky-primary text-white shadow-lg"
-                                : "bg-white text-slate-600 border border-slate-200 hover:border-sky-primary"
+                            ? "bg-sky-primary text-white shadow-lg"
+                            : "bg-white text-slate-600 border border-slate-200 hover:border-sky-primary"
                             }`}
                     >
                         {label}
@@ -216,73 +216,75 @@ export default function ScholarshipBracketsTab({ onRefresh }: ScholarshipBracket
                 </h3>
 
                 {/* Brackets Table */}
-                <div className="overflow-x-auto">
-                    <table className="w-full min-w-[700px]">
-                        <thead>
-                            <tr className="border-b border-slate-100">
-                                <th className="text-left py-3 px-4 text-xs font-bold text-slate-500 uppercase">Label</th>
-                                <th className="text-left py-3 px-4 text-xs font-bold text-slate-500 uppercase">Min %</th>
-                                <th className="text-left py-3 px-4 text-xs font-bold text-slate-500 uppercase">Max %</th>
-                                <th className="text-left py-3 px-4 text-xs font-bold text-slate-500 uppercase">Reward (₹)</th>
-                                <th className="text-right py-3 px-4 text-xs font-bold text-slate-500 uppercase">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {editingBrackets.map((bracket, index) => (
-                                <tr key={index} className="border-b border-slate-50 hover:bg-slate-50">
-                                    <td className="py-3 px-4">
-                                        <input
-                                            type="text"
-                                            value={bracket.label}
-                                            onChange={(e) => handleBracketChange(index, "label", e.target.value)}
-                                            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium"
-                                            placeholder="e.g., 95 - 100%"
-                                        />
-                                    </td>
-                                    <td className="py-3 px-4">
-                                        <input
-                                            type="number"
-                                            value={bracket.minPercentile}
-                                            onChange={(e) => handleBracketChange(index, "minPercentile", e.target.value)}
-                                            className="w-24 px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium"
-                                            min="0"
-                                            max="100"
-                                            step="0.01"
-                                        />
-                                    </td>
-                                    <td className="py-3 px-4">
-                                        <input
-                                            type="number"
-                                            value={bracket.maxPercentile}
-                                            onChange={(e) => handleBracketChange(index, "maxPercentile", e.target.value)}
-                                            className="w-24 px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium"
-                                            min="0"
-                                            max="100"
-                                            step="0.01"
-                                        />
-                                    </td>
-                                    <td className="py-3 px-4">
-                                        <input
-                                            type="number"
-                                            value={bracket.rewardAmount}
-                                            onChange={(e) => handleBracketChange(index, "rewardAmount", e.target.value)}
-                                            className="w-36 px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold text-brand-magenta"
-                                            min="0"
-                                            step="1000"
-                                        />
-                                    </td>
-                                    <td className="py-3 px-4 text-right">
-                                        <button
-                                            onClick={() => removeBracket(index)}
-                                            className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
-                                        >
-                                            <Trash2 size={18} />
-                                        </button>
-                                    </td>
+                <div className="overflow-x-auto -mx-4 md:mx-0">
+                    <div className="inline-block min-w-full align-middle p-2">
+                        <table className="min-w-full border-collapse">
+                            <thead>
+                                <tr className="border-b border-slate-100">
+                                    <th className="text-left py-3 px-2 md:px-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">Label</th>
+                                    <th className="text-left py-3 px-2 md:px-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">Min %</th>
+                                    <th className="text-left py-3 px-2 md:px-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">Max %</th>
+                                    <th className="text-left py-3 px-2 md:px-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">Reward (₹)</th>
+                                    <th className="text-right py-3 px-2 md:px-4 text-xs font-bold text-slate-500 uppercase whitespace-nowrap">Action</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {editingBrackets.map((bracket, index) => (
+                                    <tr key={index} className="border-b border-slate-50 hover:bg-slate-50">
+                                        <td className="py-3 px-2 md:px-4">
+                                            <input
+                                                type="text"
+                                                value={bracket.label}
+                                                onChange={(e) => handleBracketChange(index, "label", e.target.value)}
+                                                className="w-full min-w-[100px] px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium text-sm"
+                                                placeholder="e.g., 95 - 100%"
+                                            />
+                                        </td>
+                                        <td className="py-3 px-2 md:px-4">
+                                            <input
+                                                type="number"
+                                                value={bracket.minPercentile}
+                                                onChange={(e) => handleBracketChange(index, "minPercentile", e.target.value)}
+                                                className="w-16 md:w-20 px-2 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium text-sm"
+                                                min="0"
+                                                max="100"
+                                                step="0.01"
+                                            />
+                                        </td>
+                                        <td className="py-3 px-2 md:px-4">
+                                            <input
+                                                type="number"
+                                                value={bracket.maxPercentile}
+                                                onChange={(e) => handleBracketChange(index, "maxPercentile", e.target.value)}
+                                                className="w-16 md:w-20 px-2 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium text-sm"
+                                                min="0"
+                                                max="100"
+                                                step="0.01"
+                                            />
+                                        </td>
+                                        <td className="py-3 px-2 md:px-4">
+                                            <input
+                                                type="number"
+                                                value={bracket.rewardAmount}
+                                                onChange={(e) => handleBracketChange(index, "rewardAmount", e.target.value)}
+                                                className="w-24 md:w-32 px-2 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold text-brand-magenta text-sm"
+                                                min="0"
+                                                step="1000"
+                                            />
+                                        </td>
+                                        <td className="py-3 px-2 md:px-4 text-right">
+                                            <button
+                                                onClick={() => removeBracket(index)}
+                                                className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {/* Add Bracket Button */}

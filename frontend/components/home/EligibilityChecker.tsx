@@ -302,7 +302,7 @@ export default function EligibilityChecker() {
                 {/* Step 3: Entrance Exam Details */}
                 {currentStep === 3 && (
                     <StepContainer key="step3">
-                        <div className="bg-brand-deep-navy rounded-xl p-6 mb-6">
+                        <div className="bg-brand-deep-navy rounded-xl p-4 md:p-6 mb-6">
                             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
                                 Entrance Exam Details
                             </h3>
@@ -377,12 +377,12 @@ export default function EligibilityChecker() {
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ delay: 0.2, type: "spring" }}
-                                className="bg-gradient-to-r from-brand-deep-navy to-slate-900 rounded-2xl p-8 mb-6"
+                                className="bg-gradient-to-r from-brand-deep-navy to-slate-900 rounded-2xl p-6 md:p-8 mb-6"
                             >
-                                <div className="text-5xl md:text-6xl font-black text-white mb-3">
+                                <div className="text-4xl md:text-6xl font-black text-white mb-3">
                                     ₹{calculatedReward.toLocaleString('en-IN')}
                                 </div>
-                                <span className="inline-block bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                                <span className="inline-block bg-emerald-500 text-white text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
                                     Scholarship Approved
                                 </span>
                             </motion.div>
@@ -613,7 +613,7 @@ function StepContainer({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 p-8 border border-slate-100"
+            className="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 p-6 md:p-8 border border-slate-100"
         >
             {children}
         </motion.div>
@@ -622,11 +622,11 @@ function StepContainer({ children }: { children: React.ReactNode }) {
 
 function StepHeader({ step, title, subtitle }: { step: number; title: string; subtitle: string }) {
     return (
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 md:mb-8">
             <span className="inline-block text-brand-magenta text-xs font-bold uppercase tracking-wider mb-2">
                 Step {step}: {title}
             </span>
-            <h2 className="text-2xl font-black text-slate-900 mb-2">Check Your Worth</h2>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-2">Check Your Worth</h2>
             <p className="text-slate-500 text-sm">{subtitle}</p>
         </div>
     );
