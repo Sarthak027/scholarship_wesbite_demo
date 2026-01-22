@@ -1,108 +1,159 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Blog = require('../models/Blog');
+const Admin = require('../models/Admin');
 const axios = require('axios');
-// Mock Admin ID or find an existing one
-const ADMIN_ID = "678df8ccf3273e9790eb999a";
+const fs = require('fs');
+const path = require('path');
 
 dotenv.config();
 
-const WP_URL = process.env.WP_URL || ''; // e.g. https://your-site.com/wp-json/wp/v2/posts
+// WordPress API URL
+const WP_URL = "https://confirmscholarship.com/wp-json/wp/v2/posts";
+const UPLOADS_DIR = path.join(__dirname, '..', 'uploads', 'images', 'blogs');
 
-const dummyBlogs = [
-    {
-        title: "Aikyashree Scholarship 2025: Apply Online, Eligibility, Last Date & Benefits",
-        slug: "aikyashree-scholarship-2025",
-        content: `
-            <h2>What Is The Aikyashree Scholarship 2025?</h2>
-            <p>The Aikyashree Scholarship 2025 is a state-level financial assistance scheme run by the West Bengal Minority Development & Finance Corporation (WBMDFC). It supports economically weaker students from minority communities including Muslim, Christian, Buddhist, Sikh, Jain, and Parsee.</p>
-            
-            <h3>Objectives Of Aikyashree Scholarship</h3>
-            <ul>
-                <li>Promote literacy among religious minority communities in West Bengal.</li>
-                <li>Prevent school and college dropouts.</li>
-                <li>Encourage merit-based academic performance.</li>
-            </ul>
+// Ensure upload directory exists
+if (!fs.existsSync(UPLOADS_DIR)) {
+    console.log(`Creating directory: ${UPLOADS_DIR}`);
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
 
-            <h3>Types Of Aikyashree Scholarships 2025</h3>
-            <table border="1" style="width:100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="background-color: #f2f2f2;">
-                        <th>Scholarship Name</th>
-                        <th>Target Group</th>
-                        <th>Level of Education</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Pre-Matric Scholarship</td>
-                        <td>Minority students</td>
-                        <td>Class 1 to 10</td>
-                    </tr>
-                    <tr>
-                        <td>Post-Matric Scholarship</td>
-                        <td>Minority students</td>
-                        <td>Class 11 to Ph.D.</td>
-                    </tr>
-                </tbody>
-            </table>
+/**
+ * Downloads an image from a URL and saves it locally.
+ * @param {string} url - The image URL.
+ * @param {string} slug - The post slug to name the file.
+ * @returns {Promise<string>} - The local path to the image.
+ */
+async function downloadImage(url, slug) {
+    if (!url) return '';
+    try {
+        const response = await axios({
+            url,
+            method: 'GET',
+            responseType: 'stream'
+        });
 
-            <h3>Eligibility Criteria</h3>
-            <ul>
-                <li>The applicant should hold permanent residency status in West Bengal.</li>
-                <li>Belong to minority communities.</li>
-                <li>Minimum 50% marks in the previous exam.</li>
-            </ul>
-        `,
-        excerpt: "Learn everything about Aikyashree Scholarship 2025, including eligibility, benefits, and how to apply online.",
-        category: "Government Scholarship",
-        status: "published",
-        author: ADMIN_ID
+        // Get extension from URL or default to .jpg
+        let extension = path.extname(new URL(url).pathname) || '.jpg';
+        const fileName = `${slug}${extension}`;
+        const filePath = path.join(UPLOADS_DIR, fileName);
+        const writer = fs.createWriteStream(filePath);
+
+        response.data.pipe(writer);
+
+        return new Promise((resolve, reject) => {
+            writer.on('finish', () => {
+                console.log(`Downloaded image: ${fileName}`);
+                resolve(`/uploads/images/blogs/${fileName}`);
+            });
+            writer.on('error', (err) => {
+                console.error(`Error saving image ${fileName}:`, err.message);
+                reject(err);
+            });
+        });
+    } catch (error) {
+        console.error(`Failed to download image from ${url}:`, error.message);
+        return '';
     }
-];
+}
 
-async function fetchWpPosts() {
-    if (!WP_URL) return [];
+/**
+ * Fetches posts from WordPress API and maps them to our Blog model.
+ * @param {string} adminId - The ID of the author admin.
+ * @returns {Promise<Array>} - Array of mapped blog posts.
+ */
+async function fetchWpPosts(adminId) {
     console.log(`Fetching posts from ${WP_URL}...`);
     try {
-        const res = await axios.get(WP_URL + "?per_page=40&_embed");
-        return res.data.map(post => ({
-            title: post.title.rendered,
-            slug: post.slug,
-            content: post.content.rendered,
-            excerpt: post.excerpt.rendered.replace(/<[^>]*>?/gm, ''), // Strip HTML
-            category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "Uncategorized",
-            featuredImage: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "",
-            status: "published",
-            author: ADMIN_ID,
-            createdAt: post.date
-        }));
+        // Fetch posts with embedded data (featured images, categories, etc.)
+        // We Use per_page=100 to get as many as possible in one go
+        const res = await axios.get(`${WP_URL}?per_page=100&_embed`);
+        const posts = [];
+
+        console.log(`Found ${res.data.length} posts on WordPress.`);
+
+        for (const post of res.data) {
+            console.log(`Processing: ${post.title.rendered}`);
+
+            // Get featured image URL from embedded data
+            const featuredImageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "";
+            let localFeaturedImage = "";
+
+            if (featuredImageUrl) {
+                localFeaturedImage = await downloadImage(featuredImageUrl, post.slug);
+            }
+
+            // Map WP post fields to our Blog model
+            posts.push({
+                title: post.title.rendered,
+                slug: post.slug,
+                content: post.content.rendered,
+                excerpt: post.excerpt.rendered.replace(/<[^>]*>?/gm, '').substring(0, 160) + '...', // Strip HTML and limit length
+                category: post._embedded?.['wp:term']?.[0]?.[0]?.name || "Uncategorized",
+                featuredImage: localFeaturedImage,
+                status: "published",
+                author: adminId,
+                createdAt: post.date,
+                tags: post._embedded?.['wp:term']?.[1]?.map(tag => tag.name) || []
+            });
+        }
+        return posts;
     } catch (e) {
         console.error("WP API failed:", e.message);
         return [];
     }
 }
 
+/**
+ * Main function to seed blogs from WordPress.
+ */
 async function seedBlogs() {
     try {
+        if (!process.env.MONGO_URI) {
+            throw new Error("MONGO_URI not found in .env file");
+        }
+
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Connected to MongoDB for seeding...");
 
-        const wpPosts = await fetchWpPosts();
-        const allPosts = [...dummyBlogs, ...wpPosts];
+        // Find an admin user to assign as author
+        const admin = await Admin.findOne();
+        if (!admin) {
+            console.error("No admin user found. Please create an admin user first in the dashboard.");
+            process.exit(1);
+        }
+        const ADMIN_ID = admin._id;
+        console.log(`Using Admin ID: ${ADMIN_ID} (${admin.email})`);
 
-        for (const blogData of allPosts) {
+        const wpPosts = await fetchWpPosts(ADMIN_ID);
+
+        if (wpPosts.length === 0) {
+            console.log("No posts found to seed.");
+            process.exit(0);
+        }
+
+        let seededCount = 0;
+        let skippedCount = 0;
+
+        for (const blogData of wpPosts) {
             const exists = await Blog.findOne({ slug: blogData.slug });
             if (!exists) {
                 await Blog.create(blogData);
-                console.log(`Seeded: ${blogData.title}`);
+                console.log(`✅ Seeded: ${blogData.title}`);
+                seededCount++;
             } else {
-                console.log(`Skipped (already exists): ${blogData.title}`);
+                console.log(`ℹ️ Skipped (already exists): ${blogData.title}`);
+                skippedCount++;
             }
         }
 
-        console.log("Seeding completed successfully.");
-        process.exit();
+        console.log("-----------------------------------------");
+        console.log(`Seeding summary:`);
+        console.log(`Successfully seeded: ${seededCount}`);
+        console.log(`Skipped (duplicates): ${skippedCount}`);
+        console.log("-----------------------------------------");
+
+        process.exit(0);
     } catch (error) {
         console.error("Seeding error:", error);
         process.exit(1);
