@@ -137,3 +137,16 @@ exports.getSubmissionById = async (req, res) => {
         res.status(500).json({ message: 'Error fetching submission', error: error.message });
     }
 };
+
+// Delete all eligibility submissions (Admin)
+exports.deleteAllSubmissions = async (req, res) => {
+    try {
+        const result = await EligibilitySubmission.deleteMany({});
+        res.json({ 
+            message: `Successfully deleted ${result.deletedCount} submission(s)`,
+            deletedCount: result.deletedCount
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting submissions', error: error.message });
+    }
+};

@@ -10,6 +10,17 @@ const nextConfig: NextConfig = {
         port: '5005',
         pathname: '/uploads/**',
       },
+      // Production domain
+      {
+        protocol: 'https',
+        hostname: 'confirmscholarship.com',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'confirmscholarship.com',
+        pathname: '/uploads/**',
+      },
       // Render production (update with your actual Render backend URL)
       {
         protocol: 'https',

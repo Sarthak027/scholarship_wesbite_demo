@@ -8,6 +8,7 @@ import {
     MessageSquare,
     LogOut,
     Users,
+    User,
     ChevronRight,
     Search,
     Bell,
@@ -20,7 +21,11 @@ import {
     Mail,
     Phone as PhoneIcon,
     Menu,
-    X
+    X,
+    Settings,
+    Eye,
+    EyeOff,
+    Lock
 } from "lucide-react";
 import BlogEditor from "@/components/admin/BlogEditor";
 import "@/styles/editor.css";
@@ -165,6 +170,12 @@ export default function AdminDashboard() {
                         active={activeTab === "brackets"}
                         onClick={() => { setActiveTab("brackets"); setSidebarOpen(false); }}
                     />
+                    <SidebarItem
+                        icon={<Settings size={20} />}
+                        label="Settings"
+                        active={activeTab === "settings"}
+                        onClick={() => { setActiveTab("settings"); setSidebarOpen(false); }}
+                    />
                 </nav>
 
                 <div className="p-4 border-t border-slate-100">
@@ -275,6 +286,9 @@ export default function AdminDashboard() {
                                 <ScholarshipBracketsTab
                                     onRefresh={fetchDashboardData}
                                 />
+                            )}
+                            {activeTab === "settings" && (
+                                <SettingsTab />
                             )}
                         </>
                     )}
@@ -477,16 +491,44 @@ function InquiriesTab({ title, inquiries, onRefresh, type = 'scholarship' }: { t
         }
     };
 
+    const handleDeleteAll = async () => {
+        const confirmMessage = `Are you sure you want to delete ALL ${title.toLowerCase()}? This action cannot be undone!`;
+        if (!confirm(confirmMessage)) return;
+        
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            alert("No admin token found. Please login again.");
+            return;
+        }
+
+        try {
+            await api.inquiries.deleteAll(type === 'scholarship' ? 'scholarship' : (type === 'callback' ? 'callback' : 'contact'), token);
+            alert(`Successfully deleted all ${title.toLowerCase()}`);
+            onRefresh();
+        } catch (error: any) {
+            console.error("Error deleting all:", error);
+            alert(`Error: ${error.message || "Failed to delete all inquiries"}`);
+        }
+    };
+
     return (
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold">{title}</h2>
-                <button
-                    onClick={handleExport}
-                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 w-full md:w-auto"
-                >
-                    <FileText size={18} /> Export to Excel (.xlsx)
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <button
+                        onClick={handleDeleteAll}
+                        className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-rose-200 w-full sm:w-auto"
+                    >
+                        <Trash2 size={18} /> Delete All
+                    </button>
+                    <button
+                        onClick={handleExport}
+                        className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 w-full sm:w-auto"
+                    >
+                        <FileText size={18} /> Export to Excel (.xlsx)
+                    </button>
+                </div>
             </div>
             <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
@@ -572,6 +614,275 @@ function InquiriesTab({ title, inquiries, onRefresh, type = 'scholarship' }: { t
                             )}
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function SettingsTab() {
+    const [adminInfo, setAdminInfo] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [usernameForm, setUsernameForm] = useState({ newUsername: "" });
+    const [passwordForm, setPasswordForm] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
+    const [usernameLoading, setUsernameLoading] = useState(false);
+    const [passwordLoading, setPasswordLoading] = useState(false);
+    const [usernameError, setUsernameError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [usernameSuccess, setUsernameSuccess] = useState("");
+    const [passwordSuccess, setPasswordSuccess] = useState("");
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    useEffect(() => {
+        fetchAdminInfo();
+    }, []);
+
+    const fetchAdminInfo = async () => {
+        const token = localStorage.getItem("adminToken");
+        if (!token) return;
+
+        try {
+            const data = await api.auth.getCurrentAdmin(token);
+            setAdminInfo(data);
+            setUsernameForm({ newUsername: data.username });
+            setLoading(false);
+        } catch (error: any) {
+            console.error("Error fetching admin info:", error);
+            setLoading(false);
+        }
+    };
+
+    const handleUsernameUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setUsernameLoading(true);
+        setUsernameError("");
+        setUsernameSuccess("");
+
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            setUsernameError("No admin token found. Please login again.");
+            setUsernameLoading(false);
+            return;
+        }
+
+        if (usernameForm.newUsername.trim().length < 3) {
+            setUsernameError("Username must be at least 3 characters long");
+            setUsernameLoading(false);
+            return;
+        }
+
+        try {
+            const data = await api.auth.updateUsername(usernameForm.newUsername.trim(), token);
+            setAdminInfo(data.admin);
+            setUsernameSuccess("Username updated successfully!");
+            setTimeout(() => setUsernameSuccess(""), 3000);
+        } catch (error: any) {
+            setUsernameError(error.message || "Failed to update username");
+        } finally {
+            setUsernameLoading(false);
+        }
+    };
+
+    const handlePasswordUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setPasswordLoading(true);
+        setPasswordError("");
+        setPasswordSuccess("");
+
+        if (passwordForm.newPassword.length < 6) {
+            setPasswordError("New password must be at least 6 characters long");
+            setPasswordLoading(false);
+            return;
+        }
+
+        if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+            setPasswordError("New passwords do not match");
+            setPasswordLoading(false);
+            return;
+        }
+
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            setPasswordError("No admin token found. Please login again.");
+            setPasswordLoading(false);
+            return;
+        }
+
+        try {
+            await api.auth.updatePassword(passwordForm.currentPassword, passwordForm.newPassword, token);
+            setPasswordSuccess("Password updated successfully!");
+            setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+            setTimeout(() => setPasswordSuccess(""), 3000);
+        } catch (error: any) {
+            setPasswordError(error.message || "Failed to update password");
+        } finally {
+            setPasswordLoading(false);
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-full">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-600"></div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-8">
+            <div>
+                <h2 className="text-3xl font-bold mb-2">Account Settings</h2>
+                <p className="text-slate-500">Manage your admin account credentials</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Update Username */}
+                <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                        <User size={24} className="text-sky-600" />
+                        Update Username
+                    </h3>
+                    <form onSubmit={handleUsernameUpdate} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                Current Username
+                            </label>
+                            <input
+                                type="text"
+                                value={adminInfo?.username || ""}
+                                disabled
+                                className="w-full px-4 py-2.5 rounded-lg border-2 border-slate-200 bg-slate-50 text-slate-500 cursor-not-allowed"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                New Username
+                            </label>
+                            <input
+                                type="text"
+                                value={usernameForm.newUsername}
+                                onChange={(e) => setUsernameForm({ newUsername: e.target.value })}
+                                className="w-full px-4 py-2.5 rounded-lg border-2 border-slate-200 bg-slate-50/50 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition-all"
+                                placeholder="Enter new username"
+                                required
+                                minLength={3}
+                            />
+                        </div>
+                        {usernameError && (
+                            <div className="bg-rose-50 border-2 border-rose-200 rounded-lg p-3">
+                                <p className="text-rose-700 text-sm font-medium">{usernameError}</p>
+                            </div>
+                        )}
+                        {usernameSuccess && (
+                            <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3">
+                                <p className="text-emerald-700 text-sm font-medium">{usernameSuccess}</p>
+                            </div>
+                        )}
+                        <button
+                            type="submit"
+                            disabled={usernameLoading || usernameForm.newUsername === adminInfo?.username}
+                            className="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {usernameLoading ? "Updating..." : "Update Username"}
+                        </button>
+                    </form>
+                </div>
+
+                {/* Update Password */}
+                <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                        <Lock size={24} className="text-purple-600" />
+                        Update Password
+                    </h3>
+                    <form onSubmit={handlePasswordUpdate} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                Current Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type={showCurrentPassword ? "text" : "password"}
+                                    value={passwordForm.currentPassword}
+                                    onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
+                                    className="w-full pl-4 pr-10 py-2.5 rounded-lg border-2 border-slate-200 bg-slate-50/50 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                                    placeholder="Enter current password"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                >
+                                    {showCurrentPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                New Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type={showNewPassword ? "text" : "password"}
+                                    value={passwordForm.newPassword}
+                                    onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                                    className="w-full pl-4 pr-10 py-2.5 rounded-lg border-2 border-slate-200 bg-slate-50/50 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                                    placeholder="Enter new password"
+                                    required
+                                    minLength={6}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowNewPassword(!showNewPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                >
+                                    {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                Confirm New Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    value={passwordForm.confirmPassword}
+                                    onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                                    className="w-full pl-4 pr-10 py-2.5 rounded-lg border-2 border-slate-200 bg-slate-50/50 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                                    placeholder="Confirm new password"
+                                    required
+                                    minLength={6}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                >
+                                    {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+                        {passwordError && (
+                            <div className="bg-rose-50 border-2 border-rose-200 rounded-lg p-3">
+                                <p className="text-rose-700 text-sm font-medium">{passwordError}</p>
+                            </div>
+                        )}
+                        {passwordSuccess && (
+                            <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3">
+                                <p className="text-emerald-700 text-sm font-medium">{passwordSuccess}</p>
+                            </div>
+                        )}
+                        <button
+                            type="submit"
+                            disabled={passwordLoading || !passwordForm.currentPassword || !passwordForm.newPassword || !passwordForm.confirmPassword}
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {passwordLoading ? "Updating..." : "Update Password"}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

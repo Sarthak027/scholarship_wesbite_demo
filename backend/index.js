@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const path = require('path');
 
-// CORS Configuration - Allow Netlify and production domains
+// CORS Configuration - Allow Netlify, Render, and production domain
 const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
@@ -27,6 +27,8 @@ const corsOptions = {
     const allowedOrigins = [
       'http://localhost:3000',
       'http://127.0.0.1:3000',
+      'https://confirmscholarship.com',
+      'http://confirmscholarship.com',
       /\.netlify\.app$/,  // Allow all Netlify subdomains
       /\.onrender\.com$/  // Allow all Render subdomains
     ];
@@ -71,24 +73,45 @@ app.use((req, res, next) => {
   next();
 });
 
-// Database Connection
-// Database Connection
-mongoose.connect(process.env.MONGO_URI)
+// Environment Variables Validation
+if (!process.env.MONGO_URI) {
+  console.error('ERROR: MONGO_URI environment variable is not set!');
+  process.exit(1);
+}
+
+if (!process.env.JWT_SECRET) {
+  console.error('ERROR: JWT_SECRET environment variable is not set!');
+  process.exit(1);
+}
+
+mongoose.connect(process.env.MONGO_URI, {
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+})
   .then(() => {
-    console.log('Connected to MongoDB Successfully');
-    console.log('Database Name:', mongoose.connection.name);
-    console.log('Connection ReadyState:', mongoose.connection.readyState);
+    console.log('✅ Connected to MongoDB Successfully');
+    console.log('📊 Database Name:', mongoose.connection.name);
+    console.log('🔌 Connection ReadyState:', mongoose.connection.readyState);
   })
   .catch((err) => {
-    console.error('MongoDB connection error details:', err);
+    console.error('❌ MongoDB connection error:', err.message);
+    // Don't exit in production, allow retries
+    if (process.env.NODE_ENV === 'development') {
+      process.exit(1);
+    }
   });
 
 // Monitor connection events
 mongoose.connection.on('error', err => {
-  console.error('Mongoose connection error event:', err);
+  console.error('❌ Mongoose connection error:', err.message);
 });
+
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected event');
+  console.log('⚠️ Mongoose disconnected. Attempting to reconnect...');
+});
+
+mongoose.connection.on('reconnected', () => {
+  console.log('✅ Mongoose reconnected successfully');
 });
 
 // Route Mounting
@@ -112,10 +135,22 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date().toISOString(), db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' });
 });
 
+// 404 Handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found", path: req.url });
+});
+
 // Final Error Handler
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err);
-  res.status(500).json({ message: "Internal Server Error", error: err.message });
+  const statusCode = err.statusCode || 500;
+  const message = process.env.NODE_ENV === 'production' 
+    ? "Internal Server Error" 
+    : err.message;
+  res.status(statusCode).json({ 
+    message, 
+    ...(process.env.NODE_ENV === 'development' && { error: err.message, stack: err.stack })
+  });
 });
 
 app.listen(PORT, () => {

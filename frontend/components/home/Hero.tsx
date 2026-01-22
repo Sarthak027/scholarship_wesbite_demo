@@ -36,7 +36,7 @@ export default function Hero() {
 
     return (
         <>
-            <section className="relative w-full min-h-[600px] md:min-h-[700px] lg:min-h-screen overflow-hidden flex items-center bg-white pb-32 md:pb-40 lg:pb-0 pt-28 md:pt-0">
+            <section className="relative w-full min-h-[600px] md:min-h-[700px] lg:min-h-screen overflow-hidden flex flex-col justify-between bg-white pb-0 pt-28 md:pt-0">
                 {/* Background Slideshow - Pre-rendered for zero flash transitions */}
                 <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
                     {backgroundImages.map((src, index) => (
@@ -66,7 +66,7 @@ export default function Hero() {
                 </div>
 
                 {/* Content */}
-                <div className="container mx-auto px-4 md:px-6 relative z-20 text-slate-900 pt-2 md:pt-32 pb-20 md:pb-40 lg:pb-40">
+                <div className="container mx-auto px-4 md:px-6 relative z-20 text-slate-900 pt-2 md:pt-32 pb-20 md:pb-20 lg:pb-10 flex-grow flex flex-col justify-center">
                     <div className="max-w-4xl">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -118,8 +118,8 @@ export default function Hero() {
                 </div>
 
                 {/* Feature Boxes - Mobile: Stacked, Desktop: Horizontal */}
-                <div className="container mx-auto px-4 md:px-6 relative z-20 lg:absolute lg:bottom-0 lg:right-0 lg:px-0 mt-8 lg:mt-0">
-                    <div className="flex flex-col lg:flex-row items-stretch gap-4 lg:gap-0 lg:pr-0">
+                <div className="container mx-auto px-4 md:px-6 relative z-20 lg:px-0 mt-8 lg:mt-0 w-full">
+                    <div className="flex flex-col lg:flex-row items-stretch justify-end gap-4 lg:gap-0 lg:pr-0">
                         <motion.div
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}

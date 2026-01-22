@@ -86,6 +86,15 @@ export const api = {
             return res.json();
         },
 
+        deleteAll: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/blogs/admin/all`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete all blogs');
+            return res.json();
+        },
+
         like: async (id: string) => {
             const res = await fetch(`${API_URL}/api/blogs/${id}/like`, {
                 method: 'POST'
@@ -144,6 +153,15 @@ export const api = {
             });
             if (!res.ok) throw new Error('Failed to delete comment');
             return res.json();
+        },
+
+        deleteAll: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/comments/admin/all`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete all comments');
+            return res.json();
         }
     },
 
@@ -190,6 +208,15 @@ export const api = {
             });
             if (!res.ok) throw new Error('Failed to update inquiry status');
             return res.json();
+        },
+
+        deleteAll: async (type: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/inquiries/all?type=${type}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete inquiries');
+            return res.json();
         }
     },
 
@@ -224,6 +251,15 @@ export const api = {
                 body: JSON.stringify({ status })
             });
             if (!res.ok) throw new Error('Failed to update eligibility status');
+            return res.json();
+        },
+
+        deleteAll: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/eligibility/admin/all`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete all submissions');
             return res.json();
         }
     },
@@ -288,6 +324,46 @@ export const api = {
                 body: JSON.stringify({ username, password })
             });
             if (!res.ok) throw new Error('Login failed');
+            return res.json();
+        },
+
+        getCurrentAdmin: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to fetch admin info');
+            return res.json();
+        },
+
+        updateUsername: async (newUsername: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/auth/username`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ newUsername })
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.message || 'Failed to update username');
+            }
+            return res.json();
+        },
+
+        updatePassword: async (currentPassword: string, newPassword: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/auth/password`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ currentPassword, newPassword })
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.message || 'Failed to update password');
+            }
             return res.json();
         }
     },

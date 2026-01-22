@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FileText, Eye, Check, Clock, X, ChevronDown } from "lucide-react";
+import { FileText, Eye, Check, Clock, X, ChevronDown, Trash2 } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface EligibilitySubmission {
@@ -112,13 +112,37 @@ export default function EligibilitySubmissionsTab({ submissions, onRefresh }: El
                         {filteredSubmissions.length} submission{filteredSubmissions.length !== 1 ? 's' : ''} found
                     </p>
                 </div>
-                <button
-                    onClick={handleExport}
-                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 w-full md:w-auto"
-                >
-                    <FileText size={18} />
-                    Export to Excel (.xlsx)
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <button
+                        onClick={async () => {
+                            if (!confirm("Are you sure you want to delete ALL eligibility submissions? This action cannot be undone!")) return;
+                            const token = localStorage.getItem("adminToken");
+                            if (!token) {
+                                alert("No admin token found. Please login again.");
+                                return;
+                            }
+                            try {
+                                await api.eligibility.deleteAll(token);
+                                alert("Successfully deleted all eligibility submissions!");
+                                onRefresh();
+                            } catch (error: any) {
+                                console.error("Error deleting all:", error);
+                                alert(`Error: ${error.message || "Failed to delete all submissions"}`);
+                            }
+                        }}
+                        className="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-rose-200 w-full sm:w-auto"
+                    >
+                        <Trash2 size={18} />
+                        Delete All
+                    </button>
+                    <button
+                        onClick={handleExport}
+                        className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-200 w-full sm:w-auto"
+                    >
+                        <FileText size={18} />
+                        Export to Excel (.xlsx)
+                    </button>
+                </div>
             </div>
 
             {/* Filters */}

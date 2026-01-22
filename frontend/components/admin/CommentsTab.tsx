@@ -30,9 +30,35 @@ export default function CommentsTab({ comments, onRefresh }: { comments: any[], 
         }
     };
 
+    const handleDeleteAll = async () => {
+        if (!confirm("Are you sure you want to delete ALL comments? This action cannot be undone!")) return;
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            alert("No admin token found. Please login again.");
+            return;
+        }
+        
+        try {
+            await api.comments.deleteAll(token);
+            alert("Successfully deleted all comments!");
+            onRefresh();
+        } catch (error: any) {
+            console.error("Error deleting all comments:", error);
+            alert(`Error: ${error.message || "Failed to delete all comments"}`);
+        }
+    };
+
     return (
         <div className="space-y-6">
-            <h2 className="text-3xl font-bold mb-8">Blog Comments</h2>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <h2 className="text-3xl font-bold">Blog Comments</h2>
+                <button
+                    onClick={handleDeleteAll}
+                    className="bg-rose-500 hover:bg-rose-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-rose-200 hover:shadow-rose-300 transition-all flex items-center justify-center gap-2 w-full md:w-auto"
+                >
+                    <Trash2 size={20} /> DELETE ALL COMMENTS
+                </button>
+            </div>
 
             <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
                 <table className="w-full text-left">

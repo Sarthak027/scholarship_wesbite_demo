@@ -203,16 +203,42 @@ export default function BlogsTab({ blogs, onRefresh }: { blogs: any[], onRefresh
         );
     }
 
+    const handleDeleteAll = async () => {
+        if (!confirm("Are you sure you want to delete ALL blogs? This action cannot be undone!")) return;
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            alert("No admin token found. Please login again.");
+            return;
+        }
+        
+        try {
+            await api.blogs.deleteAll(token);
+            alert("Successfully deleted all blogs!");
+            onRefresh();
+        } catch (error: any) {
+            console.error("Error deleting all blogs:", error);
+            alert(`Error: ${error.message || "Failed to delete all blogs"}`);
+        }
+    };
+
     return (
         <div className="space-y-6">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h2 className="text-3xl font-bold">Manage Blogs</h2>
-                <button
-                    onClick={startCreating}
-                    className="bg-purple-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-purple-100 hover:bg-purple-700 transition-all flex items-center gap-2"
-                >
-                    <Plus size={20} /> ADD NEW BLOG
-                </button>
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <button
+                        onClick={handleDeleteAll}
+                        className="bg-rose-500 hover:bg-rose-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-rose-200 hover:shadow-rose-300 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                    >
+                        <Trash2 size={20} /> DELETE ALL BLOGS
+                    </button>
+                    <button
+                        onClick={startCreating}
+                        className="bg-purple-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-purple-100 hover:bg-purple-700 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                    >
+                        <Plus size={20} /> ADD NEW BLOG
+                    </button>
+                </div>
             </div>
 
             <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">

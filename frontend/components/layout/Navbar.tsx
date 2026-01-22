@@ -35,8 +35,9 @@ export default function Navbar() {
                 initial={{ y: 0 }}
                 className={clsx(
                     "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300",
-                    scrolled ? "bg-white/90 backdrop-blur-md shadow-md py-2" : "bg-white/40 backdrop-blur-sm py-4"
+                    scrolled ? "bg-white/90 backdrop-blur-md shadow-md py-2" : "bg-white/40 backdrop-blur-sm py-3"
                 )}
+
             >
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="flex items-center justify-between">
@@ -46,8 +47,9 @@ export default function Navbar() {
                                 whileHover={{ scale: 1.05 }}
                                 src={ASSETS.logos.nav}
                                 alt="Confirm Scholarship"
-                                className="h-10 md:h-12 w-auto object-contain"
+                                className="h-8 md:h-10 w-auto object-contain"
                             />
+
                         </Link>
 
                         <nav className="hidden lg:flex items-center gap-8">

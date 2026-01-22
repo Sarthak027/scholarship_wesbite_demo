@@ -8,6 +8,7 @@ router.get('/admin/all', authMiddleware, blogController.getAdminBlogs);
 router.post('/', authMiddleware, blogController.createBlog);
 router.patch('/:id', authMiddleware, blogController.updateBlog);
 router.delete('/:id', authMiddleware, blogController.deleteBlog);
+router.delete('/admin/all', authMiddleware, blogController.deleteAllBlogs);
 
 // Public
 router.get('/', blogController.getBlogs);

@@ -11,5 +11,6 @@ router.get('/', authMiddleware, eligibilityController.getAllSubmissions);
 router.get('/export', authMiddleware, eligibilityController.exportSubmissions);
 router.get('/:id', authMiddleware, eligibilityController.getSubmissionById);
 router.patch('/:id/status', authMiddleware, eligibilityController.updateSubmissionStatus);
+router.delete('/admin/all', authMiddleware, eligibilityController.deleteAllSubmissions);
 
 module.exports = router;

@@ -10,5 +10,6 @@ router.post('/', inquiryController.submitInquiry);
 router.get('/', authMiddleware, inquiryController.getAllInquiries);
 router.get('/export', authMiddleware, inquiryController.exportInquiries);
 router.patch('/:id/status', authMiddleware, inquiryController.updateInquiryStatus);
+router.delete('/all', authMiddleware, inquiryController.deleteAllInquiries);
 
 module.exports = router;

@@ -102,7 +102,7 @@ export default function EligibilityBanner() {
                             transition={{ delay: 0.6 }}
                             className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-brand-magenta/50 transition-all group"
                         >
-                            <div className="text-4xl font-black text-white mb-2 group-hover:text-brand-magenta transition-colors">2025</div>
+                            <div className="text-4xl font-black text-white mb-2 group-hover:text-brand-magenta transition-colors">2026</div>
                             <p className="text-white/60 text-sm font-medium">Scholarship Year</p>
                         </motion.div>
                     </div>

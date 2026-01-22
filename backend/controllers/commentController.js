@@ -63,3 +63,16 @@ exports.deleteComment = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Delete all comments (Admin)
+exports.deleteAllComments = async (req, res) => {
+    try {
+        const result = await Comment.deleteMany({});
+        res.json({ 
+            message: `Successfully deleted ${result.deletedCount} comment(s)`,
+            deletedCount: result.deletedCount
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting comments', error: error.message });
+    }
+};

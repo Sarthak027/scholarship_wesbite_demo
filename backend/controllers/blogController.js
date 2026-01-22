@@ -73,6 +73,19 @@ exports.deleteBlog = async (req, res) => {
     }
 };
 
+// Delete all blogs (Admin)
+exports.deleteAllBlogs = async (req, res) => {
+    try {
+        const result = await Blog.deleteMany({});
+        res.json({ 
+            message: `Successfully deleted ${result.deletedCount} blog(s)`,
+            deletedCount: result.deletedCount
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting blogs', error: error.message });
+    }
+};
+
 // Like Blog
 exports.likeBlog = async (req, res) => {
     try {

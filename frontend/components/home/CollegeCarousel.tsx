@@ -35,7 +35,7 @@ export default function CollegeCarousel() {
                     <motion.div
                         className="flex gap-8 md:gap-12 lg:gap-16 items-center whitespace-nowrap"
                         animate={{ x: ["0%", "-50%"] }}
-                        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                     >
                         {[...colleges, ...colleges].map((college, index) => (
                             <div

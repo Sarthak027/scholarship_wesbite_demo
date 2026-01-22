@@ -11,5 +11,6 @@ router.post('/post/:blogId', commentController.submitComment);
 router.get('/', authMiddleware, commentController.getAllComments);
 router.patch('/:id/status', authMiddleware, commentController.updateCommentStatus);
 router.delete('/:id', authMiddleware, commentController.deleteComment);
+router.delete('/admin/all', authMiddleware, commentController.deleteAllComments);
 
 module.exports = router;

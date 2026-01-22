@@ -84,3 +84,47 @@ exports.updateInquiryStatus = async (req, res) => {
         res.status(400).json({ message: 'Error updating status', error: error.message });
     }
 };
+
+// Delete all inquiries (Admin) - Filter by type
+exports.deleteAllInquiries = async (req, res) => {
+    try {
+        const { type } = req.query;
+        let query = {};
+        
+        // For scholarship inquiries: exclude callback and contact types, exclude contact_page source
+        if (type === 'scholarship') {
+            query = {
+                $and: [
+                    { type: { $ne: 'callback' } },
+                    { type: { $ne: 'contact' } },
+                    { source: { $ne: 'contact_page' } }
+                ]
+            };
+        }
+        // For callback requests
+        else if (type === 'callback') {
+            query.type = 'callback';
+        }
+        // For contact us
+        else if (type === 'contact') {
+            query = {
+                $or: [
+                    { source: 'contact_page' },
+                    { type: 'contact' }
+                ]
+            };
+        }
+        // If no type specified, delete all
+        else {
+            query = {};
+        }
+
+        const result = await Inquiry.deleteMany(query);
+        res.json({ 
+            message: `Successfully deleted ${result.deletedCount} inquiry(ies)`,
+            deletedCount: result.deletedCount
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting inquiries', error: error.message });
+    }
+};
