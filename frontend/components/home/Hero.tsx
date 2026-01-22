@@ -36,7 +36,7 @@ export default function Hero() {
 
     return (
         <>
-            <section className="relative w-full min-h-[700px] lg:min-h-screen overflow-hidden flex items-center bg-white">
+            <section className="relative w-full min-h-[600px] md:min-h-[700px] lg:min-h-screen overflow-hidden flex items-center bg-white pb-32 md:pb-40 lg:pb-0 pt-28 md:pt-0">
                 {/* Background Slideshow - Pre-rendered for zero flash transitions */}
                 <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
                     {backgroundImages.map((src, index) => (
@@ -66,18 +66,18 @@ export default function Hero() {
                 </div>
 
                 {/* Content */}
-                <div className="container mx-auto px-4 md:px-6 relative z-20 text-slate-900 pt-32 pb-40">
+                <div className="container mx-auto px-4 md:px-6 relative z-20 text-slate-900 pt-2 md:pt-32 pb-20 md:pb-40 lg:pb-40">
                     <div className="max-w-4xl">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="inline-flex items-center gap-0 mb-8 overflow-hidden rounded-md"
+                            className="inline-flex items-center gap-0 mb-6 md:mb-8 overflow-hidden rounded-md"
                         >
-                            <span className="bg-brand-magenta text-white font-bold py-1.5 px-4 text-xs md:text-sm">
+                            <span className="bg-brand-magenta text-white font-bold py-1.5 px-3 md:px-4 text-xs md:text-sm">
                                 Welcome
                             </span>
-                            <span className="bg-black/5 backdrop-blur-sm text-black font-bold py-1.5 px-4 text-xs md:text-sm border border-black/10 border-l-0">
+                            <span className="bg-black/5 backdrop-blur-sm text-black font-bold py-1.5 px-3 md:px-4 text-xs md:text-sm border border-black/10 border-l-0">
                                 To Confirm Scholarship
                             </span>
                         </motion.div>
@@ -86,7 +86,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 text-black tracking-tight"
+                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] mb-4 md:mb-6 text-black tracking-tight"
                         >
                             Your Gateway To <br />
                             A Brighter Future
@@ -96,12 +96,12 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-                            className="text-base md:text-lg text-black mb-10 max-w-2xl leading-relaxed font-bold"
+                            className="text-sm sm:text-base md:text-lg text-black mb-8 md:mb-10 max-w-2xl leading-relaxed font-bold"
                         >
                             Unlock a world of opportunities with scholarships tailored to your dream career.
                         </motion.p>
 
-                        <div className="flex flex-col sm:flex-row gap-5 items-start w-full">
+                        <div className="flex flex-col sm:flex-row gap-4 md:gap-5 items-start w-full mb-8 lg:mb-0">
                             <motion.button
                                 onClick={() => setIsModalOpen(true)}
                                 initial={{ opacity: 0, y: 20 }}
@@ -109,7 +109,7 @@ export default function Hero() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 transition={{ delay: 0.6, duration: 0.4 }}
-                                className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-8 py-3.5 rounded-md font-bold text-xs md:text-sm tracking-wider transition-all uppercase w-full sm:w-auto shadow-xl"
+                                className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-6 md:px-8 py-3 md:py-3.5 rounded-md font-bold text-xs md:text-sm tracking-wider transition-all uppercase w-full sm:w-auto shadow-xl min-h-[44px] flex items-center justify-center"
                             >
                                 APPLY NOW
                             </motion.button>
@@ -117,37 +117,39 @@ export default function Hero() {
                     </div>
                 </div>
 
-                {/* Feature Boxes */}
-                <div className="absolute bottom-0 right-0 z-30 hidden lg:flex items-stretch pr-0">
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 0.8 }}
-                        className="bg-brand-magenta text-white p-8 w-72 flex flex-col gap-4 border-t-4 border-brand-magenta"
-                    >
-                        <div className="w-10 h-10 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold text-lg">01</div>
-                        <p className="font-bold text-lg leading-snug">Scholarships For All From 10% To 100%</p>
-                    </motion.div>
+                {/* Feature Boxes - Mobile: Stacked, Desktop: Horizontal */}
+                <div className="container mx-auto px-4 md:px-6 relative z-20 lg:absolute lg:bottom-0 lg:right-0 lg:px-0 mt-8 lg:mt-0">
+                    <div className="flex flex-col lg:flex-row items-stretch gap-4 lg:gap-0 lg:pr-0">
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.8, duration: 0.8 }}
+                            className="bg-brand-magenta text-white p-6 md:p-8 w-full lg:w-72 flex flex-col gap-3 md:gap-4 border-t-4 border-brand-magenta"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold text-base md:text-lg">01</div>
+                            <p className="font-bold text-base md:text-lg leading-snug">Scholarships For All From 10% To 100%</p>
+                        </motion.div>
 
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 1.0, duration: 0.8 }}
-                        className="bg-brand-navy text-white p-8 w-72 flex flex-col gap-4"
-                    >
-                        <div className="w-10 h-10 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold text-lg">02</div>
-                        <p className="font-bold text-lg leading-snug">Partnered With Best Universities & Colleges Of India</p>
-                    </motion.div>
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 1.0, duration: 0.8 }}
+                            className="bg-brand-navy text-white p-6 md:p-8 w-full lg:w-72 flex flex-col gap-3 md:gap-4"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold text-base md:text-lg">02</div>
+                            <p className="font-bold text-base md:text-lg leading-snug">Partnered With Best Universities & Colleges Of India</p>
+                        </motion.div>
 
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 1.2, duration: 0.8 }}
-                        className="bg-brand-deep-navy text-white p-8 w-72 flex flex-col gap-4"
-                    >
-                        <div className="w-10 h-10 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold text-lg">03</div>
-                        <p className="font-bold text-lg leading-snug">Personalized Mentoring & Guidance</p>
-                    </motion.div>
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 1.2, duration: 0.8 }}
+                            className="bg-brand-deep-navy text-white p-6 md:p-8 w-full lg:w-72 flex flex-col gap-3 md:gap-4"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold text-base md:text-lg">03</div>
+                            <p className="font-bold text-base md:text-lg leading-snug">Personalized Mentoring & Guidance</p>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 

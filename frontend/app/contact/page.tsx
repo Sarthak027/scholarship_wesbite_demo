@@ -37,22 +37,22 @@ export default function ContactUsPage() {
     return (
         <main className="min-h-screen bg-slate-50">
             {/* Hero Section */}
-            <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+            <section className="relative h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop")', backgroundAttachment: 'fixed' }}
+                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop")' }}
                 >
                     <div className="absolute inset-0 bg-slate-900/80"></div>
                 </div>
-                <div className="relative z-10 text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">Contact Us</h1>
-                    <div className="w-24 h-1 bg-gradient-to-r from-sky-400 to-cyan-400 mx-auto rounded-full"></div>
+                <div className="relative z-10 text-center px-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4 tracking-tight">Contact Us</h1>
+                    <div className="w-20 md:w-24 h-1 bg-gradient-to-r from-sky-400 to-cyan-400 mx-auto rounded-full"></div>
                 </div>
             </section>
 
             {/* Info Cards */}
-            <section className="container mx-auto px-4 -mt-24 relative z-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <section className="container mx-auto px-4 -mt-16 md:-mt-24 relative z-20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     <ContactCard
                         icon={<MapPin size={32} />}
                         title="Location"
@@ -72,24 +72,24 @@ export default function ContactUsPage() {
             </section>
 
             {/* Form Section */}
-            <section className="container mx-auto px-4 py-24">
-                <div className="flex flex-col lg:flex-row gap-16 items-start max-w-7xl mx-auto">
+            <section className="container mx-auto px-4 py-12 md:py-24">
+                <div className="flex flex-col lg:flex-row gap-8 md:gap-16 items-start max-w-7xl mx-auto">
 
                     {/* Form Container */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="w-full lg:w-1/2 bg-slate-dark p-8 md:p-12 rounded-[2rem] shadow-2xl relative overflow-hidden"
+                        className="w-full lg:w-1/2 bg-slate-dark p-6 md:p-8 lg:p-12 rounded-xl md:rounded-[2rem] shadow-2xl relative overflow-hidden"
                     >
                         {/* Decorative background element */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="absolute top-0 right-0 w-48 md:w-64 h-48 md:h-64 bg-sky-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-                        <h2 className="text-3xl font-bold text-white mb-2 relative z-10">Get In Touch</h2>
-                        <p className="text-slate-400 mb-8 relative z-10">Fill out the form below and we will get back to you shortly.</p>
+                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 relative z-10">Get In Touch</h2>
+                        <p className="text-sm md:text-base text-slate-400 mb-6 md:mb-8 relative z-10">Fill out the form below and we will get back to you shortly.</p>
 
-                        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6 relative z-10">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Your Name</label>
                                     <input
@@ -99,7 +99,7 @@ export default function ContactUsPage() {
                                         onChange={handleChange}
                                         placeholder="John Doe"
                                         required
-                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600"
+                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 md:px-5 py-3 md:py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600 text-sm md:text-base min-h-[44px]"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -111,12 +111,12 @@ export default function ContactUsPage() {
                                         onChange={handleChange}
                                         placeholder="john@example.com"
                                         required
-                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600"
+                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 md:px-5 py-3 md:py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600 text-sm md:text-base min-h-[44px]"
                                     />
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Subject</label>
                                     <input
@@ -126,7 +126,7 @@ export default function ContactUsPage() {
                                         onChange={handleChange}
                                         placeholder="How can we help?"
                                         required
-                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600"
+                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 md:px-5 py-3 md:py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600 text-sm md:text-base min-h-[44px]"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -138,7 +138,7 @@ export default function ContactUsPage() {
                                         onChange={handleChange}
                                         placeholder="+91 99999 99999"
                                         required
-                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600"
+                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 md:px-5 py-3 md:py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all text-white placeholder:text-slate-600 text-sm md:text-base min-h-[44px]"
                                     />
                                 </div>
                             </div>
@@ -152,19 +152,19 @@ export default function ContactUsPage() {
                                     placeholder="Write your message here..."
                                     rows={4}
                                     required
-                                    className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none text-white placeholder:text-slate-600"
+                                    className="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 md:px-5 py-3 md:py-3.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none text-white placeholder:text-slate-600 text-sm md:text-base"
                                 ></textarea>
                             </div>
 
                             {status === "success" && (
-                                <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-center font-bold flex items-center justify-center gap-2">
+                                <div className="p-3 md:p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-center font-bold flex items-center justify-center gap-2 text-sm md:text-base">
                                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
                                     Message sent successfully!
                                 </div>
                             )}
 
                             {status === "error" && (
-                                <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-center font-bold">
+                                <div className="p-3 md:p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-center font-bold text-sm md:text-base">
                                     Something went wrong. Please try again later.
                                 </div>
                             )}
@@ -172,12 +172,12 @@ export default function ContactUsPage() {
                             <button
                                 type="submit"
                                 disabled={status === "submitting"}
-                                className="w-full premium-gradient hover:shadow-lg hover:shadow-sky-500/30 text-white font-bold py-4 rounded-xl transition-all disabled:opacity-70 flex items-center justify-center gap-2 uppercase tracking-widest text-sm"
+                                className="w-full premium-gradient hover:shadow-lg hover:shadow-sky-500/30 text-white font-bold py-3 md:py-4 rounded-xl transition-all disabled:opacity-70 flex items-center justify-center gap-2 uppercase tracking-widest text-xs md:text-sm min-h-[44px]"
                             >
                                 {status === "submitting" ? (
                                     <>SENDING...</>
                                 ) : (
-                                    <>SEND MESSAGE <Send size={18} /></>
+                                    <>SEND MESSAGE <Send size={16} className="md:w-[18px] md:h-[18px]" /></>
                                 )}
                             </button>
                         </form>
@@ -188,17 +188,17 @@ export default function ContactUsPage() {
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="w-full lg:w-1/2 pt-8"
+                        className="w-full lg:w-1/2 pt-4 md:pt-8"
                     >
-                        <span className="text-sky-600 font-black tracking-[0.2em] text-xs uppercase mb-4 block">HAVE QUESTIONS?</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
+                        <span className="text-sky-600 font-black tracking-[0.2em] text-xs uppercase mb-3 md:mb-4 block">HAVE QUESTIONS?</span>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 md:mb-8 leading-tight">
                             If You Have Any Query, Then Drop A Message Below
                         </h2>
-                        <p className="text-slate-500 text-lg leading-relaxed mb-10 font-medium">
+                        <p className="text-slate-500 text-base md:text-lg leading-relaxed mb-8 md:mb-10 font-medium">
                             We're here to help you every step of the way. Whether you have questions about the application process, need more information about our courses, or require assistance with anything else, don't hesitate to reach out.
                         </p>
 
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 md:gap-4">
                             <SocialIcon icon={<MessageCircle size={20} />} label="WhatsApp" />
                             <SocialIcon icon={<Mail size={20} />} label="Email" />
                             <SocialIcon icon={<Phone size={20} />} label="Call" />
@@ -217,13 +217,13 @@ function ContactCard({ icon, title, details }: { icon: any, title: string, detai
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 text-center border border-slate-100 flex flex-col items-center h-full hover:-translate-y-2 transition-transform duration-300 group"
+            className="bg-white p-6 md:p-8 lg:p-10 rounded-xl md:rounded-[2rem] shadow-xl shadow-slate-200/50 text-center border border-slate-100 flex flex-col items-center h-full hover:-translate-y-2 transition-transform duration-300 group"
         >
-            <div className="w-16 h-16 bg-sky-50 text-sky-600 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:bg-sky-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-sky-200">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-sky-50 text-sky-600 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 transition-all group-hover:bg-sky-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-sky-200">
                 {icon}
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-4">{title}</h3>
-            <p className="text-slate-500 font-medium leading-relaxed max-w-[250px] mx-auto text-sm">
+            <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-3 md:mb-4">{title}</h3>
+            <p className="text-slate-500 font-medium leading-relaxed max-w-[250px] mx-auto text-xs md:text-sm">
                 {details}
             </p>
         </motion.div>
@@ -232,7 +232,7 @@ function ContactCard({ icon, title, details }: { icon: any, title: string, detai
 
 function SocialIcon({ icon, label }: { icon: any, label: string }) {
     return (
-        <a href="#" className="w-12 h-12 bg-white border border-slate-100 text-slate-400 rounded-xl flex items-center justify-center hover:bg-sky-600 hover:text-white hover:border-sky-600 hover:-translate-y-1 transition-all shadow-sm hover:shadow-lg hover:shadow-sky-200" title={label}>
+        <a href="#" className="w-11 h-11 md:w-12 md:h-12 bg-white border border-slate-100 text-slate-400 rounded-xl flex items-center justify-center hover:bg-sky-600 hover:text-white hover:border-sky-600 hover:-translate-y-1 transition-all shadow-sm hover:shadow-lg hover:shadow-sky-200 min-w-[44px] min-h-[44px]" title={label} aria-label={label}>
             {icon}
         </a>
     );

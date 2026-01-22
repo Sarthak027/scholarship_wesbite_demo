@@ -4,31 +4,32 @@ import { ASSETS } from "@/lib/assets";
 
 export default function Footer() {
     return (
-        <footer className="bg-slate-dark text-white pt-24 pb-8 overflow-hidden relative">
+        <footer className="bg-slate-dark text-white pt-16 md:pt-24 pb-6 md:pb-8 overflow-hidden relative">
             {/* Background Decorative Gradient */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-navy via-brand-magenta to-brand-navy" />
-            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-magenta/5 rounded-full blur-3xl" />
+            <div className="absolute -bottom-24 -left-24 w-64 md:w-96 h-64 md:h-96 bg-brand-magenta/5 rounded-full blur-3xl" />
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-20">
                     {/* Brand & About */}
-                    <div className="space-y-8">
+                    <div className="space-y-6 md:space-y-8">
                         <Link href="/" className="inline-block">
                             <img
                                 src={ASSETS.logos.footer}
                                 alt="Confirm Scholarship"
-                                className="h-16 w-auto object-contain brightness-0 invert"
+                                className="h-12 md:h-16 w-auto object-contain brightness-0 invert"
                             />
                         </Link>
-                        <p className="text-slate-400 text-sm leading-relaxed max-w-xs font-medium">
+                        <p className="text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs font-medium">
                             Empowering students across India with verified scholarships and genuine career guidance. Giving wings to your professional dreams.
                         </p>
-                        <div className="flex gap-4">
+                        <div className="flex gap-3 md:gap-4">
                             <a
                                 href="https://www.facebook.com/confirmscholarship"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-brand-magenta hover:scale-110 transition-all duration-300 group"
+                                className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-brand-magenta hover:scale-110 transition-all duration-300 group min-w-[44px] min-h-[44px]"
+                                aria-label="Facebook"
                             >
                                 <Facebook size={18} className="text-slate-300 group-hover:text-white transition-colors" />
                             </a>
@@ -36,7 +37,8 @@ export default function Footer() {
                                 <a
                                     key={i}
                                     href="#"
-                                    className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-brand-magenta hover:scale-110 transition-all duration-300 group"
+                                    className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-brand-magenta hover:scale-110 transition-all duration-300 group min-w-[44px] min-h-[44px]"
+                                    aria-label={Icon.name}
                                 >
                                     <Icon size={18} className="text-slate-300 group-hover:text-white transition-colors" />
                                 </a>
@@ -46,8 +48,8 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Navigation</h3>
-                        <ul className="space-y-4 text-slate-400 text-sm font-bold">
+                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Navigation</h3>
+                        <ul className="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm font-bold">
                             <li><Link href="/" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Home</Link></li>
                             <li><Link href="/scholarships" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Scholarships</Link></li>
                             <li><Link href="/online-courses" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Online Courses</Link></li>
@@ -59,8 +61,8 @@ export default function Footer() {
 
                     {/* Policies */}
                     <div>
-                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Resources</h3>
-                        <ul className="space-y-4 text-slate-400 text-sm font-bold">
+                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Resources</h3>
+                        <ul className="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm font-bold">
                             <li><Link href="/disclaimer" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Disclaimer</Link></li>
                             <li><Link href="/help" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Help Center</Link></li>
                             <li><Link href="/privacy-policy" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Privacy Policy</Link></li>
@@ -69,15 +71,15 @@ export default function Footer() {
 
                     {/* Newsletter */}
                     <div>
-                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Newsletter</h3>
-                        <p className="text-slate-400 text-xs mb-6 font-medium leading-relaxed">Stay updated with latest scholarship alerts and educational news.</p>
+                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Newsletter</h3>
+                        <p className="text-slate-400 text-xs mb-4 md:mb-6 font-medium leading-relaxed">Stay updated with latest scholarship alerts and educational news.</p>
                         <form className="flex flex-col gap-3">
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="bg-white/5 border border-white/10 text-white px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-magenta/50 transition-all font-medium text-sm placeholder:text-slate-600"
+                                className="bg-white/5 border border-white/10 text-white px-4 md:px-5 py-3 md:py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-magenta/50 transition-all font-medium text-xs md:text-sm placeholder:text-slate-600 min-h-[44px]"
                             />
-                            <button className="bg-brand-magenta text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-lg shadow-brand-magenta/20 hover:shadow-brand-magenta/40 hover:-translate-y-0.5" type="button">
+                            <button className="bg-brand-magenta text-white font-black py-3 md:py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-lg shadow-brand-magenta/20 hover:shadow-brand-magenta/40 hover:-translate-y-0.5 min-h-[44px] flex items-center justify-center" type="button">
                                 Subscribe
                             </button>
                         </form>
@@ -85,7 +87,7 @@ export default function Footer() {
                 </div>
 
                 {/* Copyright */}
-                <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold tracking-widest text-slate-500 uppercase">
+                <div className="border-t border-white/5 pt-8 md:pt-10 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 text-xs font-bold tracking-widest text-slate-500 uppercase">
                     <p>&copy; {new Date().getFullYear()} PRO EDUXON LLP</p>
                     <p className="flex items-center gap-2">Crafted for <span className="text-brand-magenta">Your Future</span></p>
                 </div>

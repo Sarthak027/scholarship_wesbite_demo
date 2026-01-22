@@ -143,43 +143,44 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-xl bg-white rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+                        className="relative w-full max-w-[95vw] md:max-w-xl bg-white rounded-xl md:rounded-[2rem] shadow-2xl overflow-hidden max-h-[90vh] flex flex-col mx-2"
                     >
                         {/* Close Button */}
                         <button
                             onClick={onClose}
-                            className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-all z-10"
+                            className="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-all z-10 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                            aria-label="Close modal"
                         >
                             <X size={20} />
                         </button>
 
-                        <div className="overflow-y-auto p-8 md:p-10">
+                        <div className="overflow-y-auto p-6 md:p-8 lg:p-10">
                             {status === "success" ? (
-                                <div className="py-12 text-center">
-                                    <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                                        <CheckCircle size={40} />
+                                <div className="py-8 md:py-12 text-center">
+                                    <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                                        <CheckCircle size={32} className="md:w-10 md:h-10" />
                                     </div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Request Received!</h2>
-                                    <p className="text-slate-500">We will call you back shortly. Thank you for your interest.</p>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Request Received!</h2>
+                                    <p className="text-sm md:text-base text-slate-500">We will call you back shortly. Thank you for your interest.</p>
                                 </div>
                             ) : (
                                 <>
-                                    <div className="mb-8 font-montserrat">
-                                        <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2 uppercase tracking-tight">
+                                    <div className="mb-6 md:mb-8 font-montserrat">
+                                        <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-900 mb-2 uppercase tracking-tight">
                                             {mode === 'callback' ? 'Request a Call' : 'Enquiry Form'}
                                         </h2>
-                                        <p className="text-slate-500 font-medium whitespace-pre-line">
+                                        <p className="text-sm md:text-base text-slate-500 font-medium whitespace-pre-line">
                                             {mode === 'callback'
                                                 ? 'Please fill in the details below to get a scholarship consultation.'
                                                 : 'Get expert guidance for your career path.'}
                                         </p>
                                     </div>
 
-                                    <form onSubmit={handleSubmit} className="space-y-4">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                             <div className="relative group">
-                                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                    <User size={18} />
+                                                <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                    <User size={16} className="md:w-[18px] md:h-[18px]" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -188,13 +189,13 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="Your Name"
-                                                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800"
+                                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base min-h-[44px]"
                                                 />
                                             </div>
 
                                             <div className="relative group">
-                                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                    <Mail size={18} />
+                                                <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                    <Mail size={16} className="md:w-[18px] md:h-[18px]" />
                                                 </div>
                                                 <input
                                                     type="email"
@@ -203,14 +204,14 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                     onChange={handleChange}
                                                     required
                                                     placeholder="Your Email"
-                                                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800"
+                                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base min-h-[44px]"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="relative group">
-                                            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                <PhoneIcon size={18} />
+                                            <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                <PhoneIcon size={16} className="md:w-[18px] md:h-[18px]" />
                                             </div>
                                             <input
                                                 type="tel"
@@ -219,16 +220,16 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                 onChange={handleChange}
                                                 required
                                                 placeholder="Phone Number"
-                                                className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800"
+                                                className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base min-h-[44px]"
                                             />
                                         </div>
 
                                         {mode === 'scholarship' ? (
                                             <>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                                     <div className="relative group">
-                                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                            <MapPin size={18} />
+                                                        <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                            <MapPin size={16} className="md:w-[18px] md:h-[18px]" />
                                                         </div>
                                                         <input
                                                             type="text"
@@ -237,13 +238,13 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                             onChange={handleChange}
                                                             required
                                                             placeholder="Enter State"
-                                                            className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800"
+                                                            className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base min-h-[44px]"
                                                         />
                                                     </div>
 
                                                     <div className="relative group">
-                                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                            <MapPin size={18} />
+                                                        <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                            <MapPin size={16} className="md:w-[18px] md:h-[18px]" />
                                                         </div>
                                                         <input
                                                             type="text"
@@ -252,21 +253,21 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                             onChange={handleChange}
                                                             required
                                                             placeholder="Enter City"
-                                                            className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800"
+                                                            className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base min-h-[44px]"
                                                         />
                                                     </div>
                                                 </div>
 
                                                 <div className="relative group">
-                                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                        <BookOpen size={18} />
+                                                    <div className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                        <BookOpen size={16} className="md:w-[18px] md:h-[18px]" />
                                                     </div>
                                                     <select
                                                         name="course"
                                                         value={formData.course}
                                                         onChange={handleChange}
                                                         required
-                                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 appearance-none"
+                                                        className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base appearance-none min-h-[44px]"
                                                     >
                                                         <option value="" disabled>Select Course</option>
                                                         {COURSES.map(course => (
@@ -275,7 +276,7 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                     </select>
                                                 </div>
 
-                                                <div className="flex items-start gap-4 p-4 bg-sky-50 rounded-2xl border border-sky-100">
+                                                <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-sky-50 rounded-xl md:rounded-2xl border border-sky-100">
                                                     <div className="pt-1">
                                                         <input
                                                             type="checkbox"
@@ -294,8 +295,8 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                             </>
                                         ) : (
                                             <div className="relative group">
-                                                <div className="absolute left-4 top-5 text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                                                    <MessageSquare size={18} />
+                                                <div className="absolute left-3 md:left-4 top-4 md:top-5 text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                                    <MessageSquare size={16} className="md:w-[18px] md:h-[18px]" />
                                                 </div>
                                                 <textarea
                                                     name="message"
@@ -304,27 +305,27 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                                                     required
                                                     rows={4}
                                                     placeholder="Message"
-                                                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 resize-none min-h-[120px]"
+                                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl py-3 md:py-4 pl-10 md:pl-12 pr-4 outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all font-medium text-slate-800 text-sm md:text-base resize-none min-h-[120px]"
                                                 />
                                             </div>
                                         )}
 
                                         {status === "error" && (
-                                            <p className="text-rose-500 text-sm font-bold bg-rose-50 p-3 rounded-xl border border-rose-100 flex items-center gap-2">
-                                                <AlertCircle size={16} /> Failed to submit. Please try again.
+                                            <p className="text-rose-500 text-xs md:text-sm font-bold bg-rose-50 p-3 rounded-xl border border-rose-100 flex items-center gap-2">
+                                                <AlertCircle size={14} className="md:w-4 md:h-4" /> Failed to submit. Please try again.
                                             </p>
                                         )}
 
                                         <button
                                             type="submit"
                                             disabled={status === "submitting"}
-                                            className="w-full bg-sky-600 hover:bg-sky-700 text-white font-extrabold py-5 rounded-2xl shadow-xl shadow-sky-100 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 tracking-widest uppercase text-sm"
+                                            className="w-full bg-sky-600 hover:bg-sky-700 text-white font-extrabold py-4 md:py-5 rounded-xl md:rounded-2xl shadow-xl shadow-sky-100 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 md:gap-3 tracking-widest uppercase text-xs md:text-sm min-h-[44px]"
                                         >
                                             {status === "submitting" ? (
                                                 "SUBMITTING..."
                                             ) : (
                                                 <>
-                                                    SUBMIT REQUEST <Send size={16} />
+                                                    SUBMIT REQUEST <Send size={14} className="md:w-4 md:h-4" />
                                                 </>
                                             )}
                                         </button>

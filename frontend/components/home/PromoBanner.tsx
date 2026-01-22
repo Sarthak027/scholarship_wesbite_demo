@@ -9,7 +9,7 @@ export default function PromoBanner() {
 
     return (
         <>
-            <section className="relative w-full py-24 px-4 bg-brand-navy overflow-hidden">
+            <section className="relative w-full py-16 md:py-24 px-4 bg-brand-navy overflow-hidden">
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img
@@ -22,15 +22,15 @@ export default function PromoBanner() {
 
                 <div className="container mx-auto relative z-10 flex flex-col items-center text-center text-white">
 
-                    <h3 className="text-xl md:text-2xl font-bold mb-2 tracking-wide text-white/80">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 tracking-wide text-white/80">
                         Enroll For Top Coaching Of India
                     </h3>
 
-                    <h2 className="text-4xl md:text-6xl font-black mb-4 leading-tight drop-shadow-lg">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-3 md:mb-4 leading-tight drop-shadow-lg px-2">
                         Win Upto ₹1 LAKH <br className="md:hidden" /> Scholarship
                     </h2>
 
-                    <p className="text-2xl font-bold uppercase tracking-wider mb-8 text-brand-magenta">
+                    <p className="text-xl md:text-2xl font-bold uppercase tracking-wider mb-6 md:mb-8 text-brand-magenta">
                         NEET | JEE
                     </p>
 
@@ -38,7 +38,7 @@ export default function PromoBanner() {
                         onClick={() => setIsModalOpen(true)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-10 py-4 rounded-md font-bold text-lg shadow-xl uppercase tracking-wider transition-all"
+                        className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-8 md:px-10 py-3 md:py-4 rounded-md font-bold text-base md:text-lg shadow-xl uppercase tracking-wider transition-all min-h-[44px] flex items-center justify-center"
                     >
                         Apply Now
                     </motion.button>
