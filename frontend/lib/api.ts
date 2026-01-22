@@ -193,6 +193,92 @@ export const api = {
         }
     },
 
+    // Eligibility
+    eligibility: {
+        submit: async (data: any) => {
+            const res = await fetch(`${API_URL}/api/eligibility`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to submit eligibility');
+            return res.json();
+        },
+
+        getAll: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/eligibility`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch eligibility submissions');
+            return res.json();
+        },
+
+        updateStatus: async (id: string, status: string, token: string) => {
+            const res = await fetch(`${API_URL}/api/eligibility/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ status })
+            });
+            if (!res.ok) throw new Error('Failed to update eligibility status');
+            return res.json();
+        }
+    },
+
+    // Scholarship Brackets
+    brackets: {
+        getAll: async () => {
+            const res = await fetch(`${API_URL}/api/brackets`, {
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch brackets');
+            return res.json();
+        },
+
+        getByCourse: async (course: string) => {
+            const res = await fetch(`${API_URL}/api/brackets/${course}`, {
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch bracket');
+            return res.json();
+        },
+
+        update: async (course: string, data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/brackets/${course}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to update brackets');
+            return res.json();
+        },
+
+        initialize: async (token: string) => {
+            const res = await fetch(`${API_URL}/api/brackets/initialize`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to initialize brackets');
+            return res.json();
+        },
+
+        calculateReward: async (course: string, score: number) => {
+            const res = await fetch(`${API_URL}/api/brackets/calculate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ course, score })
+            });
+            if (!res.ok) throw new Error('Failed to calculate reward');
+            return res.json();
+        }
+    },
+
     // Auth
     auth: {
         login: async (username: string, password: string) => {

@@ -4,6 +4,7 @@ import CollegeCarousel from "@/components/home/CollegeCarousel";
 import NewsSection from "@/components/home/NewsSection";
 import PopularPrograms from "@/components/home/PopularPrograms";
 import JourneySection from "@/components/home/JourneySection";
+import EligibilityBanner from "@/components/home/EligibilityBanner";
 import PromoBanner from "@/components/home/PromoBanner";
 import LocationsGrid from "@/components/home/LocationsGrid";
 import ScholarshipCards from "@/components/scholarships/ScholarshipCards";
@@ -24,6 +25,7 @@ export default function Home() {
       <NewsSection />
       <PopularPrograms />
       <JourneySection />
+      <EligibilityBanner />
       <PromoBanner />
       <LocationsGrid />
       <ScholarshipCards />

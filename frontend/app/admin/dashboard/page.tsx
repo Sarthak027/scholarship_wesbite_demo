@@ -26,6 +26,8 @@ import BlogEditor from "@/components/admin/BlogEditor";
 import "@/styles/editor.css";
 import BlogsTab from "@/components/admin/BlogsTab";
 import CommentsTab from "@/components/admin/CommentsTab";
+import EligibilitySubmissionsTab from "@/components/admin/EligibilitySubmissionsTab";
+import ScholarshipBracketsTab from "@/components/admin/ScholarshipBracketsTab";
 import { api } from "@/lib/api";
 
 export default function AdminDashboard() {
@@ -35,6 +37,7 @@ export default function AdminDashboard() {
     const [inquiries, setInquiries] = useState<any[]>([]);
     const [blogs, setBlogs] = useState<any[]>([]);
     const [comments, setComments] = useState<any[]>([]);
+    const [eligibilitySubmissions, setEligibilitySubmissions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
@@ -44,17 +47,19 @@ export default function AdminDashboard() {
         if (!token) return;
 
         try {
-            const [scholarshipData, inquiryData, blogData, commentData] = await Promise.all([
+            const [scholarshipData, inquiryData, blogData, commentData, eligibilityData] = await Promise.all([
                 api.scholarships.getAll(),
                 api.inquiries.getAll(token),
                 api.blogs.getAllAdmin(token),
-                api.comments.getAll(token)
+                api.comments.getAll(token),
+                api.eligibility.getAll(token)
             ]);
 
             setScholarships(Array.isArray(scholarshipData) ? scholarshipData : []);
             setInquiries(Array.isArray(inquiryData) ? inquiryData : []);
             setBlogs(Array.isArray(blogData) ? blogData : []);
             setComments(Array.isArray(commentData) ? commentData : []);
+            setEligibilitySubmissions(Array.isArray(eligibilityData) ? eligibilityData : []);
             setLoading(false);
         } catch (error) {
             console.error("Dashboard fetch error:", error);
@@ -145,6 +150,18 @@ export default function AdminDashboard() {
                         label="Comments"
                         active={activeTab === "comments"}
                         onClick={() => { setActiveTab("comments"); setSidebarOpen(false); }}
+                    />
+                    <SidebarItem
+                        icon={<GraduationCap size={20} />}
+                        label="Eligibility Submissions"
+                        active={activeTab === "eligibility"}
+                        onClick={() => { setActiveTab("eligibility"); setSidebarOpen(false); }}
+                    />
+                    <SidebarItem
+                        icon={<GraduationCap size={20} />}
+                        label="Scholarship Brackets"
+                        active={activeTab === "brackets"}
+                        onClick={() => { setActiveTab("brackets"); setSidebarOpen(false); }}
                     />
                 </nav>
 
@@ -243,6 +260,17 @@ export default function AdminDashboard() {
                             {activeTab === "comments" && (
                                 <CommentsTab
                                     comments={comments}
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                            {activeTab === "eligibility" && (
+                                <EligibilitySubmissionsTab
+                                    submissions={eligibilitySubmissions}
+                                    onRefresh={fetchDashboardData}
+                                />
+                            )}
+                            {activeTab === "brackets" && (
+                                <ScholarshipBracketsTab
                                     onRefresh={fetchDashboardData}
                                 />
                             )}
