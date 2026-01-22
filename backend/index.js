@@ -10,6 +10,7 @@ const inquiryRoutes = require('./routes/inquiryRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const eligibilityRoutes = require('./routes/eligibilityRoutes');
 
 dotenv.config();
 
@@ -97,6 +98,10 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/eligibility', eligibilityRoutes);
+
+const bracketRoutes = require('./routes/bracketRoutes');
+app.use('/api/brackets', bracketRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'ConfirmScholarship API is running' });
