@@ -34,25 +34,25 @@ export default function Navbar() {
             <motion.header
                 initial={{ y: 0 }}
                 className={clsx(
-                    "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300",
-                    scrolled ? "bg-white/90 backdrop-blur-md shadow-md py-2" : "bg-white/40 backdrop-blur-sm py-3"
+                    "fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300 h-20",
+                    scrolled ? "bg-white shadow-sm" : "bg-white"
                 )}
-
             >
-                <div className="container mx-auto px-4 md:px-6">
-                    <div className="flex items-center justify-between">
+                <div className="h-full max-w-7xl mx-auto px-4 lg:px-8">
+                    <div className="flex items-center justify-between h-full">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center">
+                        <Link href="/" className="flex-shrink-0">
                             <motion.img
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={{ scale: 1.02 }}
                                 src={ASSETS.logos.nav}
                                 alt="Confirm Scholarship"
-                                className="h-8 md:h-10 w-auto object-contain"
+                                style={{ height: '56px' }}
+                                className="max-h-14 w-auto object-contain"
                             />
-
                         </Link>
 
-                        <nav className="hidden lg:flex items-center gap-8">
+                        {/* Navigation - Centered */}
+                        <nav className="hidden lg:flex items-center gap-7">
                             {navLinks.map((link) => {
                                 const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                                 return (
@@ -60,39 +60,33 @@ export default function Navbar() {
                                         key={link.name}
                                         href={link.href}
                                         className={clsx(
-                                            "relative group font-bold text-sm transition-all duration-200 py-2 uppercase tracking-widest",
-                                            isActive ? "text-brand-magenta" : "text-slate-800 hover:text-brand-magenta"
+                                            "text-sm font-medium transition-colors duration-200",
+                                            isActive ? "text-brand-magenta" : "text-gray-700 hover:text-brand-magenta"
                                         )}
                                     >
                                         {link.name}
-                                        <span className={clsx(
-                                            "absolute left-0 bottom-0 h-0.5 bg-brand-magenta transition-all duration-300",
-                                            isActive ? "w-full" : "w-0 group-hover:w-full"
-                                        )} />
                                     </Link>
                                 );
                             })}
                         </nav>
 
-                        <div className="flex items-center gap-4">
-                            {/* CTA Button */}
-                            <div className="hidden md:block">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => setIsModalOpen(true)}
-                                    className="bg-brand-magenta text-white px-6 py-2.5 rounded-full font-bold text-xs tracking-widest shadow-lg shadow-brand-magenta/20 hover:shadow-brand-magenta/40 uppercase transition-all"
-                                >
-                                    Enquire Now
-                                </motion.button>
-                            </div>
+                        {/* CTA Button */}
+                        <div className="flex items-center gap-3">
+                            <motion.button
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
+                                onClick={() => setIsModalOpen(true)}
+                                className="hidden md:block bg-brand-magenta text-white px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wide hover:bg-brand-magenta/90 transition-colors"
+                            >
+                                Enquire Now
+                            </motion.button>
 
                             {/* Mobile Menu Toggle */}
                             <button
-                                className="lg:hidden text-slate-dark p-2 hover:bg-slate-100 rounded-full transition-colors"
+                                className="lg:hidden text-gray-700 p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >
-                                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                                {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
                             </button>
                         </div>
                     </div>

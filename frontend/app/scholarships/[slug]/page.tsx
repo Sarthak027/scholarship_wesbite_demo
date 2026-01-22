@@ -1,28 +1,84 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import { scholarshipCategories } from "@/lib/scholarship-data";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronRight, MapPin, GraduationCap, Award } from "lucide-react";
 import EnquiryModal from "@/components/shared/EnquiryModal";
+import { api } from "@/lib/api";
+import { getAssetUrl } from "@/lib/assets";
+
+interface Category {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string;
+    banner: string;
+}
+
+interface ScholarshipItem {
+    _id: string;
+    college: string;
+    location: string;
+    scholarship: string;
+    course: string;
+    image: string;
+    categorySlug: string;
+    sectionTitle: string;
+}
+
+interface Section {
+    title: string;
+    items: ScholarshipItem[];
+}
 
 export default function ScholarshipCategoryPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
-    const [category, setCategory] = useState<typeof scholarshipCategories[0] | null>(null);
+    const [category, setCategory] = useState<Category | null>(null);
+    const [sections, setSections] = useState<Section[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
-        if (slug) {
-            const cat = scholarshipCategories.find(c => c.slug === slug);
-            setCategory(cat || null);
-        }
+        const fetchData = async () => {
+            if (!slug) return;
+
+            try {
+                // Fetch category info
+                const categoryData = await api.categories.getBySlug(slug);
+                setCategory(categoryData);
+
+                // Fetch scholarships for this category (already grouped by sections)
+                const scholarshipsData = await api.scholarships.getByCategory(slug);
+                setSections(scholarshipsData);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setNotFound(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
     }, [slug]);
 
-    if (!category) {
+    if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-magenta"></div>
+            </div>
+        );
+    }
+
+    if (notFound || !category) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+                <GraduationCap size={48} className="text-slate-300 mb-4" />
+                <h1 className="text-2xl font-bold text-slate-800 mb-2">Category Not Found</h1>
+                <p className="text-slate-500 mb-6">The scholarship category you're looking for doesn't exist.</p>
+                <Link href="/scholarships" className="bg-brand-navy text-white px-6 py-2 rounded-lg font-bold">
+                    View All Scholarships
+                </Link>
             </div>
         );
     }
@@ -34,8 +90,8 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                 <div className="absolute inset-0">
                     {category.banner ? (
                         <img
-                            src={category.banner}
-                            alt={category.title}
+                            src={getAssetUrl(category.banner)}
+                            alt={category.name}
                             className="w-full h-full object-cover opacity-40"
                         />
                     ) : (
@@ -57,11 +113,11 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                             <ChevronRight size={14} />
                             <Link href="/scholarships" className="hover:text-white transition-colors">Scholarships</Link>
                             <ChevronRight size={14} />
-                            <span className="text-brand-magenta">{category.title}</span>
+                            <span className="text-brand-magenta">{category.name}</span>
                         </div>
 
                         <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                            {category.title} <span className="text-brand-magenta">Scholarships</span>
+                            {category.name} <span className="text-brand-magenta">Scholarships</span>
                         </h1>
                         <p className="text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
                             {category.description}
@@ -71,21 +127,21 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
             </section>
 
             {/* Practical Placeholder for categories without sections yet */}
-            {category.sections.length === 0 ? (
+            {sections.length === 0 ? (
                 <section className="container mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
                     <div className="w-20 h-20 bg-brand-magenta/5 rounded-2xl flex items-center justify-center text-brand-magenta mb-6 font-black text-3xl">
-                        {category.title[0]}
+                        {category.name[0]}
                     </div>
                     <h2 className="text-2xl font-bold text-slate-800 mb-4">Coming Soon</h2>
                     <p className="text-slate-500 max-w-md mb-8">
-                        We are currently updating our database with the latest {category.title} scholarships. Check back soon for guaranteed financial support.
+                        We are currently updating our database with the latest {category.name} scholarships. Check back soon for guaranteed financial support.
                     </p>
                     <Link href="/scholarships" className="bg-brand-navy text-white px-8 py-3 rounded-xl font-bold hover:bg-brand-deep-navy transition-colors uppercase tracking-widest text-xs">
                         View Other Categories
                     </Link>
                 </section>
             ) : (
-                category.sections.map((section, sectionIdx) => (
+                sections.map((section, sectionIdx) => (
                     <section key={sectionIdx} className="container mx-auto px-4 pt-16">
                         <div className="mb-12">
                             <h2 className="text-3xl font-black text-slate-900 relative inline-block">
@@ -97,7 +153,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {section.items.map((item, itemIdx) => (
                                 <motion.div
-                                    key={itemIdx}
+                                    key={item._id}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
@@ -107,7 +163,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                                     {/* Image Container */}
                                     <div className="h-44 overflow-hidden relative">
                                         <img
-                                            src={item.image}
+                                            src={getAssetUrl(item.image)}
                                             alt={item.college}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />

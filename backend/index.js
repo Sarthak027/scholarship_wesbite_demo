@@ -126,6 +126,9 @@ app.use('/api/eligibility', eligibilityRoutes);
 const bracketRoutes = require('./routes/bracketRoutes');
 app.use('/api/brackets', bracketRoutes);
 
+const onlineCourseRoutes = require('./routes/onlineCourseRoutes');
+app.use('/api/online-courses', onlineCourseRoutes);
+
 app.get('/', (req, res) => {
   res.json({ message: 'ConfirmScholarship API is running' });
 });
@@ -144,11 +147,11 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err);
   const statusCode = err.statusCode || 500;
-  const message = process.env.NODE_ENV === 'production' 
-    ? "Internal Server Error" 
+  const message = process.env.NODE_ENV === 'production'
+    ? "Internal Server Error"
     : err.message;
-  res.status(statusCode).json({ 
-    message, 
+  res.status(statusCode).json({
+    message,
     ...(process.env.NODE_ENV === 'development' && { error: err.message, stack: err.stack })
   });
 });

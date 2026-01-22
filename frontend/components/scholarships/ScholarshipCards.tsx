@@ -1,19 +1,60 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { scholarshipCategories } from "@/lib/scholarship-data";
+import { api } from "@/lib/api";
 import EnquiryModal from "@/components/shared/EnquiryModal";
+import { getAssetUrl } from "@/lib/assets";
+
+interface Category {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string;
+    banner: string;
+    order: number;
+    isActive: boolean;
+    scholarshipCount?: number;
+    sampleScholarship?: string;
+}
 
 export default function ScholarshipCards() {
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const data = await api.categories.getAllWithCount();
+                setCategories(data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     const handleExplore = (slug: string) => {
         router.push(`/scholarships/${slug}`);
     };
+
+    if (loading) {
+        return (
+            <section className="py-20 bg-gray-50" id="scholarships">
+                <div className="container mx-auto px-4">
+                    <div className="flex items-center justify-center h-64">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-magenta"></div>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <>
@@ -40,9 +81,9 @@ export default function ScholarshipCards() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                        {scholarshipCategories.map((cat, index) => (
+                        {categories.map((cat, index) => (
                             <motion.div
-                                key={cat.title}
+                                key={cat._id}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05, duration: 0.5 }}
@@ -52,8 +93,8 @@ export default function ScholarshipCards() {
                                 <div className="h-40 overflow-hidden relative bg-slate-100">
                                     {cat.banner ? (
                                         <img
-                                            src={cat.banner}
-                                            alt={cat.title}
+                                            src={getAssetUrl(cat.banner)}
+                                            alt={cat.name}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                         />
                                     ) : (
@@ -64,7 +105,7 @@ export default function ScholarshipCards() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </div>
                                 <div className="p-6 flex flex-col flex-grow">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-magenta transition-colors line-clamp-1">{cat.title}</h3>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-magenta transition-colors line-clamp-1">{cat.name}</h3>
                                     <p className="text-slate-500 text-xs leading-relaxed mb-4 line-clamp-3">
                                         {cat.description}
                                     </p>
@@ -72,7 +113,7 @@ export default function ScholarshipCards() {
                                         <div>
                                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Upto</p>
                                             <p className="font-bold text-lg text-brand-magenta">
-                                                {cat.sections[0]?.items[0]?.scholarship.split("-")[1]?.trim() || "₹1,00,000*"}
+                                                {cat.sampleScholarship?.split("-")[1]?.trim() || "₹1,00,000*"}
                                             </p>
                                         </div>
                                         <button
