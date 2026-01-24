@@ -11,6 +11,7 @@ const blogRoutes = require('./routes/blogRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const eligibilityRoutes = require('./routes/eligibilityRoutes');
+const scholarshipCheckRoutes = require('./routes/scholarshipCheckRoutes');
 
 dotenv.config();
 
@@ -122,6 +123,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/eligibility', eligibilityRoutes);
+app.use('/api/scholarship-check', scholarshipCheckRoutes);
 
 const bracketRoutes = require('./routes/bracketRoutes');
 app.use('/api/brackets', bracketRoutes);

@@ -150,7 +150,7 @@ export default function EligibilityChecker() {
             case 2:
                 return !!formData.tenthMarks && !!formData.twelfthMarks;
             case 3:
-                return !!formData.entranceExam && !!formData.examScore;
+                return !!formData.entranceExam && (formData.entranceExam === "Direct Admission" || !!formData.examScore);
             case 4:
                 return true;
             case 5:
@@ -322,20 +322,22 @@ export default function EligibilityChecker() {
                                         ))}
                                     </select>
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                                        {formData.entranceExam ? `${formData.entranceExam} Score/Percentile` : "Score/Percentile"}
-                                    </label>
-                                    <input
-                                        type="number"
-                                        placeholder="0"
-                                        value={formData.examScore}
-                                        onChange={(e) => handleInputChange("examScore", e.target.value)}
-                                        className="w-full px-4 py-3 bg-white text-slate-800 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-brand-magenta"
-                                        min="0"
-                                        max="100"
-                                    />
-                                </div>
+                                {formData.entranceExam !== "Direct Admission" && (
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                                            {formData.entranceExam ? `${formData.entranceExam} Score/Percentile` : "Score/Percentile"}
+                                        </label>
+                                        <input
+                                            type="number"
+                                            placeholder="0"
+                                            value={formData.examScore}
+                                            onChange={(e) => handleInputChange("examScore", e.target.value)}
+                                            className="w-full px-4 py-3 bg-white text-slate-800 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-brand-magenta"
+                                            min="0"
+                                            max="100"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
 

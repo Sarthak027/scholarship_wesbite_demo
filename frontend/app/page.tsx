@@ -1,11 +1,11 @@
 import Hero from "@/components/home/Hero";
-
 import CollegeCarousel from "@/components/home/CollegeCarousel";
 import NewsSection from "@/components/home/NewsSection";
 import PopularPrograms from "@/components/home/PopularPrograms";
 import JourneySection from "@/components/home/JourneySection";
 import EligibilityBanner from "@/components/home/EligibilityBanner";
 import PromoBanner from "@/components/home/PromoBanner";
+import RequestCheckBanner from "@/components/home/RequestCheckBanner";
 import LocationsGrid from "@/components/home/LocationsGrid";
 import ScholarshipCards from "@/components/scholarships/ScholarshipCards";
 import OnlineCourses from "@/components/home/OnlineCourses";
@@ -13,28 +13,67 @@ import BTechBanner from "@/components/home/BTechBanner";
 import GovtScholarships from "@/components/home/GovtScholarships";
 import AboutSectionHome from "@/components/home/AboutSectionHome";
 import Testimonials from "@/components/home/Testimonials";
-import CTASection from "@/components/shared/CTASection";
+import CTASection from "@/components/shared/CTASection"; // For #3, #17, #18
 import BlogSection from "@/components/home/BlogSection";
+
+// Additional Imports for new sections
+import WhyChooseUs from "@/components/about/WhyChooseUs"; // For #19
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-0">
+      {/* 1. Hero Section */}
       <Hero />
 
-      <CollegeCarousel />
-      <NewsSection />
-      <PopularPrograms />
-      <JourneySection />
+      {/* 2. Scholarship Calculator / Check Your Eligibility */}
       <EligibilityBanner />
-      <PromoBanner />
-      <LocationsGrid />
-      <ScholarshipCards />
-      <OnlineCourses />
-      <BTechBanner />
-      <GovtScholarships />
-      <AboutSectionHome />
-      <Testimonials />
+
+      {/* 3. Sticky Bottom CTA (Reused CTASection) */}
       <CTASection />
+
+      {/* 5. We Are Featured In */}
+      <NewsSection />
+
+      {/* 6. Testimonials */}
+      <Testimonials />
+
+      {/* 7. Top Colleges */}
+      <CollegeCarousel />
+
+      {/* 8. Most Popular Scholarships */}
+      <PopularPrograms />
+
+      {/* 9. Online Courses Scholarships */}
+      <OnlineCourses />
+
+      {/* 10. Featured / Special Scholarship */}
+      <BTechBanner />
+
+      {/* 11. Let’s Start Your Journey */}
+      <JourneySection />
+
+      {/* 13. Our Scholarships */}
+      <ScholarshipCards />
+
+      {/* 14. NEET / JEE Scholarship Section */}
+      <PromoBanner />
+
+      {/* 15. Best Locations */}
+      <LocationsGrid />
+
+      {/* 16. Government & Other Scholarships */}
+      <GovtScholarships />
+
+      {/* 18. New Banner */}
+      <RequestCheckBanner />
+
+      {/* 19. Why Choose Confirm Scholarship */}
+      <WhyChooseUs />
+
+      {/* 20. About Confirm Scholarship */}
+      <AboutSectionHome />
+
+      {/* 21. Blog / Knowledge Hub */}
       <BlogSection />
 
       {/* Floating WhatsApp Button (Fixed) */}
