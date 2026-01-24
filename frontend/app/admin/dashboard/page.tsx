@@ -35,6 +35,7 @@ import EligibilitySubmissionsTab from "@/components/admin/EligibilitySubmissions
 import ScholarshipBracketsTab from "@/components/admin/ScholarshipBracketsTab";
 import ScholarshipsManagementTab from "@/components/admin/ScholarshipsManagementTab";
 import OnlineCoursesManagementTab from "@/components/admin/OnlineCoursesManagementTab";
+import CheckRequestsTab from "@/components/admin/CheckRequestsTab";
 import { api } from "@/lib/api";
 
 export default function AdminDashboard() {
@@ -143,6 +144,12 @@ export default function AdminDashboard() {
                         label="Scholarships"
                         active={activeTab === "scholarships"}
                         onClick={() => { setActiveTab("scholarships"); setSidebarOpen(false); }}
+                    />
+                    <SidebarItem
+                        icon={<Search size={20} />}
+                        label="Check Requests"
+                        active={activeTab === "check_requests"}
+                        onClick={() => { setActiveTab("check_requests"); setSidebarOpen(false); }}
                     />
                     <SidebarItem
                         icon={<GraduationCap size={20} />}
@@ -261,6 +268,9 @@ export default function AdminDashboard() {
                             )}
                             {activeTab === "scholarships" && (
                                 <ScholarshipsManagementTab onRefresh={fetchDashboardData} />
+                            )}
+                            {activeTab === "check_requests" && (
+                                <CheckRequestsTab />
                             )}
                             {activeTab === "scholarship_inquiries" && (
                                 <InquiriesTab

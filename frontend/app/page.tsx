@@ -5,6 +5,7 @@ import PopularPrograms from "@/components/home/PopularPrograms";
 import JourneySection from "@/components/home/JourneySection";
 import EligibilityBanner from "@/components/home/EligibilityBanner";
 import PromoBanner from "@/components/home/PromoBanner";
+import RequestCheckBanner from "@/components/home/RequestCheckBanner";
 import LocationsGrid from "@/components/home/LocationsGrid";
 import ScholarshipCards from "@/components/scholarships/ScholarshipCards";
 import OnlineCourses from "@/components/home/OnlineCourses";
@@ -62,6 +63,9 @@ export default function Home() {
 
       {/* 16. Government & Other Scholarships */}
       <GovtScholarships />
+
+      {/* 18. New Banner */}
+      <RequestCheckBanner />
 
       {/* 19. Why Choose Confirm Scholarship */}
       <WhyChooseUs />
