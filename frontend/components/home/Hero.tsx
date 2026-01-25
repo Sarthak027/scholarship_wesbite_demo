@@ -173,29 +173,29 @@ export default function Hero() {
                 {/* ================= FEATURE CARDS (DESKTOP) ================= */}
                 <div className="hidden lg:flex absolute bottom-0 right-0 z-30">
                     <div className="flex">
-                        <div className="bg-brand-magenta text-white p-6 w-60 rounded-tl-[40px]">
-                            <div className="w-9 h-9 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold mb-3 text-sm">
+                        <div className="bg-brand-magenta text-white p-10 w-80 rounded-tl-[40px] flex flex-col justify-center">
+                            <div className="w-12 h-12 rounded-full bg-white text-brand-magenta flex items-center justify-center font-black mb-5 text-base">
                                 01
                             </div>
-                            <p className="font-bold text-sm leading-snug">
+                            <p className="font-black text-lg leading-tight uppercase tracking-wide">
                                 Scholarships For All From 10% To 100%
                             </p>
                         </div>
 
-                        <div className="bg-brand-navy text-white p-6 w-60">
-                            <div className="w-9 h-9 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold mb-3 text-sm">
+                        <div className="bg-brand-navy text-white p-10 w-80 flex flex-col justify-center">
+                            <div className="w-12 h-12 rounded-full bg-white text-brand-navy flex items-center justify-center font-black mb-5 text-base">
                                 02
                             </div>
-                            <p className="font-bold text-sm leading-snug">
+                            <p className="font-black text-lg leading-tight uppercase tracking-wide">
                                 Partnered With Best Universities & Colleges Of India
                             </p>
                         </div>
 
-                        <div className="bg-brand-deep-navy text-white p-6 w-60">
-                            <div className="w-9 h-9 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold mb-3 text-sm">
+                        <div className="bg-brand-deep-navy text-white p-10 w-80 flex flex-col justify-center">
+                            <div className="w-12 h-12 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-black mb-5 text-base">
                                 03
                             </div>
-                            <p className="font-bold text-sm leading-snug">
+                            <p className="font-black text-lg leading-tight uppercase tracking-wide">
                                 Personalized Mentoring & Guidance
                             </p>
                         </div>
