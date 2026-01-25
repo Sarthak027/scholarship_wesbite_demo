@@ -130,12 +130,12 @@ export default function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0 }}
-                            className="bg-brand-magenta text-white p-6 rounded-t-[24px]"
+                            className="bg-brand-magenta text-white p-7 rounded-t-[24px] border-b border-white/20"
                         >
-                            <div className="w-9 h-9 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold mb-3 text-sm">
+                            <div className="w-10 h-10 rounded-full bg-white text-brand-magenta flex items-center justify-center font-black mb-4 text-sm">
                                 01
                             </div>
-                            <p className="font-bold text-sm leading-snug">
+                            <p className="font-black text-lg leading-tight uppercase tracking-wide">
                                 Scholarships For All From 10% To 100%
                             </p>
                         </motion.div>
@@ -144,12 +144,12 @@ export default function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
-                            className="bg-brand-navy text-white p-6"
+                            className="bg-brand-navy text-white p-7 border-b border-white/20"
                         >
-                            <div className="w-9 h-9 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold mb-3 text-sm">
+                            <div className="w-10 h-10 rounded-full bg-white text-brand-navy flex items-center justify-center font-black mb-4 text-sm">
                                 02
                             </div>
-                            <p className="font-bold text-sm leading-snug">
+                            <p className="font-black text-lg leading-tight uppercase tracking-wide">
                                 Partnered With Best Universities & Colleges Of India
                             </p>
                         </motion.div>
@@ -158,12 +158,12 @@ export default function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-brand-deep-navy text-white p-6"
+                            className="bg-brand-deep-navy text-white p-7" // Increased padding slightly
                         >
-                            <div className="w-9 h-9 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold mb-3 text-sm">
+                            <div className="w-10 h-10 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-black mb-4 text-sm">
                                 03
                             </div>
-                            <p className="font-bold text-sm leading-snug">
+                            <p className="font-black text-lg leading-tight uppercase tracking-wide">
                                 Personalized Mentoring & Guidance
                             </p>
                         </motion.div>

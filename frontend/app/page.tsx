@@ -21,6 +21,8 @@ import WhyChooseUs from "@/components/about/WhyChooseUs";
 import AffiliationsCarousel from "@/components/home/AffiliationsCarousel";
 import HomeLeadForm from "@/components/home/HomeLeadForm";
 import VideoSection from "@/components/home/VideoSection";
+import OnlineCourseHero from "@/components/home/OnlineCourseHero";
+import ScholarshipHero from "@/components/scholarships/ScholarshipHero";
 
 export default function Home() {
   return (
@@ -47,7 +49,10 @@ export default function Home() {
       <PopularPrograms />
 
       {/* 8. Our Scholarships */}
-      <ScholarshipCards />
+      <ScholarshipHero />
+      <div className="-mt-24 relative z-20">
+        <ScholarshipCards />
+      </div>
 
       {/* 9. How It Works */}
       <JourneySection />
@@ -71,7 +76,10 @@ export default function Home() {
       <RequestCheckBanner />
 
       {/* 16. Online Scholarships */}
-      <OnlineCourses />
+      <OnlineCourseHero />
+      <div className="-mt-24 relative z-20">
+        <OnlineCourses />
+      </div>
 
       {/* 17. Big Poster */}
       <BTechBanner />

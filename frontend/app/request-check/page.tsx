@@ -60,13 +60,17 @@ export default function RequestCheckPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    <div className="bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 border border-slate-100 p-6 md:p-10 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-magenta to-brand-navy"></div>
+                    <div className="bg-gradient-to-br from-brand-navy via-brand-navy to-brand-deep-navy rounded-3xl shadow-2xl shadow-brand-navy/30 border border-white/10 p-6 md:p-10 relative overflow-hidden">
+                        {/* Decorative background sparks */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-magenta/20 rounded-full blur-[80px] -mr-32 -mt-32" />
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] -ml-32 -mb-32" />
 
-                        <h2 className="text-2xl font-bold text-slate-900 mb-2">Request Scholarship Check</h2>
-                        <p className="text-slate-500 text-sm mb-8">Tell us where you want to go, and we&apos;ll find the funds.</p>
+                        <div className="relative z-10">
+                            <h2 className="text-3xl font-black text-white mb-2">Request Scholarship Check</h2>
+                            <p className="text-white/70 text-sm mb-8 font-medium">Tell us where you want to go, and we&apos;ll find the funds.</p>
 
-                        <ScholarshipRequestForm variant="light" />
+                            <ScholarshipRequestForm variant="dark" />
+                        </div>
                     </div>
                 </motion.div>
             </div>

@@ -37,16 +37,16 @@ export default function AffiliationsCarousel() {
                     {doubledAffiliations.map((item, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col items-center justify-center min-w-[120px] md:min-w-[180px] group/item"
+                            className="flex flex-col items-center justify-center min-w-[180px] md:min-w-[240px] group/item"
                         >
-                            <div className="h-16 md:h-20 w-auto flex items-center justify-center mb-3">
+                            <div className="h-28 md:h-36 w-full flex items-center justify-center mb-4 px-4">
                                 <img
                                     src={item.logo}
                                     alt={item.name}
-                                    className="max-h-full max-w-full object-contain transition-all duration-300"
+                                    className="max-h-[95%] max-w-[95%] object-contain transition-all duration-300 transform group-hover/item:scale-110"
                                 />
                             </div>
-                            <span className="text-[10px] md:text-xs font-black text-slate-400 group-hover/item:text-brand-magenta uppercase tracking-widest transition-colors duration-300">
+                            <span className="text-xs md:text-sm font-black text-slate-400 group-hover/item:text-brand-magenta uppercase tracking-[0.2em] transition-colors duration-300">
                                 {item.name}
                             </span>
                         </div>

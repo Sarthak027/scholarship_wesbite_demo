@@ -33,12 +33,12 @@ export default function ScholarshipHero() {
                         </motion.span>
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-[1.1]">
                             Your Scholarship <br />
-                            <span className="text-brand-magenta">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-300">
                                 Simplified.
                             </span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-medium">
-                            Explore hundreds of verified scholarship opportunities tailored to your academic background and career goals. We bring you closer to your dreams.
+                            Explore hundreds of verified scholarship opportunities tailored to your academic background and career goals.
                         </p>
                     </motion.div>
                 </div>

@@ -19,9 +19,9 @@ const courseOptions = [
     { id: "mba", label: "MBA" },
     { id: "pgdm", label: "PGDM" },
     { id: "btech", label: "B.Tech" },
+    { id: "bdesign", label: "B.Design" },
     { id: "bba", label: "BBA" },
-    { id: "bca", label: "BCA" },
-    { id: "mca", label: "MCA" }
+    { id: "others", label: "Others" }
 ];
 
 // Entrance exams by course
@@ -30,8 +30,8 @@ const entranceExamsByCourse: Record<string, string[]> = {
     pgdm: ["CAT", "MAT", "XAT", "CMAT", "ATMA", "GMAT", "Direct Admission"],
     btech: ["JEE Main", "JEE Advanced", "State CET", "BITSAT", "Direct Admission"],
     bba: ["IPMAT", "SET", "NPAT", "CUET", "Direct Admission"],
-    bca: ["CUET", "State CET", "Direct Admission"],
-    mca: ["NIMCET", "CUET PG", "State MCA CET", "Direct Admission"]
+    bdesign: ["UCEED", "NID DAT", "NIFT", "CUET", "Direct Admission"],
+    others: ["CUET", "State CET", "University Exam", "Direct Admission"]
 };
 
 // Bracket type interface
@@ -214,14 +214,14 @@ export default function EligibilityChecker() {
                             subtitle={`Select your course category to find eligible scholarships for ${bracketYear}.`}
                         />
 
-                        <div className="flex flex-wrap justify-center gap-3 mb-8">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
                             {courseOptions.map((course) => (
                                 <button
                                     key={course.id}
                                     onClick={() => handleInputChange("course", course.id)}
-                                    className={`px-6 py-3 rounded-lg font-bold text-sm transition-all ${formData.course === course.id
-                                        ? "bg-brand-deep-navy text-white shadow-lg"
-                                        : "bg-white text-slate-700 border-2 border-slate-200 hover:border-brand-navy"
+                                    className={`w-full py-3.5 px-2 rounded-xl font-black text-xs md:text-sm transition-all text-center flex items-center justify-center min-h-[56px] ${formData.course === course.id
+                                        ? "bg-brand-deep-navy text-white shadow-xl scale-[1.02] border-brand-deep-navy"
+                                        : "bg-white text-slate-800 border-2 border-slate-100 hover:border-brand-magenta/30 hover:bg-slate-50"
                                         }`}
                                 >
                                     {course.label}

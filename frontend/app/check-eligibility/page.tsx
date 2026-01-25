@@ -36,15 +36,15 @@ export default function CheckEligibilityPage() {
                             Bridging the gap between your potential and your future career.
                         </p>
 
-                        {/* Feature Badges */}
-                        <div className="flex flex-wrap justify-center gap-3">
+                        {/* Feature Badges - Uniform & Highlighted */}
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-sm mx-auto sm:max-w-none">
                             {featureBadges.map((badge, index) => (
                                 <div
                                     key={index}
-                                    className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full"
+                                    className="flex items-center gap-3 bg-white/10 backdrop-blur-md border-2 border-white/40 px-6 py-3 rounded-full w-full sm:w-auto hover:bg-white/20 transition-all duration-300 shadow-lg"
                                 >
-                                    <badge.icon className="w-4 h-4 text-emerald-400" />
-                                    <span className="text-white/90 text-sm font-medium">{badge.text}</span>
+                                    <badge.icon className="w-5 h-5 text-emerald-400 shrink-0" />
+                                    <span className="text-white text-xs font-black uppercase tracking-[0.15em] leading-none">{badge.text}</span>
                                 </div>
                             ))}
                         </div>

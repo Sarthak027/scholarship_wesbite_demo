@@ -6,7 +6,10 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function EligibilityBanner() {
     return (
-        <section className="py-16 relative overflow-hidden">
+        <section className="py-20 md:py-24 relative overflow-hidden mt-12 md:mt-0">
+            {/* Top Solid White Separator Line */}
+            <div className="absolute top-0 left-0 w-full h-px bg-white/30 z-20" />
+
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-deep-navy via-brand-navy to-brand-deep-navy" />
 

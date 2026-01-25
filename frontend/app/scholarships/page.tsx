@@ -8,9 +8,11 @@ export const metadata = {
 
 export default function ScholarshipsPage() {
     return (
-        <div className="pt-20">
+        <div className="pt-0">
             <ScholarshipHero />
-            <ScholarshipCards />
+            <div className="-mt-24 relative z-20">
+                <ScholarshipCards />
+            </div>
         </div>
     );
 }

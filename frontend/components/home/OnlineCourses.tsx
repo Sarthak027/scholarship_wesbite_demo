@@ -57,7 +57,7 @@ export default function OnlineCourses() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-brand-magenta font-black text-xl md:text-2xl uppercase tracking-[0.2em] mb-3 md:mb-4"
+                        className="text-brand-magenta font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-brand-magenta/5 inline-block px-6 py-2 rounded-full"
                     >
                         Online Courses
                     </motion.h2>
@@ -86,44 +86,44 @@ export default function OnlineCourses() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="bg-white rounded-xl md:rounded-[1.5rem] overflow-hidden shadow-xl shadow-slate-200 border border-slate-100 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 group"
+                                className="bg-white rounded-[2.5rem] overflow-hidden border-2 border-slate-900 shadow-xl group transition-all duration-300 flex flex-col p-5 h-full"
                             >
-                                <div className="flex flex-col">
-                                    {/* Banner Image */}
-                                    <div className="h-32 md:h-40 w-full overflow-hidden relative">
-                                        <img
-                                            src={getAssetUrl(uni.bannerImage)}
-                                            alt={uni.name}
-                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                                    </div>
+                                {/* Banner Image Container */}
+                                <div className="h-44 overflow-hidden relative rounded-2xl bg-white mb-6 border border-slate-100 shadow-sm">
+                                    <img
+                                        src={getAssetUrl(uni.bannerImage)}
+                                        alt={uni.name}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </div>
 
-                                    <div className="p-6 md:p-8 pb-3 md:pb-4">
-                                        <h3 className="text-base md:text-lg font-bold text-slate-800 mb-2">
-                                            {uni.name}
-                                        </h3>
-                                    </div>
+                                <div className="flex flex-col flex-grow text-center px-2">
+                                    <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-magenta transition-colors leading-tight">
+                                        {uni.name}
+                                    </h3>
 
-                                    <div className="px-6 md:px-8 mb-4 md:mb-6">
-                                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Available Course:</p>
-                                        <p className="text-xs md:text-sm font-semibold text-slate-700 leading-relaxed">
+                                    <div className="mb-6 flex-grow">
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Available Course</p>
+                                        <p className="text-xs md:text-sm font-bold text-slate-600 leading-relaxed line-clamp-2">
                                             {uni.availableCourses.join(", ")}
                                         </p>
                                     </div>
 
-                                    <div className="px-6 md:px-8 pt-4 md:pt-6 border-t border-slate-50 mb-6 md:mb-8">
-                                        <p className="text-brand-magenta font-bold text-xs md:text-sm">
-                                            Courses Ranging From {uni.priceRange}
+                                    <div className="mt-auto space-y-6">
+                                        <p className="font-black text-lg text-brand-magenta tracking-tight">
+                                            Scholarship Guaranteed*
+                                            <br />
+                                            <span className="text-xl">{uni.priceRange}</span>
                                         </p>
+
+                                        <Link href={`/online-courses/${uni.slug}`} className="w-full block">
+                                            <button className="w-full bg-brand-magenta hover:bg-brand-magenta/90 text-white font-black py-4 rounded-full text-sm uppercase tracking-widest shadow-lg shadow-brand-magenta/20 transition-all active:scale-95">
+                                                <span className="underline underline-offset-4 decoration-white/30">EXPLORE NOW</span>
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
-
-                                <Link href={`/online-courses/${uni.slug}`} className="w-full">
-                                    <button className="w-full bg-brand-navy hover:bg-brand-deep-navy text-white font-bold py-3 rounded-b-xl uppercase tracking-widest text-[10px] shadow-lg shadow-brand-navy/10 transition-all min-h-[44px]">
-                                        Explore Now
-                                    </button>
-                                </Link>
                             </motion.div>
                         ))}
                     </div>

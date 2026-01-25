@@ -35,20 +35,20 @@ export default function CollegeCarousel() {
                     <motion.div
                         className="flex gap-8 md:gap-12 lg:gap-16 items-center whitespace-nowrap"
                         animate={{ x: ["0%", "-50%"] }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                     >
                         {[...colleges, ...colleges].map((college, index) => (
                             <div
                                 key={`${college.name}-${index}`}
                                 className="flex flex-col items-center justify-center group"
                             >
-                                {/* Logo Image */}
-                                <div className="h-20 w-40 md:h-24 md:w-48 lg:h-28 lg:w-56 flex items-center justify-center p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:border-brand-magenta/30 transition-all group-hover:shadow-lg">
+                                {/* Logo Image Container */}
+                                <div className="h-28 w-48 md:h-36 md:w-64 lg:h-44 lg:w-80 flex items-center justify-center p-3 md:p-6 bg-white rounded-2xl shadow-md border border-slate-100 hover:border-brand-magenta/40 transition-all group-hover:shadow-2xl">
                                     {college.logoUrl ? (
                                         <img
                                             src={college.logoUrl}
                                             alt={college.name}
-                                            className="max-h-full max-w-full object-contain transition-all duration-300"
+                                            className="max-h-[95%] max-w-[95%] md:max-h-[85%] md:max-w-[85%] object-contain transition-all duration-300 transform group-hover:scale-110"
                                             onError={(e) => {
                                                 const target = e.target as HTMLImageElement;
                                                 target.style.display = 'none';

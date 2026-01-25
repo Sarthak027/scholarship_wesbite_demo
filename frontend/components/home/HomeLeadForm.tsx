@@ -36,19 +36,23 @@ export default function HomeLeadForm() {
 
                     <div className="lg:w-1/2 w-full max-w-xl">
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-[2.5rem] p-6 md:p-10 shadow-2xl relative"
+                            className="bg-gradient-to-br from-brand-navy via-brand-navy to-brand-deep-navy rounded-[2.5rem] p-6 md:p-10 shadow-2xl relative overflow-hidden border border-white/10"
                         >
-                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-magenta to-brand-navy rounded-t-[2.5rem]"></div>
+                            {/* Decorative background sparks */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-magenta/20 rounded-full blur-[80px] -mr-32 -mt-32" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] -ml-32 -mb-32" />
 
-                            <div className="mb-6">
-                                <h3 className="text-2xl font-black text-slate-900 mb-1">Scholarship Application</h3>
-                                <p className="text-slate-500 text-sm">Fill your details to check eligible scholarship amounts.</p>
+                            <div className="relative z-10">
+                                <div className="mb-8">
+                                    <h3 className="text-3xl font-black text-white mb-2">Scholarship Application</h3>
+                                    <p className="text-white/70 text-sm font-medium">Fill your details to check eligible scholarship amounts.</p>
+                                </div>
+
+                                <ScholarshipRequestForm variant="dark" />
                             </div>
-
-                            <ScholarshipRequestForm variant="light" />
                         </motion.div>
                     </div>
                 </div>

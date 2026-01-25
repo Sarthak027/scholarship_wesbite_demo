@@ -60,7 +60,7 @@ export default function ScholarshipCards() {
         <>
             <section className="py-20 bg-gray-50" id="scholarships">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-16 lg:hidden">
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -69,15 +69,6 @@ export default function ScholarshipCards() {
                         >
                             Our Scholarships
                         </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="text-brand-navy text-3xl md:text-4xl font-bold max-w-2xl mx-auto"
-                        >
-                            Scholarships Tailored For <span className="text-brand-magenta">Your Ambition</span>
-                        </motion.p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
