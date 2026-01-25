@@ -88,39 +88,43 @@ export default function ScholarshipCards() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05, duration: 0.5 }}
                                 viewport={{ once: true, margin: "-50px" }}
-                                className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                                className="bg-[#fbfbfb] rounded-3xl overflow-hidden border-2 border-slate-900 shadow-xl group transition-all duration-300 flex flex-col p-5"
                             >
-                                <div className="h-40 overflow-hidden relative bg-slate-100">
+                                {/* Image Container with rounded corners and padding */}
+                                <div className="h-48 overflow-hidden relative rounded-2xl bg-white mb-6 border border-slate-100 shadow-sm">
                                     {cat.banner ? (
                                         <img
                                             src={getAssetUrl(cat.banner)}
                                             alt={cat.name}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-slate-300">
-                                            <GraduationCap size={40} />
+                                            <GraduationCap size={44} />
                                         </div>
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </div>
-                                <div className="p-6 flex flex-col flex-grow">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-magenta transition-colors line-clamp-1">{cat.name}</h3>
-                                    <p className="text-slate-500 text-xs leading-relaxed mb-4 line-clamp-3">
-                                        {cat.description}
+
+                                {/* Card Content - Centered */}
+                                <div className="flex flex-col flex-grow text-center">
+                                    <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-brand-magenta transition-colors">
+                                        {cat.name}
+                                    </h3>
+
+                                    <p className="text-slate-600 text-sm font-medium leading-relaxed mb-6 line-clamp-3">
+                                        {cat.description || `Explore the best ${cat.name} scholarships available for Indian students today.`}
                                     </p>
-                                    <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
-                                        <div>
-                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Upto</p>
-                                            <p className="font-bold text-lg text-brand-magenta">
-                                                {cat.sampleScholarship?.split("-")[1]?.trim() || "₹1,00,000*"}
-                                            </p>
-                                        </div>
+
+                                    <div className="mt-auto space-y-6">
+                                        <p className="font-bold text-lg text-brand-magenta tracking-tight">
+                                            Scholarship Upto {cat.sampleScholarship?.split("-")[1]?.trim() || "₹1,00,000*"}
+                                        </p>
+
                                         <button
                                             onClick={() => handleExplore(cat.slug)}
-                                            className="text-white bg-brand-navy hover:bg-brand-deep-navy px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-colors shadow-md shadow-brand-navy/10"
+                                            className="w-full bg-brand-magenta hover:bg-brand-magenta/90 text-white font-black py-4 rounded-full text-sm uppercase tracking-widest shadow-lg shadow-brand-magenta/20 transition-all active:scale-95"
                                         >
-                                            Explore
+                                            <span className="underline underline-offset-4 decoration-white/30">EXPLORE NOW</span>
                                         </button>
                                     </div>
                                 </div>

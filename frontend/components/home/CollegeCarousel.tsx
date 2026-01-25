@@ -43,12 +43,12 @@ export default function CollegeCarousel() {
                                 className="flex flex-col items-center justify-center group"
                             >
                                 {/* Logo Image */}
-                                <div className="h-24 w-48 md:h-28 md:w-56 lg:h-32 lg:w-64 flex items-center justify-center p-2 bg-white rounded-lg shadow-sm border border-gray-50">
+                                <div className="h-20 w-40 md:h-24 md:w-48 lg:h-28 lg:w-56 flex items-center justify-center p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:border-brand-magenta/30 transition-all group-hover:shadow-lg">
                                     {college.logoUrl ? (
                                         <img
                                             src={college.logoUrl}
                                             alt={college.name}
-                                            className="max-h-full max-w-full object-contain scale-110"
+                                            className="max-h-full max-w-full object-contain transition-all duration-300"
                                             onError={(e) => {
                                                 const target = e.target as HTMLImageElement;
                                                 target.style.display = 'none';

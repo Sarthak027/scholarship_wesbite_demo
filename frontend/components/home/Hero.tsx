@@ -16,6 +16,7 @@ const backgroundImages = [
 export default function Hero() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showCards, setShowCards] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -24,10 +25,25 @@ export default function Hero() {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY || window.pageYOffset;
+            // Show cards when user scrolls down
+            if (scrollPosition > 200) {
+                setShowCards(true);
+            } else {
+                setShowCards(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <>
             {/* ================= HERO ================= */}
-            <section className="relative min-h-screen w-full overflow-hidden">
+            <section className="relative min-h-screen w-full overflow-visible">
                 {/* Background */}
                 <div className="absolute inset-0 z-0">
                     {backgroundImages.map((src, index) => (
@@ -56,7 +72,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-white/60 z-10" />
 
                 {/* Content */}
-                <div className="relative z-20 container mx-auto px-6 pt-32 max-w-7xl">
+                <div className="relative z-20 container mx-auto px-6 h-full min-h-screen max-w-7xl flex flex-col items-center justify-center lg:items-start lg:justify-start lg:pt-32 text-center lg:text-left">
                     {/* Badge */}
                     <div className="inline-flex mb-6 overflow-hidden rounded-md">
                         <span className="bg-brand-magenta text-white font-bold py-1.5 px-3 text-xs">
@@ -68,16 +84,16 @@ export default function Hero() {
                     </div>
 
                     {/* Heading */}
-                    <h1 className="text-4xl md:text-5xl xl:text-6xl font-black leading-tight mb-6">
-                        Your Gateway To <br /> A Brighter Future
+                    <h1 className="text-4xl md:text-5xl xl:text-6xl font-black leading-tight mb-6 text-black">
+                        Your Gateway To <br className="hidden lg:block" /> A Brighter Future
                     </h1>
 
                     {/* Subheading */}
-                    <p className="text-base md:text-lg font-bold max-w-2xl mb-8">
+                    <p className="text-base md:text-lg font-bold max-w-2xl mb-8 text-black">
                         Unlock a world of opportunities with scholarships tailored to your dream career.
                     </p>
 
-                    {/* APPLY NOW — DESKTOP (LEFT ALIGNED) */}
+                    {/* APPLY NOW — DESKTOP */}
                     <div className="hidden lg:block">
                         <button
                             onClick={() => setIsModalOpen(true)}
@@ -86,17 +102,73 @@ export default function Hero() {
                             APPLY NOW
                         </button>
                     </div>
+
+                    {/* APPLY NOW — MOBILE */}
+                    <div className="lg:hidden">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-10 py-4 rounded-md font-bold text-sm uppercase shadow-xl"
+                        >
+                            APPLY NOW
+                        </button>
+                    </div>
                 </div>
 
-                {/* APPLY NOW — MOBILE (BOTTOM CENTER) */}
-                <div className="lg:hidden absolute bottom-10 left-1/2 -translate-x-1/2 z-40">
-                    <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-brand-magenta hover:bg-brand-magenta/90 text-white px-10 py-4 rounded-full font-bold text-sm uppercase shadow-xl"
+                {/* ================= FEATURE CARDS (MOBILE) ================= */}
+                {showCards && (
+                    <motion.div
+                        className="lg:hidden absolute -bottom-12 left-0 right-0 z-40"
+                        initial={{ y: "100%" }}
+                        animate={{ y: 0 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 100,
+                            damping: 20
+                        }}
                     >
-                        APPLY NOW
-                    </button>
-                </div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.6, delay: 0 }}
+                            className="bg-brand-magenta text-white p-6 rounded-t-[24px]"
+                        >
+                            <div className="w-9 h-9 rounded-full bg-white text-brand-magenta flex items-center justify-center font-bold mb-3 text-sm">
+                                01
+                            </div>
+                            <p className="font-bold text-sm leading-snug">
+                                Scholarships For All From 10% To 100%
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="bg-brand-navy text-white p-6"
+                        >
+                            <div className="w-9 h-9 rounded-full bg-white text-brand-navy flex items-center justify-center font-bold mb-3 text-sm">
+                                02
+                            </div>
+                            <p className="font-bold text-sm leading-snug">
+                                Partnered With Best Universities & Colleges Of India
+                            </p>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="bg-brand-deep-navy text-white p-6"
+                        >
+                            <div className="w-9 h-9 rounded-full bg-white text-brand-deep-navy flex items-center justify-center font-bold mb-3 text-sm">
+                                03
+                            </div>
+                            <p className="font-bold text-sm leading-snug">
+                                Personalized Mentoring & Guidance
+                            </p>
+                        </motion.div>
+                    </motion.div>
+                )}
 
                 {/* ================= FEATURE CARDS (DESKTOP) ================= */}
                 <div className="hidden lg:flex absolute bottom-0 right-0 z-30">
