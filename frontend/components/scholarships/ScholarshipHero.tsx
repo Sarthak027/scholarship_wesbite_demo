@@ -38,7 +38,7 @@ export default function ScholarshipHero() {
                             </span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-medium">
-                            Explore hundreds of verified scholarship opportunities tailored to your academic background and career goals.
+                            Explore hundreds of verified scholarship opportunities.
                         </p>
                     </motion.div>
                 </div>
