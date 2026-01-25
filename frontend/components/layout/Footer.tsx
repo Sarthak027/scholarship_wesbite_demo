@@ -1,95 +1,96 @@
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Twitter, GraduationCap } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { ASSETS } from "@/lib/assets";
 
 export default function Footer() {
     return (
-        <footer className="bg-slate-dark text-white pt-16 md:pt-24 pb-6 md:pb-8 overflow-hidden relative">
+        <footer className="bg-slate-dark text-white pt-10 md:pt-24 pb-8 overflow-hidden relative">
             {/* Background Decorative Gradient */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-navy via-brand-magenta to-brand-navy" />
             <div className="absolute -bottom-24 -left-24 w-64 md:w-96 h-64 md:h-96 bg-brand-magenta/5 rounded-full blur-3xl" />
 
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-20">
+            <div className="container mx-auto px-6 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 mb-8 md:mb-20">
                     {/* Brand & About */}
-                    <div className="space-y-6 md:space-y-8">
+                    <div className="space-y-4 md:space-y-8">
                         <Link href="/" className="inline-block">
                             <img
                                 src={ASSETS.logos.footer}
                                 alt="Confirm Scholarship"
-                                className="h-12 md:h-16 w-auto object-contain brightness-0 invert"
+                                className="h-10 md:h-16 w-auto object-contain brightness-0 invert"
                             />
                         </Link>
-                        <p className="text-slate-400 text-xs md:text-sm leading-relaxed max-w-xs font-medium">
-                            Empowering students across India with verified scholarships and genuine career guidance. Giving wings to your professional dreams.
+                        <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-sm font-medium">
+                            Empowering students across India with verified scholarships and genuine career guidance.
                         </p>
-                        <div className="flex gap-3 md:gap-4">
+                        <div className="flex gap-4">
                             <a
                                 href="https://www.facebook.com/confirmscholarship"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-brand-magenta hover:scale-110 transition-all duration-300 group min-w-[44px] min-h-[44px]"
+                                className="bg-brand-magenta w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center hover:opacity-90 transition-all shadow-lg"
                                 aria-label="Facebook"
                             >
-                                <Facebook size={18} className="text-slate-300 group-hover:text-white transition-colors" />
+                                <Facebook size={16} className="text-white" />
                             </a>
                             {[Instagram, Linkedin, Twitter].map((Icon, i) => (
                                 <a
                                     key={i}
                                     href="#"
-                                    className="bg-white/10 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-brand-magenta hover:scale-110 transition-all duration-300 group min-w-[44px] min-h-[44px]"
+                                    className="bg-brand-magenta w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center hover:opacity-90 transition-all shadow-lg"
                                     aria-label={Icon.name}
                                 >
-                                    <Icon size={18} className="text-slate-300 group-hover:text-white transition-colors" />
+                                    <Icon size={16} className="text-white" />
                                 </a>
                             ))}
                         </div>
                     </div>
 
                     {/* Quick Links */}
-                    <div>
-                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Navigation</h3>
-                        <ul className="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm font-bold">
-                            <li><Link href="/" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Home</Link></li>
-                            <li><Link href="/scholarships" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Scholarships</Link></li>
-                            <li><Link href="/online-courses" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Online Courses</Link></li>
-                            <li><Link href="/about" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> About Us</Link></li>
-                            <li><Link href="/blog" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Blog</Link></li>
-                            <li><Link href="/contact" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Contact Us</Link></li>
+                    <div className="mt-2 md:mt-0">
+                        <h3 className="text-white font-bold text-xl mb-3 md:mb-6">Quick Links</h3>
+                        <ul className="space-y-2 md:space-y-4 text-white text-base font-medium">
+                            <li><Link href="/" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Home</Link></li>
+                            <li><Link href="/scholarships" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Scholarships</Link></li>
+                            <li><Link href="/online-courses" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Online Courses</Link></li>
+
+                            <li><Link href="/blog" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Blog</Link></li>
+                            <li><Link href="/about" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">About Us</Link></li>
+                            <li><Link href="/contact" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Contact us</Link></li>
                         </ul>
                     </div>
 
                     {/* Policies */}
-                    <div>
-                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Resources</h3>
-                        <ul className="space-y-3 md:space-y-4 text-slate-400 text-xs md:text-sm font-bold">
-                            <li><Link href="/disclaimer" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Disclaimer</Link></li>
-                            <li><Link href="/help" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Help Center</Link></li>
-                            <li><Link href="/privacy-policy" className="hover:text-brand-magenta transition-colors flex items-center gap-2 group"><span className="w-0 h-[1px] bg-brand-magenta group-hover:w-3 transition-all"></span> Privacy Policy</Link></li>
+                    <div className="mt-2 md:mt-0">
+                        <h3 className="text-white font-bold text-xl mb-3 md:mb-6">Policies</h3>
+                        <ul className="space-y-2 md:space-y-4 text-white text-base font-medium">
+                            <li><Link href="/disclaimer" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Disclaimer</Link></li>
+                            <li><Link href="/help" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Help us</Link></li>
+                            <li><Link href="/privacy-policy" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Privacy Policy</Link></li>
                         </ul>
                     </div>
 
                     {/* Newsletter */}
-                    <div>
-                        <h3 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Newsletter</h3>
-                        <p className="text-slate-400 text-xs mb-4 md:mb-6 font-medium leading-relaxed">Stay updated with latest scholarship alerts and educational news.</p>
-                        <form className="flex flex-col gap-3">
+                    <div className="mt-2 md:mt-0">
+                        <h3 className="text-white font-bold text-xl mb-3 md:mb-6">Subscribe For Our Newsletter</h3>
+                        <form className="space-y-3">
                             <input
                                 type="email"
-                                placeholder="Enter your email"
-                                className="bg-white/5 border border-white/10 text-white px-4 md:px-5 py-3 md:py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-magenta/50 transition-all font-medium text-xs md:text-sm placeholder:text-slate-600 min-h-[44px]"
+                                placeholder="Email"
+                                className="w-full bg-white text-slate-900 px-5 py-3.5 rounded-2xl focus:outline-none font-medium placeholder:text-slate-400"
                             />
-                            <button className="bg-brand-magenta text-white font-black py-3 md:py-4 rounded-xl uppercase tracking-widest text-xs transition-all shadow-lg shadow-brand-magenta/20 hover:shadow-brand-magenta/40 hover:-translate-y-0.5 min-h-[44px] flex items-center justify-center" type="button">
-                                Subscribe
+                            <button className="w-full bg-brand-magenta text-white font-bold py-3.5 rounded-2xl uppercase tracking-widest text-sm transition-all shadow-lg hover:opacity-90 hover:scale-[1.02] active:scale-95" type="button">
+                                SUBSCRIBE NOW
                             </button>
                         </form>
                     </div>
                 </div>
 
-                {/* Copyright */}
-                <div className="border-t border-white/5 pt-8 md:pt-10 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4 text-xs font-bold tracking-widest text-slate-500 uppercase">
-                    <p>&copy; {new Date().getFullYear()} PRO EDUXON LLP</p>
-                    <p className="flex items-center gap-2">Crafted for <span className="text-brand-magenta">Your Future</span></p>
+                {/* Bottom Line */}
+                <div className="pt-8 border-t border-white/10 text-center md:text-left">
+                    <p className="text-xs text-white/40 font-bold uppercase tracking-widest leading-relaxed">
+                        &copy; {new Date().getFullYear()} PRO EDUXON LLP <span className="hidden md:inline mx-2">•</span> <br className="md:hidden" /> Crafted for Your Future
+                    </p>
                 </div>
             </div>
         </footer>

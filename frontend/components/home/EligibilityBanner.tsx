@@ -48,16 +48,18 @@ export default function EligibilityBanner() {
                             Discover your potential scholarship amount based on your academic scores and entrance exam performance.
                         </p>
 
-                        <Link href="/check-eligibility">
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="group inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-brand-deep-navy font-black px-8 py-4 rounded-xl shadow-2xl shadow-yellow-500/30 transition-all duration-300 uppercase tracking-wide text-sm"
-                            >
-                                Check Your Worth
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </motion.button>
-                        </Link>
+                        <div className="flex flex-col sm:flex-row items-center gap-4 max-w-md mx-auto lg:mx-0">
+                            <Link href="/check-eligibility" className="w-full sm:w-auto">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="group w-full inline-flex items-center justify-center gap-3 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-brand-deep-navy font-black px-8 py-4 rounded-xl shadow-2xl shadow-yellow-500/30 transition-all duration-300 uppercase tracking-wide text-sm"
+                                >
+                                    Check Your Worth
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </motion.button>
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Right Content - Stats/Features */}

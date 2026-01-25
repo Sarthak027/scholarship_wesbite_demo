@@ -13,11 +13,14 @@ import BTechBanner from "@/components/home/BTechBanner";
 import GovtScholarships from "@/components/home/GovtScholarships";
 import AboutSectionHome from "@/components/home/AboutSectionHome";
 import Testimonials from "@/components/home/Testimonials";
-import CTASection from "@/components/shared/CTASection"; // For #3, #17, #18
+import CTASection from "@/components/shared/CTASection";
 import BlogSection from "@/components/home/BlogSection";
+import WhyChooseUs from "@/components/about/WhyChooseUs";
 
-// Additional Imports for new sections
-import WhyChooseUs from "@/components/about/WhyChooseUs"; // For #19
+// New Components
+import AffiliationsCarousel from "@/components/home/AffiliationsCarousel";
+import HomeLeadForm from "@/components/home/HomeLeadForm";
+import VideoSection from "@/components/home/VideoSection";
 
 export default function Home() {
   return (
@@ -25,58 +28,64 @@ export default function Home() {
       {/* 1. Hero Section */}
       <Hero />
 
-      {/* 2. Scholarship Calculator / Check Your Eligibility */}
+      {/* 2. Scholarship Calculator */}
       <EligibilityBanner />
 
-      {/* 3. Sticky Bottom CTA (Reused CTASection) */}
-      <CTASection />
-
-      {/* 5. We Are Featured In */}
-      <NewsSection />
-
-      {/* 6. Testimonials */}
-      <Testimonials />
-
-      {/* 7. Top Colleges */}
+      {/* 3. Top Colleges */}
       <CollegeCarousel />
 
-      {/* 8. Most Popular Scholarships */}
+      {/* 4. Testimonials */}
+      <Testimonials />
+
+      {/* 5. Featured In News */}
+      <NewsSection />
+
+      {/* 6. Affiliations & Approvals */}
+      <AffiliationsCarousel />
+
+      {/* 7. Most Popular Scholarships */}
       <PopularPrograms />
 
-      {/* 9. Online Courses Scholarships */}
-      <OnlineCourses />
-
-      {/* 10. Featured / Special Scholarship */}
-      <BTechBanner />
-
-      {/* 11. Let’s Start Your Journey */}
-      <JourneySection />
-
-      {/* 13. Our Scholarships */}
+      {/* 8. Our Scholarships */}
       <ScholarshipCards />
 
-      {/* 14. NEET / JEE Scholarship Section */}
-      <PromoBanner />
+      {/* 9. How It Works */}
+      <JourneySection />
 
-      {/* 15. Best Locations */}
-      <LocationsGrid />
+      {/* 10. Scholarship Application Form */}
+      <HomeLeadForm />
 
-      {/* 16. Government & Other Scholarships */}
-      <GovtScholarships />
-
-      {/* 18. New Banner */}
-      <RequestCheckBanner />
-
-      {/* 19. Why Choose Confirm Scholarship */}
+      {/* 11. 5 Reasons to Choose Confirm Scholarship */}
       <WhyChooseUs />
 
-      {/* 20. About Confirm Scholarship */}
+      {/* 12. Video Section */}
+      <VideoSection />
+
+      {/* 13. NEET / JEE Scholarships */}
+      <PromoBanner />
+
+      {/* 14. Location Section */}
+      <LocationsGrid />
+
+      {/* 15. Didn’t Find Your College Scholarship? */}
+      <RequestCheckBanner />
+
+      {/* 16. Online Scholarships */}
+      <OnlineCourses />
+
+      {/* 17. Big Poster */}
+      <BTechBanner />
+
+      {/* 18. Government & Other Scholarships */}
+      <GovtScholarships />
+
+      {/* 19. About Us */}
       <AboutSectionHome />
 
-      {/* 21. Blog / Knowledge Hub */}
+      {/* 20. Blog Section */}
       <BlogSection />
 
-      {/* Floating WhatsApp Button (Fixed) */}
+      {/* Floating WhatsApp Button */}
       <a
         href="https://api.whatsapp.com/send/?phone=919006750290&text&type=phone_number&app_absent=0"
         target="_blank"

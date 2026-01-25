@@ -165,8 +165,8 @@ export default function EnquiryModal({ isOpen, onClose, mode = 'scholarship' }: 
                         </div>
 
                         {/* Right Side - Form */}
-                        <div className="w-full md:w-7/12 overflow-y-auto">
-                            <div className="p-6 md:p-10 h-full flex flex-col justify-center">
+                        <div className="w-full md:w-7/12 overflow-y-auto bg-white">
+                            <div className="p-8 md:p-12 pt-12 md:pt-16 h-full flex flex-col">
                                 {status === "success" ? (
                                     <div className="py-12 text-center">
                                         <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">

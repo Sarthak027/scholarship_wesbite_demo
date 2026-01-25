@@ -66,5 +66,13 @@ export const ASSETS = {
         govt: getAssetUrl('/uploads/images/govt_scholarships/GOVT. SCHOLARSHIP.png'),
         jnTata: getAssetUrl('/uploads/images/govt_scholarships/J.N. TATA SCHOLARSHIP.png'),
         tataPankh: getAssetUrl('/uploads/images/govt_scholarships/TATA PAKH SCHOLARSHIP.png'),
+    },
+    affiliations: {
+        ugc: getAssetUrl('/uploads/logos/Our Affiliations/ugc.jpeg'),
+        aicte: getAssetUrl('/uploads/logos/Our Affiliations/aicte.png'),
+        naac: getAssetUrl('/uploads/logos/Our Affiliations/NAAC-Logo.jpg'),
+        nba: getAssetUrl('/uploads/logos/Our Affiliations/nba.jpg'),
+        pci: getAssetUrl('/uploads/logos/Our Affiliations/pci.jpg'),
+        nirf: getAssetUrl('/uploads/logos/Our Affiliations/nirf.webp'),
     }
 };
