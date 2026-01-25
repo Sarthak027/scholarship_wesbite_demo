@@ -19,7 +19,7 @@ export default function AffiliationsCarousel() {
     return (
         <section className="py-12 bg-white overflow-hidden border-y border-slate-100">
             <div className="container mx-auto px-4 mb-10 text-center">
-                <h3 className="text-sm font-black text-slate-400 uppercase tracking-[0.3em]">
+                <h3 className="text-xl md:text-3xl font-black text-slate-800 uppercase tracking-[0.2em] mb-4">
                     Our Affiliations & Approvals
                 </h3>
             </div>

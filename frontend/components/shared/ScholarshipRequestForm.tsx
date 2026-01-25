@@ -89,109 +89,105 @@ export default function ScholarshipRequestForm({ variant = "light", onSuccess }:
     const labelClasses = `block text-[10px] font-bold uppercase tracking-wider mb-1.5 ${variant === 'glass' ? 'text-white/60' : 'text-slate-500'}`;
 
     return (
-        <div className={`rounded-3xl lg:p-1 p-0 relative overflow-visible ${variant === 'glass' ? '' : 'bg-white shadow-2xl border border-slate-100'}`}>
-            {!variant && <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-magenta to-brand-navy rounded-t-3xl"></div>}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label className={labelClasses}>Full Name</label>
-                        <input
-                            type="text"
-                            name="fullName"
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            required
-                            placeholder="e.g. Rahul Sharma"
-                            className={inputClasses}
-                        />
-                    </div>
-                    <div>
-                        <label className={labelClasses}>Phone Number</label>
-                        <input
-                            type="tel"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            required
-                            placeholder="10-digit number"
-                            className={inputClasses}
-                        />
-                    </div>
-                </div>
-
+        <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label className={labelClasses}>Email Address</label>
+                    <label className={labelClasses}>Full Name</label>
                     <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
+                        type="text"
+                        name="fullName"
+                        value={formData.fullName}
                         onChange={handleChange}
                         required
-                        placeholder="name@email.com"
+                        placeholder="e.g. Rahul Sharma"
                         className={inputClasses}
                     />
                 </div>
-
                 <div>
-                    <label className={labelClasses}>Preferred College/University</label>
-                    <div className="relative">
-                        <GraduationCap className={`absolute left-4 top-1/2 -translate-y-1/2 ${variant === 'glass' ? 'text-white/30' : 'text-slate-400'}`} size={18} />
-                        <input
-                            type="text"
-                            name="preferredCollege"
-                            value={formData.preferredCollege}
-                            onChange={handleChange}
-                            required
-                            placeholder="Which college should we check?"
-                            className={`${inputClasses} ${variant === 'glass' ? 'pl-11' : 'pl-11'}`}
-                        />
-                    </div>
+                    <label className={labelClasses}>Phone Number</label>
+                    <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                        placeholder="10-digit number"
+                        className={inputClasses}
+                    />
                 </div>
+            </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label className={labelClasses}>Target Course</label>
-                        <input
-                            type="text"
-                            name="targetCourse"
-                            value={formData.targetCourse}
-                            onChange={handleChange}
-                            required
-                            placeholder="e.g. MBA, B.Tech"
-                            className={inputClasses}
-                        />
-                    </div>
-                    <div>
-                        <label className={labelClasses}>Expected Batch</label>
-                        <select
-                            name="expectedBatch"
-                            value={formData.expectedBatch}
-                            onChange={handleChange}
-                            className={inputClasses}
-                        >
-                            {["2024", "2025", "2026", "2027", "2028"].map(year => (
-                                <option key={year} value={year}>{year}</option>
-                            ))}
-                        </select>
-                    </div>
+            <div>
+                <label className={labelClasses}>Email Address</label>
+                <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="name@email.com"
+                    className={inputClasses}
+                />
+            </div>
+
+            <div>
+                <label className={labelClasses}>Preferred College/University</label>
+                <div className="relative">
+                    <GraduationCap className={`absolute left-4 top-1/2 -translate-y-1/2 ${variant === 'glass' ? 'text-white/30' : 'text-slate-400'}`} size={18} />
+                    <input
+                        type="text"
+                        name="preferredCollege"
+                        value={formData.preferredCollege}
+                        onChange={handleChange}
+                        required
+                        placeholder="Which college should we check?"
+                        className={`${inputClasses} ${variant === 'glass' ? 'pl-11' : 'pl-11'}`}
+                    />
                 </div>
+            </div>
 
-                <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className={`w-full font-black py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2 mt-2 uppercase tracking-widest text-sm ${variant === 'glass'
-                            ? 'bg-brand-magenta hover:bg-brand-magenta/90 text-white'
-                            : 'bg-brand-navy hover:bg-indigo-700 text-white shadow-indigo-100'
-                        }`}
-                >
-                    {status === "submitting" ? "Submitting..." : (
-                        <>
-                            Start Scholarship Hunt <ArrowRight size={18} />
-                        </>
-                    )}
-                </button>
-            </form>
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label className={labelClasses}>Target Course</label>
+                    <input
+                        type="text"
+                        name="targetCourse"
+                        value={formData.targetCourse}
+                        onChange={handleChange}
+                        required
+                        placeholder="e.g. MBA, B.Tech"
+                        className={inputClasses}
+                    />
+                </div>
+                <div>
+                    <label className={labelClasses}>Expected Batch</label>
+                    <select
+                        name="expectedBatch"
+                        value={formData.expectedBatch}
+                        onChange={handleChange}
+                        className={inputClasses}
+                    >
+                        {["2024", "2025", "2026", "2027", "2028"].map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            <button
+                type="submit"
+                disabled={status === "submitting"}
+                className={`w-full font-black py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2 mt-4 uppercase tracking-widest text-sm ${variant === 'glass'
+                    ? 'bg-brand-magenta hover:bg-brand-magenta/90 text-white'
+                    : 'bg-brand-navy hover:bg-brand-deep-navy text-white shadow-brand-navy/20'
+                    }`}
+            >
+                {status === "submitting" ? "Submitting..." : (
+                    <>
+                        Start Scholarship Hunt <ArrowRight size={18} />
+                    </>
+                )}
+            </button>
+        </form>
     );
 }

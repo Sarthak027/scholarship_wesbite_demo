@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: var(--font-montserrat);
+  --font-heading: var(--font-outfit);
 
   --color-brand-magenta: #B00058;
   --color-brand-navy: #2a408e;
@@ -90,8 +91,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
 /* Ensure touch targets are at least 44x44px on mobile */
 @media (max-width: 768px) {
+
   button,
   a,
   input[type="submit"],
@@ -115,10 +126,13 @@ video {
 
 /* Hide scrollbar but maintain scroll functionality */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }

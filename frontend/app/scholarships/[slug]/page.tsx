@@ -51,7 +51,16 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
 
                 // Fetch scholarships for this category (already grouped by sections)
                 const scholarshipsData = await api.scholarships.getByCategory(slug);
-                setSections(scholarshipsData);
+
+                // Sort sections: MBA before BBA (Descending order of title string usually works for MBA vs BBA, 
+                // but let's do a more robust sort to ensure MBA stays at top)
+                const sortedSections = [...scholarshipsData].sort((a, b) => {
+                    if (a.title.includes('MBA')) return -1;
+                    if (b.title.includes('MBA')) return 1;
+                    return a.title.localeCompare(b.title);
+                });
+
+                setSections(sortedSections);
             } catch (error) {
                 console.error("Error fetching data:", error);
                 setNotFound(true);
@@ -108,18 +117,23 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                         transition={{ duration: 0.6 }}
                         className="max-w-4xl"
                     >
-                        <div className="bg-white/10 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-4 py-2 rounded-full text-white/90 text-sm font-bold mb-8">
-                            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                            <ChevronRight size={14} />
+                        {/* Breadcrumbs Pill */}
+                        <div className="bg-white/10 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-white/90 text-[11px] md:text-sm font-bold mb-10 shadow-xl">
+                            <Link href="/" className="hover:text-white transition-colors flex items-center">Home</Link>
+                            <ChevronRight size={14} className="text-white/40" />
                             <Link href="/scholarships" className="hover:text-white transition-colors">Scholarships</Link>
-                            <ChevronRight size={14} />
+                            <ChevronRight size={14} className="text-white/40" />
                             <span className="text-brand-magenta">{category.name}</span>
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                            {category.name} <span className="text-brand-magenta">Scholarships</span>
+                        <h1 className="text-5xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                            {category.name} <br className="md:hidden" />
+                            <span className="text-brand-magenta">Scholarships</span>
                         </h1>
-                        <p className="text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
+
+                        <div className="w-20 h-1.5 bg-brand-magenta rounded-full mb-8" />
+
+                        <p className="text-lg md:text-xl text-slate-300 font-medium max-w-2xl leading-relaxed">
                             {category.description}
                         </p>
                     </motion.div>
@@ -146,7 +160,7 @@ export default function ScholarshipCategoryPage({ params }: { params: Promise<{ 
                         <div className="mb-12">
                             <h2 className="text-3xl font-black text-slate-900 relative inline-block">
                                 {section.title}
-                                <div className="absolute -bottom-2 left-0 w-1/2 h-1 bg-brand-magenta rounded-full" />
+                                <div className="absolute -bottom-2 left-0 w-16 h-1 bg-brand-magenta rounded-full" />
                             </h2>
                         </div>
 

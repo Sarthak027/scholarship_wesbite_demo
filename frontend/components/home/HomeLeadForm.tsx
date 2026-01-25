@@ -22,13 +22,15 @@ export default function HomeLeadForm() {
                             Join over 10,000+ students who have secured their future through our platform. One simple form, endless possibilities.
                         </p>
 
-                        <div className="flex flex-col md:flex-row items-center justify-center lg:justify-start gap-4 text-white/60">
-                            {["100% Secure", "Expert Guidance", "Fast Approval"].map((item, i) => (
-                                <div key={i} className="flex items-center gap-2">
-                                    <CheckCircle2 size={16} className="text-brand-magenta" />
-                                    <span className="text-sm font-bold uppercase tracking-wider">{item}</span>
-                                </div>
-                            ))}
+                        <div className="flex justify-center lg:justify-start">
+                            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 text-white/60">
+                                {["100% Secure", "Expert Guidance", "Fast Approval"].map((item, i) => (
+                                    <div key={i} className="flex items-center gap-2">
+                                        <CheckCircle2 size={16} className="text-brand-magenta" />
+                                        <span className="text-sm font-bold uppercase tracking-wider whitespace-nowrap">{item}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
@@ -37,9 +39,9 @@ export default function HomeLeadForm() {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-3xl p-8 md:p-10 shadow-2xl relative overflow-hidden"
+                            className="bg-white rounded-[2.5rem] p-6 md:p-10 shadow-2xl relative"
                         >
-                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-magenta to-brand-navy"></div>
+                            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-magenta to-brand-navy rounded-t-[2.5rem]"></div>
 
                             <div className="mb-6">
                                 <h3 className="text-2xl font-black text-slate-900 mb-1">Scholarship Application</h3>

@@ -29,12 +29,34 @@ export default function EligibilityBanner() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
+                            animate={{
+                                backgroundColor: [
+                                    "rgba(255, 255, 255, 0.1)",
+                                    "rgba(250, 204, 21, 0.4)",
+                                    "rgba(255, 255, 255, 0.1)"
+                                ],
+                                borderColor: [
+                                    "rgba(255, 255, 255, 0.2)",
+                                    "rgba(250, 204, 21, 0.8)",
+                                    "rgba(255, 255, 255, 0.2)"
+                                ],
+                                scale: [1, 1.05, 1],
+                                boxShadow: [
+                                    "0 0 0px rgba(250, 204, 21, 0)",
+                                    "0 0 20px rgba(250, 204, 21, 0.4)",
+                                    "0 0 0px rgba(250, 204, 21, 0)"
+                                ]
+                            }}
+                            transition={{
+                                duration: 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+                            className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-6 border transition-all shadow-xl backdrop-blur-sm"
                         >
                             <Sparkles className="w-4 h-4 text-yellow-400" />
-                            <span className="text-white/90 text-sm font-semibold uppercase tracking-wider">
+                            <span className="text-white font-black text-xs md:text-sm uppercase tracking-[0.2em] drop-shadow-sm">
                                 Scholarship Calculator
                             </span>
                         </motion.div>
@@ -63,27 +85,27 @@ export default function EligibilityBanner() {
                     </div>
 
                     {/* Right Content - Stats/Features */}
-                    <div className="flex-shrink-0 grid grid-cols-2 gap-4 lg:gap-6">
+                    <div className="flex-shrink-0 grid grid-cols-2 gap-4 lg:gap-6 w-full lg:w-auto max-w-[500px]">
+                        {/* Merged Large Box */}
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.3 }}
-                            className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-brand-magenta/50 transition-all group"
+                            className="col-span-2 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-brand-magenta transition-all group relative overflow-hidden text-center"
                         >
-                            <div className="text-4xl font-black text-white mb-2 group-hover:text-brand-magenta transition-colors">₹6L</div>
-                            <p className="text-white/60 text-sm font-medium">Maximum Scholarship</p>
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.4 }}
-                            className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-brand-magenta/50 transition-all group"
-                        >
-                            <div className="text-4xl font-black text-white mb-2 group-hover:text-brand-magenta transition-colors">6+</div>
-                            <p className="text-white/60 text-sm font-medium">Course Options</p>
+                            <div className="absolute top-0 right-0 p-4 opacity-10">
+                                <Sparkles size={60} className="text-white" />
+                            </div>
+                            <div className="text-6xl md:text-7xl font-black text-white mb-2 group-hover:text-brand-magenta transition-all duration-500 tracking-tighter">
+                                ₹6,00,000<span className="text-2xl md:text-3xl opacity-50 ml-1">*</span>
+                            </div>
+                            <p className="text-white/80 text-lg font-bold uppercase tracking-widest">Maximum Scholarship Available</p>
+                            <div className="mt-4 flex items-center justify-center gap-2">
+                                <div className="h-1 w-12 bg-brand-magenta rounded-full" />
+                                <span className="text-xs text-white/40 font-black uppercase tracking-widest">Across 6+ Course Options</span>
+                                <div className="h-1 w-12 bg-brand-magenta rounded-full" />
+                            </div>
                         </motion.div>
 
                         <motion.div
@@ -94,7 +116,7 @@ export default function EligibilityBanner() {
                             className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-brand-magenta/50 transition-all group"
                         >
                             <div className="text-4xl font-black text-white mb-2 group-hover:text-brand-magenta transition-colors">100%</div>
-                            <p className="text-white/60 text-sm font-medium">Merit Based</p>
+                            <p className="text-white/60 text-sm font-medium uppercase tracking-wider text-center">Merit Based</p>
                         </motion.div>
 
                         <motion.div
@@ -105,7 +127,7 @@ export default function EligibilityBanner() {
                             className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-brand-magenta/50 transition-all group"
                         >
                             <div className="text-4xl font-black text-white mb-2 group-hover:text-brand-magenta transition-colors">2026</div>
-                            <p className="text-white/60 text-sm font-medium">Scholarship Year</p>
+                            <p className="text-white/60 text-sm font-medium uppercase tracking-wider text-center">Scholarship Year</p>
                         </motion.div>
                     </div>
                 </motion.div>

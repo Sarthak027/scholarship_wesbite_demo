@@ -1,11 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Outfit } from "next/font/google";
 import "./globals.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5005';
@@ -52,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${montserrat.variable} font-sans antialiased bg-gray-50`}
+        className={`${montserrat.variable} ${outfit.variable} font-sans antialiased bg-gray-50`}
         suppressHydrationWarning={true}
       >
         <AdminLayoutWrapper>
