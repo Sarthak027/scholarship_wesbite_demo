@@ -74,8 +74,8 @@ export default function Testimonials() {
                     </motion.p>
                 </div>
 
-                {/* Testimonial Carousel Container */}
-                <div className="relative max-w-4xl mx-auto px-4 md:px-12">
+                {/* Testimonial Cards Container */}
+                <div className="relative max-w-7xl mx-auto px-4 md:px-6">
                     {/* Desktop View (Grid of 3) - Visible on lg+ */}
                     <div className="hidden lg:grid grid-cols-3 gap-8">
                         {testimonials.map((item, index) => (
@@ -95,7 +95,9 @@ export default function Testimonials() {
                                     transition={{ duration: 0.5, ease: "easeInOut" }}
                                     className="flex justify-center"
                                 >
-                                    <TestimonialCard item={testimonials[currentIndex]} index={0} />
+                                    <div className="max-w-sm w-full pt-10">
+                                        <TestimonialCard item={testimonials[currentIndex]} index={0} />
+                                    </div>
                                 </motion.div>
                             </AnimatePresence>
                         </div>
@@ -113,10 +115,10 @@ function TestimonialCard({ item, index }: { item: any; index: number }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="relative bg-slate-50 p-6 pt-14 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group border border-slate-100 w-full"
+            className="relative bg-white p-8 pt-16 rounded-[2rem] shadow-2xl shadow-slate-200/40 hover:shadow-brand-magenta/10 transition-all duration-500 flex flex-col items-center text-center group border border-slate-100/80 w-full"
         >
             {/* Avatar - Half overlapping */}
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full border-[5px] border-white shadow-lg overflow-hidden transition-transform group-hover:scale-110 duration-500">
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full border-[6px] border-white shadow-xl overflow-hidden group-hover:scale-105 transition-transform duration-500 bg-slate-100 flex items-center justify-center">
                 <img
                     src={item.avatar}
                     alt={item.name}
@@ -125,27 +127,29 @@ function TestimonialCard({ item, index }: { item: any; index: number }) {
             </div>
 
             {/* Quote Icon */}
-            <div className="mb-4">
-                <Quote
-                    size={20}
-                    className="text-brand-magenta rotate-180 opacity-40"
-                    fill="currentColor"
-                />
+            <div className="mb-6">
+                <div className="w-10 h-10 bg-brand-magenta/5 rounded-full flex items-center justify-center">
+                    <Quote
+                        size={18}
+                        className="text-brand-magenta rotate-180"
+                        fill="currentColor"
+                    />
+                </div>
             </div>
 
             {/* Text */}
-            <p className="text-slate-600 font-medium italic leading-relaxed mb-6 flex-grow text-sm md:text-base">
+            <p className="text-slate-500 font-medium italic leading-relaxed mb-8 flex-grow text-sm md:text-base px-2">
                 "{item.text}"
             </p>
 
             {/* Footer */}
-            <div className="mt-auto">
-                <h4 className="font-black text-brand-magenta tracking-wider uppercase text-xs md:text-sm mb-1">
+            <div className="w-full pt-6 border-t border-slate-100/50">
+                <h4 className="font-black text-brand-magenta tracking-wider uppercase text-sm md:text-base mb-1.5">
                     {item.name}
                 </h4>
-                <span className="text-brand-navy/60 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em]">
+                <div className="text-brand-navy/40 text-[10px] md:text-xs font-black uppercase tracking-[0.25em]">
                     {item.location}
-                </span>
+                </div>
             </div>
         </motion.div>
     );
