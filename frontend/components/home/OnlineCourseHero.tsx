@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function OnlineCourseHero() {
     return (
-        <section className="relative pt-32 pb-20 overflow-hidden min-h-[400px] flex items-center">
+        <section className="relative pt-32 pb-40 overflow-hidden min-h-[600px] flex items-center">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
@@ -27,7 +27,7 @@ export default function OnlineCourseHero() {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-rose-500 text-white font-black text-xs uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-8 inline-block shadow-xl shadow-rose-500/20"
+                            className="bg-brand-magenta text-white font-black text-xs uppercase tracking-[0.2em] px-6 py-2 rounded-full mb-8 inline-block shadow-xl shadow-brand-magenta/20"
                         >
                             Online Learning
                         </motion.span>

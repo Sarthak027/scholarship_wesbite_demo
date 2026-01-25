@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function ScholarshipHero() {
     return (
-        <section className="relative pt-32 pb-20 overflow-hidden min-h-[500px] flex items-center">
+        <section className="relative pt-32 pb-40 overflow-hidden min-h-[600px] flex items-center">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
@@ -38,7 +38,7 @@ export default function ScholarshipHero() {
                             </span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed font-medium">
-                            Explore hundreds of verified scholarship opportunities.
+                            Explore hundreds of verified scholarship opportunities tailored to your academic background and career goals.
                         </p>
                     </motion.div>
                 </div>

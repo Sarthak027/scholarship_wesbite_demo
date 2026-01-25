@@ -50,7 +50,7 @@ export default function OnlineCourses() {
     }
 
     return (
-        <section id="online-courses" className="py-16 md:py-24 bg-gray-50 overflow-hidden relative z-10">
+        <section id="online-courses" className="py-20 bg-gray-50 overflow-hidden relative z-10">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-10 md:mb-16">
                     <motion.h2

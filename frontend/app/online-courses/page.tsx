@@ -10,7 +10,7 @@ export default function OnlineCoursesPage() {
     return (
         <div className="pt-0">
             <OnlineCourseHero />
-            <div className="-mt-20">
+            <div className="-mt-24 relative z-20">
                 <OnlineCourses />
             </div>
         </div>
