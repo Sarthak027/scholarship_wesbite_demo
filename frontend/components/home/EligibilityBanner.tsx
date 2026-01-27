@@ -89,25 +89,44 @@ export default function EligibilityBanner() {
 
                     {/* Right Content - Stats/Features */}
                     <div className="flex-shrink-0 grid grid-cols-2 gap-4 lg:gap-6 w-full lg:w-auto max-w-[500px]">
-                        {/* Merged Large Box */}
+                        {/* Merged Large Box - Highlighted */}
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                            className="col-span-2 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-brand-magenta transition-all group relative overflow-hidden text-center"
+                            transition={{
+                                delay: 0.3,
+                                boxShadow: {
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                },
+                            }}
+                            animate={{
+                                boxShadow: [
+                                    "0 0 20px rgba(236, 72, 153, 0.3), 0 0 40px rgba(236, 72, 153, 0.1)",
+                                    "0 0 40px rgba(236, 72, 153, 0.5), 0 0 60px rgba(236, 72, 153, 0.2)",
+                                    "0 0 20px rgba(236, 72, 153, 0.3), 0 0 40px rgba(236, 72, 153, 0.1)",
+                                ],
+                            }}
+                            className="col-span-2 bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md rounded-3xl p-8 border-2 border-brand-magenta/60 hover:border-brand-magenta transition-all group relative overflow-hidden text-center shadow-2xl"
                         >
+                            {/* Animated gradient overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-brand-magenta/0 via-brand-magenta/10 to-brand-magenta/0 opacity-50 animate-pulse" />
+                            
                             <div className="absolute top-0 right-0 p-4 opacity-10">
                                 <Sparkles size={60} className="text-white" />
                             </div>
-                            <div className="text-6xl md:text-7xl font-black text-white mb-2 group-hover:text-brand-magenta transition-all duration-500 tracking-tighter">
-                                ₹6,00,000<span className="text-2xl md:text-3xl opacity-50 ml-1">*</span>
-                            </div>
-                            <p className="text-white/80 text-lg font-bold uppercase tracking-widest">Maximum Scholarship Available</p>
-                            <div className="mt-4 flex items-center justify-center gap-2">
-                                <div className="h-1 w-12 bg-brand-magenta rounded-full" />
-                                <span className="text-xs text-white/40 font-black uppercase tracking-widest">Across 6+ Course Options</span>
-                                <div className="h-1 w-12 bg-brand-magenta rounded-full" />
+                            <div className="relative z-10">
+                                <div className="text-6xl md:text-7xl font-black text-white mb-2 group-hover:scale-105 transition-all duration-500 tracking-tighter drop-shadow-[0_0_15px_rgba(236,72,153,0.5)]">
+                                    ₹6,00,000<span className="text-2xl md:text-3xl opacity-50 ml-1">*</span>
+                                </div>
+                                <p className="text-white/90 text-lg font-bold uppercase tracking-widest">Maximum Scholarship Available</p>
+                                <div className="mt-4 flex items-center justify-center gap-2">
+                                    <div className="h-1 w-12 bg-brand-magenta rounded-full shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
+                                    <span className="text-xs text-white/50 font-black uppercase tracking-widest">Across 6+ Course Options</span>
+                                    <div className="h-1 w-12 bg-brand-magenta rounded-full shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
+                                </div>
                             </div>
                         </motion.div>
 

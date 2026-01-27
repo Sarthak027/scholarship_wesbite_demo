@@ -147,7 +147,7 @@ function TestimonialCard({ item, index }: { item: any; index: number }) {
                 <h4 className="font-black text-brand-magenta tracking-wider uppercase text-sm md:text-base mb-1.5">
                     {item.name}
                 </h4>
-                <div className="text-brand-navy/40 text-[10px] md:text-xs font-black uppercase tracking-[0.25em]">
+                <div className="text-brand-navy/70 text-[10px] md:text-xs font-black uppercase tracking-[0.25em]">
                     {item.location}
                 </div>
             </div>

@@ -57,7 +57,7 @@ export default function OnlineCourses() {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-brand-magenta font-extrabold text-sm uppercase tracking-[0.3em] mb-4 bg-brand-magenta/5 inline-block px-6 py-2 rounded-full"
+                        className="text-brand-magenta font-extrabold text-base md:text-lg uppercase tracking-[0.3em] mb-4 bg-brand-magenta/5 inline-block px-8 py-3 rounded-full"
                     >
                         Online Courses
                     </motion.h2>

@@ -64,9 +64,25 @@ export default function RequestCheckBanner() {
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="bg-[#10B981] hover:bg-[#059669] text-white font-black px-10 py-4 rounded-full text-lg shadow-xl shadow-emerald-500/20 transition-all uppercase tracking-wider"
+                                        animate={{
+                                            boxShadow: [
+                                                "0 0 20px rgba(16, 185, 129, 0.3)",
+                                                "0 0 40px rgba(16, 185, 129, 0.6)",
+                                                "0 0 20px rgba(16, 185, 129, 0.3)",
+                                            ],
+                                        }}
+                                        transition={{
+                                            boxShadow: {
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut",
+                                            },
+                                        }}
+                                        className="bg-[#10B981] hover:bg-[#059669] text-white font-black px-10 py-4 rounded-full text-lg shadow-xl shadow-emerald-500/20 transition-all uppercase tracking-wider relative overflow-hidden group"
                                     >
-                                        Check Now
+                                        {/* Shine effect on hover */}
+                                        <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                                        <span className="relative">Check Now</span>
                                     </motion.button>
                                 </Link>
 

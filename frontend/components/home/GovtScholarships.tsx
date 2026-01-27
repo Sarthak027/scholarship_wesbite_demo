@@ -9,7 +9,6 @@ const govtScholarships = [
         description: "Central Sector Scheme of Scholarship for College and University Students. Scholarship is ₹12,000 per annum for the first three years and ₹20,000 per annum for the fourth and fifth year.",
         scholarship: "₹20,000*",
         image: ASSETS.govtScholarships.govt,
-        badge: "APPLY NOW",
         url: "https://www.education.gov.in/scholarships-education-loan-0-hi"
     },
     {
@@ -17,7 +16,6 @@ const govtScholarships = [
         description: "The J.N. Tata Endowment Loan Scholarship is a merit-based scholarship that awards between ₹1 lakh and ₹10 lakh.",
         scholarship: "₹10,00,000*",
         image: ASSETS.govtScholarships.jnTata,
-        badge: "APPLY NOW",
         url: "https://jntataendowment.org/"
     },
     {
@@ -25,7 +23,6 @@ const govtScholarships = [
         description: "Classes 11 and 12 students will get One-time merit-based scholarship of up to 80% of their course fees or an amount ranging from ₹10,000 to ₹12,000 (whichever is less) to fulfill their academic dreams.",
         scholarship: "₹12,000*",
         image: ASSETS.govtScholarships.tataPankh,
-        badge: "APPLY NOW",
         url: "https://www.buddy4study.com/page/the-tata-capital-pankh-scholarship-programme"
     }
 ];
@@ -70,9 +67,7 @@ export default function GovtScholarships() {
                                     alt={scholarship.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-white/90 backdrop-blur-sm border border-slate-100 text-brand-navy text-[9px] md:text-[10px] font-black px-3 md:px-4 py-1.5 md:py-2 rounded-lg uppercase tracking-widest shadow-lg z-10">
-                                    {scholarship.badge}
-                                </div>
+                                
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
 

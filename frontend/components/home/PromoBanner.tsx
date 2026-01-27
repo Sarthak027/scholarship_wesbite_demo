@@ -22,6 +22,17 @@ export default function PromoBanner() {
 
                 <div className="container mx-auto relative z-10 flex flex-col items-center text-center text-white">
 
+                    {/* Guarantee Badge - Now visible on all devices and positioned at top */}
+                    <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="flex flex-col items-center justify-center w-24 h-24 md:w-32 md:h-32 bg-brand-magenta rounded-full text-white font-black shadow-2xl border-4 border-white mb-6 md:mb-8"
+                    >
+                        <span className="text-xs md:text-sm">100%</span>
+                        <span className="text-[10px] md:text-sm uppercase tracking-tighter">Verified</span>
+                    </motion.div>
+
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 tracking-wide text-white/80">
                         Enroll For Top Coaching Of India
                     </h3>
@@ -42,12 +53,6 @@ export default function PromoBanner() {
                     >
                         Apply Now
                     </motion.button>
-
-                    {/* Guarantee Badge */}
-                    <div className="absolute left-4 md:left-20 top-1/2 transform -translate-y-1/2 hidden md:flex flex-col items-center justify-center w-32 h-32 bg-brand-magenta rounded-full text-white font-black shadow-2xl border-4 border-white rotate-12">
-                        <span className="text-xs">100%</span>
-                        <span className="text-sm uppercase tracking-tighter">Verified</span>
-                    </div>
                 </div>
             </section>
 

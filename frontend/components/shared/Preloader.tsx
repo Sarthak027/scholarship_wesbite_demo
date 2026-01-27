@@ -57,8 +57,12 @@ export default function Preloader() {
                                 transition={{ duration: 0.5 }}
                                 className="flex items-center gap-2"
                             >
-                                <div className="w-16 h-16 bg-brand-magenta rounded-2xl flex items-center justify-center text-white font-black text-3xl shadow-2xl shadow-brand-magenta/40">
-                                    C
+                                <div className="w-16 h-16 flex items-center justify-center">
+                                    <img 
+                                        src="/favicon/android-chrome-192x192.png" 
+                                        alt="Confirm Scholarship Logo" 
+                                        className="w-full h-full object-contain"
+                                    />
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-2xl font-black text-brand-navy tracking-tighter leading-none">

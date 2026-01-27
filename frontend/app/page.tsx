@@ -21,6 +21,7 @@ import WhyChooseUs from "@/components/about/WhyChooseUs";
 import AffiliationsCarousel from "@/components/home/AffiliationsCarousel";
 import HomeLeadForm from "@/components/home/HomeLeadForm";
 import VideoSection from "@/components/home/VideoSection";
+import FiveReasons from "@/components/home/FiveReasons";
 
 export default function Home() {
   return (
@@ -60,7 +61,10 @@ export default function Home() {
       {/* 12. Video Section */}
       <VideoSection />
 
-      {/* 13. NEET / JEE Scholarships */}
+      {/* 13. 5 Reasons to Apply */}
+      <FiveReasons />
+
+      {/* 14. NEET / JEE Scholarships */}
       <PromoBanner />
 
       {/* 14. Location Section */}

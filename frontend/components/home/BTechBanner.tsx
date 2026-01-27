@@ -17,7 +17,7 @@ export default function BTechBanner() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         onClick={() => setIsModalOpen(true)}
-                        className="relative w-full rounded-[2.5rem] overflow-hidden shadow-2xl shadow-sky-100/50 cursor-pointer group bg-slate-50"
+                        className="relative w-full rounded-none md:rounded-[2.5rem] overflow-hidden shadow-2xl shadow-sky-100/50 cursor-pointer group bg-slate-50"
                     >
                         <img
                             src={ASSETS.images.bannerHome}
