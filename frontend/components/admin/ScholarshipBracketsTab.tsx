@@ -23,9 +23,9 @@ const courseLabels: Record<string, string> = {
     mba: "MBA",
     pgdm: "PGDM",
     btech: "B.Tech",
+    bdesign: "B.Design",
     bba: "BBA",
-    bca: "BCA",
-    mca: "MCA"
+    others: "Others"
 };
 
 interface ScholarshipBracketsTabProps {

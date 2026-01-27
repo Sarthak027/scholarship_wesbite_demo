@@ -25,7 +25,8 @@ import {
     Settings,
     Eye,
     EyeOff,
-    Lock
+    Lock,
+    Video
 } from "lucide-react";
 import BlogEditor from "@/components/admin/BlogEditor";
 import "@/styles/editor.css";
@@ -670,10 +671,26 @@ function SettingsTab() {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [youtubeUrl, setYoutubeUrl] = useState("");
+    const [videoSettingsLoading, setVideoSettingsLoading] = useState(false);
+    const [videoSuccess, setVideoSuccess] = useState("");
+    const [videoError, setVideoError] = useState("");
 
     useEffect(() => {
         fetchAdminInfo();
+        fetchVideoSettings();
     }, []);
+
+    const fetchVideoSettings = async () => {
+        try {
+            const response = await api.settings.get();
+            if (response.success && response.data.youtubeVideoUrl) {
+                setYoutubeUrl(response.data.youtubeVideoUrl);
+            }
+        } catch (error) {
+            console.error("Failed to fetch video settings:", error);
+        }
+    };
 
     const fetchAdminInfo = async () => {
         const token = localStorage.getItem("adminToken");
@@ -755,6 +772,43 @@ function SettingsTab() {
             setPasswordError(error.message || "Failed to update password");
         } finally {
             setPasswordLoading(false);
+        }
+    };
+
+    const formatYouTubeUrl = (url: string) => {
+        if (!url) return "";
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+
+        if (match && match[2].length === 11) {
+            return `https://www.youtube.com/embed/${match[2]}`;
+        }
+        return url;
+    };
+
+    const handleVideoUrlUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setVideoSettingsLoading(true);
+        setVideoError("");
+        setVideoSuccess("");
+
+        const token = localStorage.getItem("adminToken");
+        if (!token) {
+            setVideoError("No admin token found. Please login again.");
+            setVideoSettingsLoading(false);
+            return;
+        }
+
+        try {
+            const formattedUrl = formatYouTubeUrl(youtubeUrl);
+            await api.settings.update({ youtubeVideoUrl: formattedUrl }, token);
+            setYoutubeUrl(formattedUrl);
+            setVideoSuccess("Video URL updated successfully!");
+            setTimeout(() => setVideoSuccess(""), 3000);
+        } catch (error: any) {
+            setVideoError(error.message || "Failed to update video URL");
+        } finally {
+            setVideoSettingsLoading(false);
         }
     };
 
@@ -917,6 +971,68 @@ function SettingsTab() {
                             className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {passwordLoading ? "Updating..." : "Update Password"}
+                        </button>
+                    </form>
+                </div>
+
+                {/* Homepage Video Settings */}
+                <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 lg:col-span-2">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                        <Video size={24} className="text-brand-magenta" />
+                        Homepage Video Settings
+                    </h3>
+                    <form onSubmit={handleVideoUrlUpdate} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                YouTube Video URL (Embed Link)
+                            </label>
+                            <input
+                                type="text"
+                                value={youtubeUrl}
+                                onChange={(e) => setYoutubeUrl(e.target.value)}
+                                className="w-full px-4 py-2.5 rounded-lg border-2 border-slate-200 bg-slate-50/50 focus:ring-2 focus:ring-brand-magenta focus:border-brand-magenta outline-none transition-all"
+                                placeholder="https://www.youtube.com/embed/XXXXX"
+                                required
+                            />
+                            <p className="mt-2 text-xs text-slate-500">
+                                Tip: Use the YouTube embed link (e.g., https://www.youtube.com/embed/1ZQFppefWGM)
+                            </p>
+                        </div>
+                        {videoError && (
+                            <div className="bg-rose-50 border-2 border-rose-200 rounded-lg p-3">
+                                <p className="text-rose-700 text-sm font-medium">{videoError}</p>
+                            </div>
+                        )}
+                        {videoSuccess && (
+                            <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3">
+                                <p className="text-emerald-700 text-sm font-medium">{videoSuccess}</p>
+                            </div>
+                        )}
+
+                        {youtubeUrl && (
+                            <div className="mt-6 mb-4">
+                                <p className="text-sm font-semibold text-slate-700 mb-3">Video Preview:</p>
+                                <div className="relative aspect-video max-w-2xl rounded-2xl overflow-hidden shadow-lg bg-slate-100">
+                                    <iframe
+                                        className="absolute inset-0 w-full h-full"
+                                        src={formatYouTubeUrl(youtubeUrl)}
+                                        title="Video Preview"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                                <p className="mt-3 text-xs text-sky-600 font-medium italic">
+                                    Resulting URL: {formatYouTubeUrl(youtubeUrl)}
+                                </p>
+                            </div>
+                        )}
+                        <button
+                            type="submit"
+                            disabled={videoSettingsLoading}
+                            className="w-full md:w-auto px-8 bg-brand-magenta hover:bg-magenta-600 text-white font-bold py-3 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {videoSettingsLoading ? "Updating..." : "Update Video URL"}
                         </button>
                     </form>
                 </div>

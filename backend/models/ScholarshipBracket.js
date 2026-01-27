@@ -23,7 +23,7 @@ const scholarshipBracketSchema = new mongoose.Schema({
     course: {
         type: String,
         required: true,
-        enum: ['mba', 'pgdm', 'btech', 'bba', 'bca', 'mca'],
+        enum: ['mba', 'pgdm', 'btech', 'bdesign', 'bba', 'others'],
         unique: true,
         lowercase: true
     },

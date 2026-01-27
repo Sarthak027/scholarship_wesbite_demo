@@ -679,6 +679,30 @@ export const api = {
             if (!res.ok) throw new Error('Failed to upload image');
             return res.json();
         }
+    },
+
+    // Settings
+    settings: {
+        get: async () => {
+            const res = await fetch(`${API_URL}/api/settings`, {
+                cache: 'no-store'
+            });
+            if (!res.ok) throw new Error('Failed to fetch settings');
+            return res.json();
+        },
+
+        update: async (data: any, token: string) => {
+            const res = await fetch(`${API_URL}/api/settings`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Failed to update settings');
+            return res.json();
+        }
     }
 };
 

@@ -18,12 +18,12 @@ const eligibilitySubmissionSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-    
+
     // Academic details
     course: {
         type: String,
         required: true,
-        enum: ['mba', 'pgdm', 'btech', 'bba', 'bca', 'mca'],
+        enum: ['mba', 'pgdm', 'btech', 'bdesign', 'bba', 'others'],
         lowercase: true
     },
     tenthMarks: {
@@ -43,7 +43,7 @@ const eligibilitySubmissionSchema = new mongoose.Schema({
         min: 0,
         max: 100
     },
-    
+
     // Entrance exam details
     entranceExam: {
         type: String,
@@ -54,13 +54,13 @@ const eligibilitySubmissionSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    
+
     // Calculated reward
     calculatedReward: {
         type: Number,
         required: true
     },
-    
+
     // Status tracking
     status: {
         type: String,

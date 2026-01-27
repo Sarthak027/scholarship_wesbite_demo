@@ -9,7 +9,7 @@ const defaultBrackets = [
     { minPercentile: 0, maxPercentile: 74.99, rewardAmount: 50000, label: "Below 75%" }
 ];
 
-const courses = ['mba', 'pgdm', 'btech', 'bba', 'bca', 'mca'];
+const courses = ['mba', 'pgdm', 'btech', 'bdesign', 'bba', 'others'];
 
 // Get all brackets (Public)
 exports.getAllBrackets = async (req, res) => {
@@ -86,8 +86,17 @@ exports.updateBrackets = async (req, res) => {
 // Initialize/Reset all brackets to default (Admin)
 exports.initializeBrackets = async (req, res) => {
     try {
-        // Delete all existing brackets
-        await ScholarshipBracket.deleteMany({});
+        console.log('Starting brackets initialization...');
+
+        // Try to drop the collection to clear everything including old indexes
+        try {
+            await ScholarshipBracket.collection.drop();
+            console.log('Collection dropped successfully');
+        } catch (dropError) {
+            // Collection might not exist, which is fine
+            console.log('Note: Collection drop skipped (might not exist)');
+            await ScholarshipBracket.deleteMany({});
+        }
 
         // Create default brackets for all courses
         const defaultData = courses.map(course => ({
@@ -97,12 +106,24 @@ exports.initializeBrackets = async (req, res) => {
             isActive: true
         }));
 
+        console.log(`Inserting ${defaultData.length} default course brackets...`);
         await ScholarshipBracket.insertMany(defaultData);
-        const brackets = await ScholarshipBracket.find();
 
-        res.json({ message: 'Brackets initialized successfully', data: brackets });
+        const brackets = await ScholarshipBracket.find();
+        console.log('Brackets initialized successfully');
+
+        res.json({
+            success: true,
+            message: 'Brackets initialized successfully',
+            data: brackets
+        });
     } catch (error) {
-        res.status(500).json({ message: 'Error initializing brackets', error: error.message });
+        console.error('CRITICAL: Error initializing brackets:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error initializing brackets',
+            error: error.message
+        });
     }
 };
 

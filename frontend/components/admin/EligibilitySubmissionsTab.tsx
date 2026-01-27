@@ -100,7 +100,7 @@ export default function EligibilitySubmissionsTab({ submissions, onRefresh }: El
         return courseMatch && statusMatch;
     });
 
-    const courses = ["all", "mba", "pgdm", "btech", "bba", "bca", "mca"];
+    const courses = ["all", "mba", "pgdm", "btech", "bdesign", "bba", "others"];
     const statuses = ["all", "pending", "reviewed", "approved", "rejected"];
 
     return (
