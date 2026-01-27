@@ -49,7 +49,7 @@ export default function Footer() {
                     {/* Quick Links */}
                     <div className="mt-0">
                         <h3 className="text-white font-bold text-sm md:text-lg mb-2 md:mb-4">Quick Links</h3>
-                        <ul className="space-y-1 md:space-y-2 text-white text-xs md:text-sm font-medium">
+                        <ul className="space-y-0.5 md:space-y-2 text-white text-xs md:text-sm font-medium">
                             <li><Link href="/" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Home</Link></li>
                             <li><Link href="/scholarships" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Scholarships</Link></li>
                             <li><Link href="/online-courses" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Online Courses</Link></li>
@@ -63,7 +63,7 @@ export default function Footer() {
                     {/* Policies */}
                     <div className="mt-0">
                         <h3 className="text-white font-bold text-sm md:text-lg mb-2 md:mb-4">Policies</h3>
-                        <ul className="space-y-1 md:space-y-2 text-white text-xs md:text-sm font-medium">
+                        <ul className="space-y-0.5 md:space-y-2 text-white text-xs md:text-sm font-medium">
                             <li><Link href="/disclaimer" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Disclaimer</Link></li>
                             <li><Link href="/help" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Help us</Link></li>
                             <li><Link href="/privacy-policy" className="hover:text-brand-magenta hover:translate-x-1 inline-block transition-all duration-300">Privacy Policy</Link></li>
