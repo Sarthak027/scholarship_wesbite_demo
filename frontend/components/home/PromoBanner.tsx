@@ -27,10 +27,14 @@ export default function PromoBanner() {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="flex flex-col items-center justify-center w-24 h-24 md:w-32 md:h-32 bg-brand-magenta rounded-full text-white font-black shadow-2xl border-4 border-white mb-6 md:mb-8"
+                        className="flex items-center justify-center w-40 h-40 md:w-48 md:h-48 mb-6 md:mb-8 mx-auto"
+                        style={{ marginLeft: 'auto', marginRight: 'auto' }}
                     >
-                        <span className="text-xs md:text-sm">100%</span>
-                        <span className="text-[10px] md:text-sm uppercase tracking-tighter">Verified</span>
+                        <img 
+                            src="/images/100percent.png" 
+                            alt="100% Verified" 
+                            className="w-full h-full object-contain drop-shadow-2xl"
+                        />
                     </motion.div>
 
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 tracking-wide text-white/80">
